@@ -52,37 +52,20 @@ export default function TheSlideNav() {
                 <i className="me-2">
                   <FaTachometerAlt />
                 </i>
-                Dashboard
+                Home
               </a>
             </Link>
-            <Dropdown className="nav-item">
-              <Dropdown.Toggle variant="nav-link" id="dropdown-basic">
-                Dropdown Button
-              </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-
-            {/* <Dropdown id="managerOder" className="nav-item">
-              <Dropdown.Toggle className="nav-link" variant="">
-                <i className="me-2">
-                  <BsFillBagFill />
-                </i>
-                จัดการออเดอร์
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-transparent border-0">
-                <Link id="orderslist" href="/orders/orderslist">
-                  <a className="dropdown-item">รายการสั่งซื้อสินค้า</a>
-                </Link>
-                <Link id="deliverylist" href="/orders/delivery_list">
-                  <a className="dropdown-item">รายการจัดส่งสินค้า</a>
-                </Link>
-              </Dropdown.Menu>
-            </Dropdown> */}
+            <Dropdown.Toggle className="nav-link" id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการออเดอร์
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show>
+              <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
+              <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+            </Dropdown.Menu>
             {/* <Dropdown id="managerProduct" bsPrefix="nav-item">
               <Dropdown.Toggle className="nav-link" variant="">
                 <i className="me-2">

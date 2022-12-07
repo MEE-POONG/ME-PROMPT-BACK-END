@@ -4,7 +4,7 @@ import { Card, Table } from 'react-bootstrap';
 import Warn from 'container/home/warn';
 export default function HomePage() {
   const contactData = [
-    { id: '1', type: 'แก้ไข', detail: 'แก้ฟิล title จาก มองบน เป็น มองบนฟ้า', fristname: 'งง', lastname: 'งง', customerId: '1', contactID: '1', audienceRecordID: '', newsId: '', aboutID: '' },
+    { id: '1', detail: 'แก้ฟิล title จาก มองบน เป็น มองบนฟ้า', fristname: 'งง', lastname: 'งง', customerId: '1', contactID: '1', audienceRecordID: '', newsId: '', aboutID: '' },
     { id: '1', detail: 'แก้ฟิล price จาก 950 เป็น 999', fristname: 'งง', lastname: 'งง', customerId: '1', workingsId: '', packagePriceId: '1', newsId: '', aboutID: '' },
     { id: '1', detail: 'แก้ฟิล facebook จาก facebook.com/api เป็น facebook.com/ipa', fristname: 'งง', lastname: 'งง', customerId: '1', workingsId: '', packagePriceId: '', newsId: '', aboutID: '1' },
   ]
@@ -29,7 +29,7 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <Warn typeWarn={contactData} />
+        <Warn typeWarn={contactData} Head={contactData.title} subDetail={contactData.detail} />
         <Warn typeWarn={warnCheckEditLogData} />
         <Warn typeWarn={warnAudienceRecordData} />
       </div>
