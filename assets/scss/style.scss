@@ -4,8 +4,23 @@
     --secondary: #ffff;
     --light: #6c7293;
     --dark: #e8e8e8;
+    --bs-body-font-family: "Sarabun", sans-serif;
 }
-
+*,
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+    font-family: "Sarabun", sans-serif;
+}
 .back-to-top {
     position: fixed;
     display: none;
@@ -135,9 +150,9 @@
     .navbar {
         .navbar-nav {
             .nav-link {
-                padding: 7px 20px;
+                font-weight: bold;
                 color: var(--light);
-                font-weight: 500;
+                padding: 7px 20px;
                 border-left: 3px solid var(--secondary);
                 border-radius: 0 30px 30px 0;
                 outline: none;
@@ -178,6 +193,8 @@
                 }
             }
             .dropdown-item {
+                font-weight: bold;
+                color: var(--light);
                 background: var(--dark);
                 border-left: 3px solid var(--secondary);
                 margin-top: 0.5rem;

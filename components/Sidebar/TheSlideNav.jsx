@@ -64,13 +64,13 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
             </Dropdown.Menu>
             <Dropdown.Toggle className="nav-link" id="dropdown-custom-components" >
@@ -81,13 +81,13 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item">สินค้า</a>
+                <a className="dropdown-item ps-5">สินค้า</a>
               </Link>
             </Dropdown.Menu>
 

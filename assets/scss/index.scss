@@ -1,5 +1,15 @@
-
-@import 'value-tem.scss';
+@import "value-tem.scss";
 @import "~bootstrap/scss/bootstrap";
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'style.scss';
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "font.scss";
+@import "style.scss";
+.home-page {
+    width: 100%;
+    .warn {
+        .card-text {
+            line-height: 1.5em;
+            height: 1.5em;
+            overflow: hidden;
+        }
+    }
+}
