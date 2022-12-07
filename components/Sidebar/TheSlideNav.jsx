@@ -63,63 +63,42 @@ export default function TheSlideNav() {
               จัดการออเดอร์
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
-              <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-              <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
             </Dropdown.Menu>
-            {/* <Dropdown id="managerProduct" bsPrefix="nav-item">
-              <Dropdown.Toggle className="nav-link" variant="">
+            <Dropdown.Toggle className="nav-link" id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการออเดอร์
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className="dropdown-item">สินค้า</a>
+              </Link>
+            </Dropdown.Menu>
+
+            <Link href="/">
+              <a className="nav-item nav-link ">
                 <i className="me-2">
-                  <FaShoppingCart />
+                  <FaTachometerAlt />
                 </i>
-                จัดการสินค้า
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-transparent border-0">
-                <Link id="buttons" href="/products">
-                  <a className="dropdown-item">สินค้า</a>
-                </Link>
-                <Link id="typographys" href="/promotions">
-                  <a className="dropdown-item">รายการเข้าร่วม</a>
-                </Link>
-              </Dropdown.Menu>
-            </Dropdown> */}
-            {/* <Dropdown bsPrefix="nav-item">
-              <Dropdown.Toggle className="nav-link" variant="">
-                <i className="me-2">
-                  <FaUser />
-                </i>
-                จัดการสมาขิก
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-transparent border-0">
-                <Link id="buttons" href="/user">
-                  <a className="dropdown-item">เพิ่ม/ลบ/แก้ไข สมาชิก</a>
-                </Link>
-                <Link id="typographys" href="/address">
-                  <a className="dropdown-item">ที่อยู่สมาชิก</a>
-                </Link>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Dropdown bsPrefix="nav-item">
-              <Dropdown.Toggle className="nav-link" variant="">
-                <i className="me-2">
-                  <FaLaptop />
-                </i>
-                จัดการเว็บไซต์
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-transparent border-0">
-                <Link id="knowledge" href="knowledge">
-                  <a className="dropdown-item">เกร็ดความรู้</a>
-                </Link>
-                <Link id="about" href="/about">
-                  <a className="dropdown-item">เกี่ยวกับเรา</a>
-                </Link>
-                <Link id="contact" href="/contact">
-                  <a className="dropdown-item">ข้อมูลติดต่อ</a>
-                </Link>
-                <Link id="sliderpicture" href="/sliderpicture">
-                  <a className="dropdown-item">สไลด์รูป</a>
-                </Link>
-              </Dropdown.Menu>
-            </Dropdown> */}
+                Home
+              </a>
+            </Link>
           </div>
         </nav>
       </div>
