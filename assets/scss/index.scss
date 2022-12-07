@@ -11,5 +11,9 @@
             height: 1.5em;
             overflow: hidden;
         }
+        .card-body{
+            max-height: 732px;
+            overflow-y: scroll;
+        }
     }
 }

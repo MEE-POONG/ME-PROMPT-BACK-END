@@ -5,16 +5,14 @@ import { FaChartArea, FaChartBar, FaChartLine, FaChartPie } from 'react-icons/fa
 
 export default function Warn(props) {
     console.log("props : ", props);
-    const [contactList, setContactList] = useState(props.contactData);
-    const [warnCheckEditLogList, setWarnCheckEditLogList] = useState(props.checkEditLogData);
-    const [warnAudienceRecordList, setWarnAudienceRecordList] = useState(props.audienceRecordData);
-    // useEffect(() => {
-    //     first
-
-    //     return () => {
-    //         second
-    //     }
-    // }, [contactList, warnCheckEditLogList, warnAudienceRecordList])
+    const [contactList, setContactList] = useState();
+    const [warnCheckEditLogList, setWarnCheckEditLogList] = useState();
+    const [warnAudienceRecordList, setWarnAudienceRecordList] = useState();
+    useEffect(() => {
+        setContactList(props.contactData)
+        setWarnCheckEditLogList(props.checkEditLogData);
+        setWarnAudienceRecordList(props.audienceRecordData)
+    }, [props])
 
     return (
         <Row className='warn mx-4 mt-4'>
@@ -25,16 +23,16 @@ export default function Warn(props) {
                             ติดต่อเรา
                         </Card.Title>
                     </Card.Header>
-                    {contactList?.map((list, key) => (
-                        <Card.Body key={key}>
+                    <Card.Body>
+                        {contactList?.map((list, key) => (
                             <Link href={"/contact/" + list.id}>
-                                <a>
+                                <a className="alert alert_warning">
                                     <Card.Title>{list.title}</Card.Title>
                                     <Card.Text>{list.detail}</Card.Text>
                                 </a>
                             </Link>
-                        </Card.Body>
-                    ))}
+                        ))}
+                    </Card.Body>
                 </Card>
             </Col>
             <Col>
@@ -44,16 +42,16 @@ export default function Warn(props) {
                             แก้ไขเปลี่ยนแปลงข้อมูล
                         </Card.Title>
                     </Card.Header>
-                    {warnCheckEditLogList?.map((list, key) => (
-                        <Card.Body key={key}>
-                            <Link href={"/" + list.tagLink + "/" + list.id}>
-                                <a>
-                                    <Card.Title>{list.title}</Card.Title>
+                    <Card.Body>
+                        {warnCheckEditLogList?.map((list, key) => (
+                            <Link key={key} href={"/" + list.tagLink + "/" + list.id}>
+                                <a className="alert alert_warning">
+                                    <Card.Title className="alert--content">{list.title}</Card.Title>
                                     <Card.Text>{list.detail}</Card.Text>
                                 </a>
                             </Link>
-                        </Card.Body>
-                    ))}
+                        ))}
+                    </Card.Body>
                 </Card>
             </Col>
             <Col>
@@ -63,16 +61,16 @@ export default function Warn(props) {
                             รายงานการเข้าชมเว็บ
                         </Card.Title>
                     </Card.Header>
-                    {warnAudienceRecordList?.map((list, key) => (
-                        <Card.Body key={key}>
-                            <Link href={"/" + list.tagLink + "/" + list.id}>
-                                <a>
+                    <Card.Body>
+                        {warnAudienceRecordList?.map((list, key) => (
+                            <Link key={key} href={"/" + list.tagLink + "/" + list.id}>
+                                <a className="alert">
                                     <Card.Title>{list.title}</Card.Title>
                                     <Card.Text>{list.detail}  คน</Card.Text>
                                 </a>
                             </Link>
-                        </Card.Body>
-                    ))}
+                        ))}
+                    </Card.Body>
                 </Card>
             </Col>
         </Row>

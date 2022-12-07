@@ -370,3 +370,49 @@ button.bar-slide {
         margin-left: 15px;
     }
 }
+
+.alert {
+    margin-bottom:.5rem;
+    display: block;
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: bold;
+    padding: 0px 20px;
+    border-color: var(--primary);
+    border-left: 8px solid #bababa;
+    background: #ededed;
+    color: #a1a1a1;
+    border-radius: 0 30px 30px 0;
+    outline: none;
+    visibility: visible;
+    opacity: 1;
+    overflow: hidden;
+    animation-name: showAlert;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+.alert_success {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--success);
+}
+.alert_warning {
+    border-color: #ffa502;
+    background: #ffdb9b;
+    color: #ce8500;
+}
+.alert_dark {
+    border-color: #333;
+    background: #4d4d4d;
+    color: #ccc;
+}
+
+@keyframes showAlert {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
