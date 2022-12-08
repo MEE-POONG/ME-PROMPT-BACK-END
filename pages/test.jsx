@@ -9,8 +9,13 @@ import Basket from '@/components/test/Basket';
 export default function TestPage() {
     const { products } = data;
     const [cartItems, setCartItems] = useState([]);
+    useEffect(() => {
+        console.log("cartItems : ", cartItems);
+    }, [cartItems])
+
     const onAdd = (product) => {
         const exist = cartItems.find((x) => x.id === product.id);
+        console.log("exist1", exist);
         if (exist) {
             setCartItems(
                 cartItems.map((x) =>
@@ -37,12 +42,8 @@ export default function TestPage() {
         <div >
             <Header countCartItems={cartItems.length}></Header>
             <div className="row">
-                <Main products={products} onAdd={onAdd}></Main>
-                <Basket
-                    cartItems={cartItems}
-                    onAdd={onAdd}
-                    onRemove={onRemove}
-                />
+                <Main products={products} onAdd={onAdd} />
+                <Basket cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
             </div>
         </div>
     );

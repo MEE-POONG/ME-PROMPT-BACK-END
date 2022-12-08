@@ -20,4 +20,12 @@ const data = {
     },
   ],
 };
+export const data_two = {
+  listShfit: [
+    { id: '1', shift: 'บ' },
+    { id: '2', shift: 'ด' },
+    { id: '3', shift: 'ช' },
+    { id: '4', shift: 'x' },
+  ],
+};
 export default data;
