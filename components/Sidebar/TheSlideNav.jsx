@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
-  FaTable,
+  FaUsers,
   FaRegKeyboard,
   FaTh,
   FaTachometerAlt,
@@ -15,10 +16,12 @@ import {
 } from "react-icons/fa";
 import { Image, Dropdown, Button } from "react-bootstrap";
 import { BsFillBagFill } from "react-icons/bs";
-
 import Link from "next/link";
 
 export default function TheSlideNav() {
+  const { asPath } = useRouter();
+  const [checkPath, setCheckPath] = useState("/");
+  console.log(asPath);
   return (
     <>
       <div className="sidebar pe-4 pb-3 ">
@@ -48,7 +51,7 @@ export default function TheSlideNav() {
           </div>
           <div className="navbar-nav w-100">
             <Link href="/">
-              <a className="nav-item nav-link ">
+              <a className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
                 <i className="me-2">
                   <FaTachometerAlt />
                 </i>
@@ -56,7 +59,7 @@ export default function TheSlideNav() {
               </a>
             </Link>
 
-            <Dropdown.Toggle className="nav-link" id="dropdown-custom-components" >
+            <Dropdown.Toggle className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
@@ -64,16 +67,22 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
             </Dropdown.Menu>
-            <Dropdown.Toggle className="nav-link" id="dropdown-custom-components" >
+            <Dropdown.Toggle className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
@@ -81,22 +90,28 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className="dropdown-item ps-5">สินค้า</a>
+                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
               </Link>
             </Dropdown.Menu>
 
-            <Link href="/">
-              <a className="nav-item nav-link ">
+            <Link href="/customer">
+              <a className={checkPath === "/customer" ? "nav-item nav-link active" : "nav-item nav-link"}>
                 <i className="me-2">
-                  <FaTachometerAlt />
+                  <FaUsers />
                 </i>
-                Home
+                Customer
               </a>
             </Link>
           </div>
