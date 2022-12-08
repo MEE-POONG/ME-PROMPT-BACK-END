@@ -20,7 +20,6 @@ import Link from "next/link";
 
 export default function TheSlideNav() {
   const { asPath } = useRouter();
-  const [checkPath, setCheckPath] = useState("/");
   console.log(asPath);
   return (
     <>
@@ -51,7 +50,7 @@ export default function TheSlideNav() {
           </div>
           <div className="navbar-nav w-100">
             <Link href="/">
-              <a className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
+              <a className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
                 <i className="me-2">
                   <FaTachometerAlt />
                 </i>
@@ -59,7 +58,7 @@ export default function TheSlideNav() {
               </a>
             </Link>
 
-            <Dropdown.Toggle className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
@@ -67,22 +66,22 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
             </Dropdown.Menu>
-            <Dropdown.Toggle className={checkPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
@@ -90,24 +89,24 @@ export default function TheSlideNav() {
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-transparent border-0" show>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
               <Link id="buttons" href="/products">
-                <a className={checkPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สินค้า
                 </a>
               </Link>
             </Dropdown.Menu>
 
             <Link href="/customer">
-              <a className={checkPath === "/customer" ? "nav-item nav-link active" : "nav-item nav-link"}>
+              <a className={asPath === "/customer" ? "nav-item nav-link active" : "nav-item nav-link"}>
                 <i className="me-2">
                   <FaUsers />
                 </i>
