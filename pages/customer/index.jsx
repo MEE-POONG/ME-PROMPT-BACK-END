@@ -6,9 +6,9 @@ import useAxios from 'axios-hooks'
 
 export default function CustomerPage() {
     const [aTest, setATest] = useState();
-useEffect(() => {
-console.log(aTest);
-}, [aTest])
+    useEffect(() => {
+        console.log(aTest);
+    }, [aTest])
 
     return (
         <>
@@ -48,21 +48,38 @@ console.log(aTest);
                                     <td>
                                         {/* {product.price} บาท */}
                                     </td>
-                                    <td>
-                                        <Button onClick={() => setATest({ ...aTest, shift: 'ด', atOt: false })}>บ</Button>
-                                        <Button onClick={() => setATest({ ...aTest, shift: 'บ', atOt: false })}>ด</Button>
-                                        <Button onClick={() => setATest({ ...aTest, shift: 'ช', atOt: false })}>ช</Button>
-                                        <Button onClick={() => setATest({ ...aTest, shift: 'ล', atOt: false })}>ล</Button>
-                                        <Button onClick={() => setATest({ ...aTest, shift: 'x', atOt: false })}>พ</Button>
+                                    <td className='manager'>
+                                        <Button
+                                            onClick={() => ShowModalEdit(product.id)}
+                                        >
+                                            <FaEdit />
+                                        </Button>
+                                        <Button
+                                            onClick={() => executeProductDelete({
+                                                url: '/api/products/' + product.id,
+                                                method: 'DELETE'
+                                            })}
+                                        >
+                                            <FaTrash />
+                                        </Button>
+                                        <Button >
+
+                                        </Button>
+                                        <Button >
+
+                                        </Button>
+                                        <Button >
+
+                                        </Button>
                                         <a className="btn btn-sm btn-success me-2"
                                         // onClick={() => ShowModalEdit(product.id)}
-                                        ><FaEdit /></a>
+                                        ></a>
                                         <a className="btn btn-sm btn-danger me-2"
                                         // onClick={() => executeProductDelete({
                                         //     url: '/api/products/' + product.id,
                                         //     method: 'DELETE'
                                         // })}
-                                        ><FaTrash /></a>
+                                        ></a>
                                     </td>
                                     {/* {productData?.map((product, index) => (
 d>

@@ -16,6 +16,7 @@ model Customer {
   password       String
   fristname      String
   lastname       String
+  img            String
   facebook       String
   line           String
   intragarm      String

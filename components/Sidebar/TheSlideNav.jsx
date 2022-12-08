@@ -57,54 +57,6 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              จัดการออเดอร์
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-            </Dropdown.Menu>
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              จัดการออเดอร์
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-            </Dropdown.Menu>
-
             <Link href="/customer">
               <a className={asPath === "/customer" ? "nav-item nav-link active" : "nav-item nav-link"}>
                 <i className="me-2">
@@ -113,6 +65,55 @@ export default function TheSlideNav() {
                 Customer
               </a>
             </Link>
+            
+            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการออเดอร์
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+            </Dropdown.Menu>
+            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการออเดอร์
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+              <Link id="buttons" href="/products">
+                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สินค้า
+                </a>
+              </Link>
+            </Dropdown.Menu>
+
+           
           </div>
         </nav>
       </div>
