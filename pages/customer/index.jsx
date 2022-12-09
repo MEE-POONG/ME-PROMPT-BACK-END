@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Button, Form, Image, InputGroup, Row, Col } from 'react-bootstrap'
-import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
+import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 
 export default function CustomerPage() {
@@ -23,16 +23,20 @@ export default function CustomerPage() {
                     <div className="table-responsive">
                         <table className="table text-start table-striped align-middle table-hover mb-0">
                             <thead>
-                                <tr className="text-white">
-                                    <th scope="col">รูปภาพ</th>
-                                    <th scope="col">ชื่อ - นามสกุล</th>
-                                    <th scope="col">ใช้งานเว็บ</th>
-                                    <th scope="col">ตำแหน่งงาน</th>
-                                    <th scope="col">จัดการ</th>
+                                <tr className="text-center">
+                                    <th >No.</th>
+                                    <th >รูปภาพ</th>
+                                    <th >ชื่อ - นามสกุล</th>
+                                    <th >ใช้งานเว็บ</th>
+                                    <th >ตำแหน่งงาน</th>
+                                    <th >จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr >
+                                    <th className='text-end'>
+                                        1.
+                                    </th>
                                     <td>
                                         {/* <img className="rounded-circle flex-shrink-0" src={product.image} alt="" style={{ width: "40px", height: "40px" }} /> */}
                                     </td>
@@ -45,16 +49,16 @@ export default function CustomerPage() {
                                     <td>
                                         {/* {product.amount} {product.unit.name} */}
                                     </td>
-                                    <td>
-                                        {/* {product.price} บาท */}
-                                    </td>
                                     <td className='manager'>
-                                        <Button
+                                        <Button >
+                                            <FaEye />
+                                        </Button>
+                                        <Button bsPrefix='edit btn btn-warning'
                                             onClick={() => ShowModalEdit(product.id)}
                                         >
                                             <FaEdit />
                                         </Button>
-                                        <Button
+                                        <Button bsPrefix='delete btn btn-danger'
                                             onClick={() => executeProductDelete({
                                                 url: '/api/products/' + product.id,
                                                 method: 'DELETE'
@@ -62,24 +66,6 @@ export default function CustomerPage() {
                                         >
                                             <FaTrash />
                                         </Button>
-                                        <Button >
-
-                                        </Button>
-                                        <Button >
-
-                                        </Button>
-                                        <Button >
-
-                                        </Button>
-                                        <a className="btn btn-sm btn-success me-2"
-                                        // onClick={() => ShowModalEdit(product.id)}
-                                        ></a>
-                                        <a className="btn btn-sm btn-danger me-2"
-                                        // onClick={() => executeProductDelete({
-                                        //     url: '/api/products/' + product.id,
-                                        //     method: 'DELETE'
-                                        // })}
-                                        ></a>
                                     </td>
                                     {/* {productData?.map((product, index) => (
 d>

@@ -15,7 +15,7 @@ export default function TestPage() {
     }, [allShift])
     const onAdd = (addShift) => {
         const exist = allShift.find((x) => x.id === addShift.id);
-      
+
         if (exist) {
             setAllShift(allShift.map((x) =>
                 x.id === addShift.id ? { ...exist, AtOt: !exist.AtOt } : x
@@ -54,9 +54,7 @@ export default function TestPage() {
                                     {otShow.shift}
                                     {otShow.id}
                                 </Button> : ""
-
-                        )
-                        )}
+                        ))}
                     </div>
                 ))
             }
