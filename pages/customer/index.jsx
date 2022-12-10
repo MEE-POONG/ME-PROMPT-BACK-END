@@ -4,6 +4,7 @@ import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, Table } fr
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
+import PageError from '@/components/PageChange/pageError'
 
 export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
@@ -32,7 +33,7 @@ export default function CustomerPage() {
     //     setImg(customerData?.image)
     // }, [customerData])
     if (loading) return <PageLoading />
-    if (error) return <p>Error!</p>
+    if (error) return <PageError />
     return (
         <>
             <Container fluid className="pt-4 px-4">

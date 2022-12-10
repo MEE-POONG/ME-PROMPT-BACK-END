@@ -3,6 +3,8 @@ import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Button, Form, Image, InputGroup, Row, Col } from 'react-bootstrap'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
+import PageLoading from '@/components/PageChange/pageLoading'
+import PageError from '@/components/PageChange/pageError'
 
 export default function ProductPage() {
     const [{ data: categoryData }, getCatagories] = useAxios({ url: '/api/category' })
@@ -78,8 +80,8 @@ export default function ProductPage() {
         setImages([...e.target.files])
     }
 
-    if (loading || productLoading || productByIdLoading || updateProductLoading || deleteProductLoading) return <p>Loading...</p>
-    if (error || errorMessage || productByIdError || updateProductError || deleteProductError) return <p>Error!</p>
+    if (loading || productLoading || productByIdLoading || updateProductLoading || deleteProductLoading) return <PageLoading />
+    if (error || errorMessage || productByIdError || updateProductError || deleteProductError) return <PageError />
 
     return (
         <>

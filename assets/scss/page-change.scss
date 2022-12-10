@@ -85,4 +85,14 @@
             }
         }
     }
+    .error {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        height: 750px;
+        h1 {
+            font-size: 5rem;
+            color: var(--primary);
+        }
+    }
 }
