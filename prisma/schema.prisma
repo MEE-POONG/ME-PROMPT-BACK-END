@@ -11,206 +11,195 @@ datasource db {
 }
 
 model Customer {
-  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  username       String
-  password       String
-  firstname      String
-  lastname       String
-  img            String
-  facebook       String
-  line           String
-  intragarm      String
-  address        String
-  city           String
-  postalCode     String
-  status         String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  deletedAt      DateTime?        @map("deleted_at")
-  makeBy         MakeBy[]
-  position       Position[]
-  About          About[]
-  News           News[]
-  PackagePrice   PackagePrice[]
-  Contact        Contact[]
-  Reader         Reader[]
-  AudienceRecord AudienceRecord[]
-  EditLog        EditLog[]
-  WarnCheck      WarnCheck[]
-}
-
-model Workings {
-  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  projectName      String
-  img              String
-  album            String
-  script           String
-  detail           String
-  detailTextEditer String
-  intragarm        String
-  address          String
-  city             String
-  postalCode       String
-  status           String
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  deletedAt        DateTime? @map("deleted_at")
-  MakeBy           MakeBy[]
-  EditLog          EditLog[]
-}
-
-model MakeBy {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  duty       String
-  workings   Workings? @relation(fields: [workingsId], references: [id])
-  workingsId String?   @db.Uuid
-  customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?   @db.Uuid
+  username   String
+  password   String
+  firstname  String
+  lastname   String
+  img        String
+  facebook   String
+  line       String
+  intragarm  String
+  address    String
+  city       String
+  postalCode String
   status     String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime? @map("deleted_at")
+  Position   Position? @relation(fields: [positionId], references: [id])
+  positionId String?   @db.Uuid
 }
 
 model Position {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name       String
-  customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?   @db.Uuid
-  status     String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime? @map("deleted_at")
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  team      String
+  position  String
+  customer  Customer[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?  @map("deleted_at")
 }
 
-model About {
-  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name            String
-  title           String
-  subtitle        String
-  detail          String
-  subdetail       String
-  detailEditer1   String
-  detailEditer2   String
-  tel             String
-  facebook        String
-  address         String
-  namsubDistricte String
-  postalCode      String
-  city            String
-  district        String
-  tiktok          String
-  youtube         String
-  instagram       String
-  email           String
-  customer        Customer? @relation(fields: [customerId], references: [id])
-  customerId      String?   @db.Uuid
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  deletedAt       DateTime? @map("deleted_at")
-  EditLog         EditLog[]
-}
+// model Workings {
+//   id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   projectName      String
+//   img              String
+//   album            String
+//   script           String
+//   detail           String
+//   detailTextEditer String
+//   intragarm        String
+//   address          String
+//   city             String
+//   postalCode       String
+//   status           String
+//   createdAt        DateTime  @default(now())
+//   updatedAt        DateTime  @updatedAt
+//   deletedAt        DateTime? @map("deleted_at")
+// }
 
-model News {
-  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  type             String
-  title            String
-  img              String
-  subtitle         String
-  album            String
-  script           String
-  detail           String
-  subdetail        String
-  detailTextEditer String
-  customer         Customer? @relation(fields: [customerId], references: [id])
-  customerId       String?   @db.Uuid
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  deletedAt        DateTime? @map("deleted_at")
-  EditLog          EditLog[]
-}
+// model MakeBy {
+//   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   duty       String
+//   workings   Workings? @relation(fields: [workingsId], references: [id])
+//   workingsId String?   @db.Uuid
+//   customer   Customer? @relation(fields: [customerId], references: [id])
+//   customerId String?   @db.Uuid
+//   status     String
+//   createdAt  DateTime  @default(now())
+//   updatedAt  DateTime  @updatedAt
+//   deletedAt  DateTime? @map("deleted_at")
+// }
 
-model PackagePrice {
-  id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title                 String
-  price                 String
-  typeService           String
-  detailTextEditer1     String
-  detailTextEditerList2 String
-  detailTextEditerList3 String
-  customer              Customer? @relation(fields: [customerId], references: [id])
-  customerId            String?   @db.Uuid
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-  deletedAt             DateTime? @map("deleted_at")
-  EditLog               EditLog[]
-}
+// model About {
+//   id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   name            String
+//   title           String
+//   subtitle        String
+//   detail          String
+//   subdetail       String
+//   detailEditer1   String
+//   detailEditer2   String
+//   tel             String
+//   facebook        String
+//   address         String
+//   namsubDistricte String
+//   postalCode      String
+//   city            String
+//   district        String
+//   tiktok          String
+//   youtube         String
+//   instagram       String
+//   email           String
+//   customer        Customer? @relation(fields: [customerId], references: [id])
+//   customerId      String?   @db.Uuid
+//   createdAt       DateTime  @default(now())
+//   updatedAt       DateTime  @updatedAt
+//   deletedAt       DateTime? @map("deleted_at")
+//   EditLog         EditLog[]
+// }
 
-model Contact {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  firstname   String
-  lastname    String
-  email       String
-  tel         String
-  title       String
-  detail      String
-  checkReader Boolean
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime? @map("deleted_at")
-  Reader      Reader[]
-  Customer    Customer? @relation(fields: [customerId], references: [id])
-  customerId  String?   @db.Uuid
-}
+// model News {
+//   id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   type             String
+//   title            String
+//   img              String
+//   subtitle         String
+//   album            String
+//   script           String
+//   detail           String
+//   subdetail        String
+//   detailTextEditer String
+//   customer         Customer? @relation(fields: [customerId], references: [id])
+//   customerId       String?   @db.Uuid
+//   createdAt        DateTime  @default(now())
+//   updatedAt        DateTime  @updatedAt
+//   deletedAt        DateTime? @map("deleted_at")
+//   EditLog          EditLog[]
+// }
 
-model WarnCheck {
-  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  detail           String
-  customer         Customer?       @relation(fields: [customerId], references: [id])
-  customerId       String?         @db.Uuid
-  audienceRecord   AudienceRecord? @relation(fields: [audienceRecordID], references: [id])
-  audienceRecordID String?         @db.Uuid
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-  deletedAt        DateTime?       @map("deleted_at")
-}
+// model PackagePrice {
+//   id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   title                 String
+//   price                 String
+//   typeService           String
+//   detailTextEditer1     String
+//   detailTextEditerList2 String
+//   detailTextEditerList3 String
+//   customer              Customer? @relation(fields: [customerId], references: [id])
+//   customerId            String?   @db.Uuid
+//   createdAt             DateTime  @default(now())
+//   updatedAt             DateTime  @updatedAt
+//   deletedAt             DateTime? @map("deleted_at")
+//   EditLog               EditLog[]
+// }
 
-model Reader {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?   @db.Uuid
-  contact    Contact?  @relation(fields: [contactId], references: [id])
-  contactId  String?   @db.Uuid
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime? @map("deleted_at")
-}
+// model Contact {
+//   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   firstname   String
+//   lastname    String
+//   email       String
+//   tel         String
+//   title       String
+//   detail      String
+//   checkReader Boolean
+//   createdAt   DateTime  @default(now())
+//   updatedAt   DateTime  @updatedAt
+//   deletedAt   DateTime? @map("deleted_at")
+//   Reader      Reader[]
+//   Customer    Customer? @relation(fields: [customerId], references: [id])
+//   customerId  String?   @db.Uuid
+// }
 
-model AudienceRecord {
-  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  audience   Int
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  deletedAt  DateTime?   @map("deleted_at")
-  Customer   Customer?   @relation(fields: [customerId], references: [id])
-  customerId String?     @db.Uuid
-  WarnCheck  WarnCheck[]
-}
+// model WarnCheck {
+//   id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   detail           String
+//   customer         Customer?       @relation(fields: [customerId], references: [id])
+//   customerId       String?         @db.Uuid
+//   audienceRecord   AudienceRecord? @relation(fields: [audienceRecordID], references: [id])
+//   audienceRecordID String?         @db.Uuid
+//   createdAt        DateTime        @default(now())
+//   updatedAt        DateTime        @updatedAt
+//   deletedAt        DateTime?       @map("deleted_at")
+// }
 
-model EditLog {
-  id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  detail         String
-  customer       Customer?     @relation(fields: [customerId], references: [id])
-  customerId     String?       @db.Uuid
-  workings       Workings?     @relation(fields: [workingsId], references: [id])
-  workingsId     String?       @db.Uuid
-  packagePrice   PackagePrice? @relation(fields: [packagePriceId], references: [id])
-  packagePriceId String?       @db.Uuid
-  news           News?         @relation(fields: [newsId], references: [id])
-  newsId         String?       @db.Uuid
-  about          About?        @relation(fields: [aboutId], references: [id])
-  aboutId        String?       @db.Uuid
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  deletedAt      DateTime?     @map("deleted_at")
-}
+// model Reader {
+//   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   customer   Customer? @relation(fields: [customerId], references: [id])
+//   customerId String?   @db.Uuid
+//   contact    Contact?  @relation(fields: [contactId], references: [id])
+//   contactId  String?   @db.Uuid
+//   createdAt  DateTime  @default(now())
+//   updatedAt  DateTime  @updatedAt
+//   deletedAt  DateTime? @map("deleted_at")
+// }
+
+// model AudienceRecord {
+//   id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   audience   Int
+//   createdAt  DateTime    @default(now())
+//   updatedAt  DateTime    @updatedAt
+//   deletedAt  DateTime?   @map("deleted_at")
+//   Customer   Customer?   @relation(fields: [customerId], references: [id])
+//   customerId String?     @db.Uuid
+//   WarnCheck  WarnCheck[]
+// }
+
+// model EditLog {
+//   id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   detail         String
+//   customer       Customer?     @relation(fields: [customerId], references: [id])
+//   customerId     String?       @db.Uuid
+//   workings       Workings?     @relation(fields: [workingsId], references: [id])
+//   workingsId     String?       @db.Uuid
+//   packagePrice   PackagePrice? @relation(fields: [packagePriceId], references: [id])
+//   packagePriceId String?       @db.Uuid
+//   news           News?         @relation(fields: [newsId], references: [id])
+//   newsId         String?       @db.Uuid
+//   about          About?        @relation(fields: [aboutId], references: [id])
+//   aboutId        String?       @db.Uuid
+//   createdAt      DateTime      @default(now())
+//   updatedAt      DateTime      @updatedAt
+//   deletedAt      DateTime?     @map("deleted_at")
+// }
