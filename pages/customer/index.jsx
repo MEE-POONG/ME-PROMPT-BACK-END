@@ -3,6 +3,7 @@ import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, Table } from 'react-bootstrap'
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
+import PageLoading from '@/components/PageChange/pageLoading'
 
 export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
@@ -34,6 +35,7 @@ export default function CustomerPage() {
     if (error) return <p>Error!</p>
     return (
         <>
+            <PageLoading />
             <Container fluid className="pt-4 px-4">
                 <div className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">

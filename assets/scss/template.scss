@@ -88,6 +88,7 @@ h1,
     min-height: 100vh;
     background: var(--dark);
     transition: 0.5s;
+    background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
 }
 
 .navbar-expand .navbar-nav .dropdown-menu {
@@ -378,7 +379,6 @@ button.bar-slide {
     background: #d7f0ff;
     color: #3eb6ff;
 }
-
 
 @keyframes showAlert {
     from {

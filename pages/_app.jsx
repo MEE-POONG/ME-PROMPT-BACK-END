@@ -6,7 +6,7 @@ import Router from "next/router";
 import 'assets/scss/index.scss';
 // import 'assets/scss/style.scss';
 
-import PageChange from "../components/PageChange/PageChange.js";
+import PageChange from "../components/PageChange/PageChange";
 import SSRProvider from 'react-bootstrap/SSRProvider';
 
 // import "@fortawesome/fontawesome-free/css/all.min.css";
