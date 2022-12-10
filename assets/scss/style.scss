@@ -1,4 +1,21 @@
 #__next {
+    --primary: #d5ad6d;
+    .btn-primary {
+        --bs-btn-color: #000;
+        --bs-btn-bg: #349520;
+        --bs-btn-border-color: var(--primary);
+        --bs-btn-hover-color: #000;
+        --bs-btn-hover-bg: #52a541;
+        --bs-btn-hover-border-color: #48a036;
+        --bs-btn-focus-shadow-rgb: 44, 127, 27;
+        --bs-btn-active-color: #000;
+        --bs-btn-active-bg: #5daa4d;
+        --bs-btn-active-border-color: var(--primary);
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color: #000;
+        --bs-btn-disabled-bg: #349520;
+        --bs-btn-disabled-border-color: var(--primary);
+    }
     table {
         vertical-align: middle;
         th:first-child {
@@ -22,58 +39,73 @@
         // td:last-child {
         //     background: #0068b3;
         // }
-        tbody {
-            tr {
-                td.manager {
-                    button {
-                        color: #000000;
-                        font-size: 1.25rem;
-                        background: #000000;
-                        display: inline-grid;
-                        margin: 0.25rem;
-                        padding: 0.25rem;
-                        border-radius: 5px;
-                        -webkit-transition: background-color 2s ease-out;
-                        -moz-transition: background-color 2s ease-out;
-                        -o-transition: background-color 2s ease-out;
-                        transition: background-color 2s ease-out;
-                        &.view {
-                            background: var(--success);
-                        }
-                        &.edit {
-                            background: #ffdb9b;
-                        }
-                        &.delete {
-                            background: #ff4757;
-                        }
-                        &:hover,
-                        &.active {
-                            background: #123f44;
-                            background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+    }
+    .back-to-top {
+        display: flex;
+        font-weight: bold;
+        padding: 0.25rem;
+        background-color: #000000;
+        color: #d5ad6d;
+        border-width: 3px;
+        svg {
+            color: #d5ad6d;
+            background: -webkit-linear-gradient(transparent, transparent),
+                -webkit-linear-gradient(top, rgba(213, 173, 109, 1) 0%, rgba(213, 173, 109, 1) 26%, rgba(
+                                226,
+                                186,
+                                120,
+                                1
+                            )
+                            35%, rgba(163, 126, 67, 1) 45%, rgba(145, 112, 59, 1) 61%, rgba(213, 173, 109, 1) 100%);
+            background: -o-linear-gradient(transparent, transparent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+    button.icon,
+    .back-to-top {
+        color: #000000;
+        font-size: 1.25rem;
+        background: #000000;
+        display: inline-grid;
+        margin: 0.25rem;
+        padding: 0.25rem;
+        border-radius: 5px;
+        -webkit-transition: background-color 2s ease-out;
+        -moz-transition: background-color 2s ease-out;
+        -o-transition: background-color 2s ease-out;
+        transition: background-color 2s ease-out;
+        &.create {
+            background: #71c9ff;
+        }
+        &.view {
+            background: var(--success);
+        }
+        &.edit {
+            background: #ffdb9b;
+        }
+        &.delete {
+            background: #ff4757;
+        }
+        &:hover,
+        &.active {
+            border-color: #d5ad6d;
+            background: #123f44;
+            background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
 
-                            svg {
-                                color: #d5ad6d;
-                                background: -webkit-linear-gradient(transparent, transparent),
-                                    -webkit-linear-gradient(top, rgba(213, 173, 109, 1) 0%, rgba(213, 173, 109, 1) 26%, rgba(
-                                                    226,
-                                                    186,
-                                                    120,
-                                                    1
-                                                )
-                                                35%, rgba(163, 126, 67, 1) 45%, rgba(145, 112, 59, 1) 61%, rgba(
-                                                    213,
-                                                    173,
-                                                    109,
-                                                    1
-                                                )
-                                                100%);
-                                background: -o-linear-gradient(transparent, transparent);
-                                -webkit-background-clip: text;
-                                -webkit-text-fill-color: transparent;
-                            }
-                        }
-                    }
-                }
+            svg {
+                color: #d5ad6d;
+                background: -webkit-linear-gradient(transparent, transparent),
+                    -webkit-linear-gradient(top, rgba(213, 173, 109, 1) 0%, rgba(213, 173, 109, 1) 26%, rgba(
+                                    226,
+                                    186,
+                                    120,
+                                    1
+                                )
+                                35%, rgba(163, 126, 67, 1) 45%, rgba(145, 112, 59, 1) 61%, rgba(213, 173, 109, 1) 100%);
+                background: -o-linear-gradient(transparent, transparent);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
             }
         }
     }

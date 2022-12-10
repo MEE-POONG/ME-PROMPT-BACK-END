@@ -38,7 +38,7 @@ export default function CustomerPage() {
                 <div className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">รายการสินค้า</h6>
-                        <Button variant="success" >
+                        <Button bsPrefix='icon create'>
                             <FaPlus />
                         </Button>
                     </div>
@@ -58,7 +58,7 @@ export default function CustomerPage() {
                                 {customerData?.map((customer, index) => (
                                     <tr key={index}>
                                         <td>
-                                            1.
+                                            {index + 1}.
                                         </td>
                                         <td>
                                             <Image className="rounded" src={customer?.img} alt="" style={{ width: "100px", height: "100px" }} />
@@ -74,16 +74,16 @@ export default function CustomerPage() {
                                             <br />
                                             {customer.Position.position}
                                         </td>
-                                        <td className='manager'>
-                                            <Button bsPrefix='view'>
+                                        <td>
+                                            <Button bsPrefix='icon view'>
                                                 <FaEye />
                                             </Button>
-                                            <Button bsPrefix='edit'
+                                            <Button bsPrefix='icon edit'
                                             // onClick={() => ShowModalEdit(customer.id)}
                                             >
                                                 <FaEdit />
                                             </Button>
-                                            <Button bsPrefix='delete'
+                                            <Button bsPrefix='icon delete'
                                             // onClick={() => executeCustomerDelete({ url: '/api/customer/' + customer.id, method: 'DELETE' })}
                                             >
                                                 <FaTrash />
