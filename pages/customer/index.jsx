@@ -5,11 +5,33 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 
 export default function CustomerPage() {
-    const [aTest, setATest] = useState();
-    useEffect(() => {
-        console.log(aTest);
-    }, [aTest])
+    const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
+    const [{ data: customerById, loading: customerByIdLoading, error: customerByIdError }, getCustomerById] = useAxios({}, { manual: true })
+    const [{ data: postData, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customers', method: 'POST' }, { manual: true });
+    const [{ loading: updateCustomerLoading, error: updateCustomerError }, executeCustomerPut] = useAxios({}, { manual: true })
+    const [{ loading: deleteCustomerLoading, error: deleteCustomerError }, executeCustomerDelete] = useAxios({}, { manual: true })
+    // const [name, setName] = useState('');
+    // const [price, setPrice] = useState('');
+    // const [category, setCategory] = useState('');
+    // const [description, setDescription] = useState('');
+    // const [unit, setUnit] = useState('');
+    // const [amount, setAmount] = useState('');
+    // const [img, setImg] = useState('');
 
+    useEffect(() => {
+        console.log(customerData);
+    }, [customerData])
+    // useEffect(() => {
+    //     setName(customerData?.name)
+    //     setPrice(customerData?.price)
+    //     setCategory(customerData?.categoryId)
+    //     setDescription(customerData?.description)
+    //     setUnit(customerData?.unitId)
+    //     setAmount(customerData?.amount)
+    //     setImg(customerData?.image)
+    // }, [customerData])
+    if (loading || customerLoading || customerByIdLoading || updateCustomerLoading || deleteCustomerLoading) return <p>Loading...</p>
+    if (error || errorMessage || customerByIdError || updateCustomerError || deleteCustomerError) return <p>Error!</p>
     return (
         <>
             <Container fluid className="pt-4 px-4">
@@ -38,29 +60,29 @@ export default function CustomerPage() {
                                         1.
                                     </td>
                                     <td>
-                                        {/* <img className="rounded-circle flex-shrink-0" src={product.image} alt="" style={{ width: "40px", height: "40px" }} /> */}
+                                        {/* <img className="rounded" src={customer.image} alt="" style={{ width: "40px", height: "40px" }} /> */}
                                     </td>
                                     <td>
-                                        {/* {product.name} */}
+                                        {/* {customer.name} */}
                                     </td>
                                     <td>
-                                        {/* {product?.category?.name} */}
+                                        {/* {customer?.category?.name} */}
                                     </td>
                                     <td>
-                                        {/* {product.amount} {product.unit.name} */}
+                                        {/* {customer.amount} {customer.unit.name} */}
                                     </td>
                                     <td className='manager'>
                                         <Button bsPrefix='view'>
                                             <FaEye />
                                         </Button>
                                         <Button bsPrefix='edit'
-                                            onClick={() => ShowModalEdit(product.id)}
+                                            onClick={() => ShowModalEdit(customer.id)}
                                         >
                                             <FaEdit />
                                         </Button>
                                         <Button bsPrefix='delete'
-                                            onClick={() => executeProductDelete({
-                                                url: '/api/products/' + product.id,
+                                            onClick={() => executeCustomerDelete({
+                                                url: '/api/customer/' + customer.id,
                                                 method: 'DELETE'
                                             })}
                                         >
@@ -68,6 +90,43 @@ export default function CustomerPage() {
                                         </Button>
                                     </td>
                                 </tr>
+                                {customerData?.map((customer, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            1.
+                                        </td>
+                                        <td>
+                                            <img className="rounded" src={customer.img} alt="" style={{ width: "100px", height: "100px" }} />
+                                        </td>
+                                        <td>
+                                            {customer.firstname}{" "}{customer.lastname}
+                                        </td>
+                                        <td>
+                                            {/* {customer.category?.name} */}
+                                        </td>
+                                        <td>
+                                            {/* {customer.amount} {customer.unit.name} */}
+                                        </td>
+                                        <td className='manager'>
+                                            <Button bsPrefix='view'>
+                                                <FaEye />
+                                            </Button>
+                                            <Button bsPrefix='edit'
+                                                onClick={() => ShowModalEdit(customer.id)}
+                                            >
+                                                <FaEdit />
+                                            </Button>
+                                            <Button bsPrefix='delete'
+                                                onClick={() => executeCustomerDelete({
+                                                    url: '/api/customer/' + customer.id,
+                                                    method: 'DELETE'
+                                                })}
+                                            >
+                                                <FaTrash />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

@@ -11,9 +11,9 @@ export default function Layout({ children }) {
       <TheSlideNav />
       <div className="content ">
         <IndexNavbar />
-        <Container fluid className="position-relative d-flex p-0">
-          {children}
-        </Container>
+        {/* <Container fluid className="position-relative d-flex p-0"> */}
+        {children}
+        {/* </Container> */}
         <Footer />
       </div>
       <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top">

@@ -14,7 +14,7 @@ model Customer {
   id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username       String
   password       String
-  fristname      String
+  firstname      String
   lastname       String
   img            String
   facebook       String
@@ -148,7 +148,7 @@ model PackagePrice {
 
 model Contact {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  fristname   String
+  firstname   String
   lastname    String
   email       String
   tel         String

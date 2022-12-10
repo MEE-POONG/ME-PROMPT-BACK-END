@@ -20,7 +20,6 @@ import Link from "next/link";
 
 export default function TheSlideNav() {
   const { asPath } = useRouter();
-  console.log(asPath);
   return (
     <>
       <div className="sidebar pe-4 pb-3 ">
@@ -41,7 +40,7 @@ export default function TheSlideNav() {
                 alt=""
                 style={{ width: "40px", height: "40px" }}
               />
-              <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1" />
+              <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
             </div>
             <div className="ms-3">
               <h6 className="mb-0">Jhon Doe</h6>
@@ -124,7 +123,7 @@ export function ButtonSlideNav() {
   const [slideOpen, setSlideOpen] = React.useState("");
   return (
     <Button
-      bsPrefix="sidebar-toggler flex-shrink-0 bar-slide"
+      bsPrefix="sidebar-toggler  bar-slide"
       onClick={() => setSlideOpen(slideOpen == "close" ? "open" : "close")}
     >
       <FaBars />
