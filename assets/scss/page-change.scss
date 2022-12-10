@@ -3,120 +3,86 @@
     $pencil-green: #09d56e;
     $pencil-dark: #232123;
     $body-bg: #010001;
-    .pencil {
-        position: relative;
-        width: 300px;
-        height: 40px;
-        transform-origin: center;
-        transform: rotate(135deg);
-        animation: pencil-animation 10s infinite;
 
-        &__ball-point {
+    .loading {
+        text-align: center;
+        height: 750px;
+        z-index: 100;
+        .ring {
             position: absolute;
-            left: 0;
             top: 50%;
-            transform: translateY(-50%);
-            background: $pencil-green;
-            height: 10px;
-            width: 10px;
-            border-radius: 50px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: transparent;
+            border: 3px solid #3c3c3c;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 150px;
+            font-size: 20px;
+            color: var(--primary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--primary);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            h1 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
         }
-
-        &__cap {
+        .ring:before {
+            content: "";
             position: absolute;
+            top: 0px;
             left: 0px;
-            top: 50%;
-            transform: translateY(-50%);
-            clip-path: polygon(20% 40%, 100% 0%, 100% 100%, 20% 60%);
-            background: $pencil-dark;
-            width: 12%;
+            width: 100%;
             height: 100%;
+            border: 10px solid transparent;
+            border-top: 10px solid var(--primary);
+            border-right: 10px solid var(--primary);
+            border-radius: 50%;
+            animation: animateC 2s linear infinite;
         }
-
-        &__cap-base {
+        span {
+            display: block;
             position: absolute;
-            left: 12%;
-            top: 0;
-            height: 100%;
-            width: 20px;
-            background: $pencil-dark;
+            top: calc(50% - 2px);
+            left: 50%;
+            width: 50%;
+            height: 4px;
+            background: transparent;
+            transform-origin: left;
+            animation: animate 2s linear infinite;
         }
-
-        &__middle {
+        span:before {
+            content: "";
             position: absolute;
-            left: calc(12% + 20px);
-            top: 0;
-            height: 100%;
-            width: 70%;
-            background: $pencil-green;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: -6px;
+            right: -8px;
+            box-shadow: 0 0 20px var(--primary);
         }
-
-        &__eraser {
-            position: absolute;
-            left: calc(12% + 70% + 20px);
-            top: 0;
-            height: 100%;
-            width: 11%;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            background: $pencil-dark;
-        }
-        @keyframes pencil-animation {
+        @keyframes animateC {
             0% {
-                transform: rotate(135deg);
+                transform: rotate(0deg);
             }
-
-            20% {
-                transform: rotate(315deg);
-            }
-
-            45% {
-                transform: translateX(300px) rotate(315deg);
-            }
-
-            55% {
-                transform: translateX(300px) rotate(495deg);
-            }
-
             100% {
-                transform: rotate(495deg);
+                transform: rotate(360deg);
             }
         }
-    }
-
-    .line {
-        @keyframes line-animation {
-            20% {
-                transform: scaleX(0);
+        @keyframes animate {
+            0% {
+                transform: rotate(45deg);
             }
-
-            45% {
-                transform: scaleX(0.6);
-            }
-
-            55% {
-                transform: scaleX(0.6);
-            }
-
             100% {
-                transform: scaleX(0);
+                transform: rotate(405deg);
             }
         }
-
-        position: relative;
-        top: 80px;
-        right: 103px;
-        height: 10px;
-        width: 1000px;
-        z-index: -1;
-        border-radius: 50px;
-        background: $pencil-green;
-        transform: scaleX(0);
-        transform-origin: center;
-        animation: line-animation 10s infinite;
-    }
-
-    h2 {
-        position: relative;
     }
 }

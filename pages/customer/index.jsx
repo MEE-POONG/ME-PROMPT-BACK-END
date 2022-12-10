@@ -31,11 +31,10 @@ export default function CustomerPage() {
     //     setAmount(customerData?.amount)
     //     setImg(customerData?.image)
     // }, [customerData])
-    if (loading) return <p>Loading...</p>
+    if (loading) return <PageLoading />
     if (error) return <p>Error!</p>
     return (
         <>
-            <PageLoading />
             <Container fluid className="pt-4 px-4">
                 <div className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
