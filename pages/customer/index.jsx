@@ -21,7 +21,7 @@ export default function CustomerPage() {
                         </Button>
                     </div>
                     <div className="table-responsive">
-                        <table className="table text-start table-striped align-middle table-hover mb-0">
+                        <table className="table table-striped table-hover mb-0">
                             <thead>
                                 <tr className="text-center">
                                     <th >No.</th>
@@ -34,9 +34,9 @@ export default function CustomerPage() {
                             </thead>
                             <tbody>
                                 <tr >
-                                    <th className='text-end'>
+                                    <td>
                                         1.
-                                    </th>
+                                    </td>
                                     <td>
                                         {/* <img className="rounded-circle flex-shrink-0" src={product.image} alt="" style={{ width: "40px", height: "40px" }} /> */}
                                     </td>
@@ -50,15 +50,15 @@ export default function CustomerPage() {
                                         {/* {product.amount} {product.unit.name} */}
                                     </td>
                                     <td className='manager'>
-                                        <Button >
+                                        <Button bsPrefix='view'>
                                             <FaEye />
                                         </Button>
-                                        <Button bsPrefix='edit btn btn-warning'
+                                        <Button bsPrefix='edit'
                                             onClick={() => ShowModalEdit(product.id)}
                                         >
                                             <FaEdit />
                                         </Button>
-                                        <Button bsPrefix='delete btn btn-danger'
+                                        <Button bsPrefix='delete'
                                             onClick={() => executeProductDelete({
                                                 url: '/api/products/' + product.id,
                                                 method: 'DELETE'
@@ -67,11 +67,7 @@ export default function CustomerPage() {
                                             <FaTrash />
                                         </Button>
                                     </td>
-                                    {/* {productData?.map((product, index) => (
-d>
-                                ))} */}
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>

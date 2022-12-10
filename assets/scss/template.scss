@@ -1,0 +1,79 @@
+#__next {
+    table {
+        th:first-child {
+            width: 3rem;
+            text-align: end;
+        }
+        th:last-child {
+            width: max-content;
+        }
+        td:first-child {
+            width: 3rem;
+            text-align: end;
+        }
+        // tr:nth-child(even) td:first-child {
+        //     background: #0068b3;
+        // }
+        // tr:nth-child(odd) td:first-child {
+        //     background: #aebde1;
+        // }
+        // th:last-child,
+        // td:last-child {
+        //     background: #0068b3;
+        // }
+        tbody {
+            tr {
+                td.manager {
+                    button {
+                        color: #000000;
+                        font-size: 1.25rem;
+                        background: #000000;
+                        display: inline-grid;
+                        margin: 0.25rem;
+                        padding: 0.25rem;
+                        border-radius: 5px;
+                        -webkit-transition: background-color 2s ease-out;
+                        -moz-transition: background-color 2s ease-out;
+                        -o-transition: background-color 2s ease-out;
+                        transition: background-color 2s ease-out;
+                        &.view {
+                            background: var(--success);
+                        }
+                        &.edit {
+                            background: #ffdb9b;
+                        }
+                        &.delete {
+                            background: #ff4757;
+                        }
+                        &:hover,
+                        &.active {
+                            background: #123f44;
+                            background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+
+                            svg {
+                                color: #d5ad6d;
+                                background: -webkit-linear-gradient(transparent, transparent),
+                                    -webkit-linear-gradient(top, rgba(213, 173, 109, 1) 0%, rgba(213, 173, 109, 1) 26%, rgba(
+                                                    226,
+                                                    186,
+                                                    120,
+                                                    1
+                                                )
+                                                35%, rgba(163, 126, 67, 1) 45%, rgba(145, 112, 59, 1) 61%, rgba(
+                                                    213,
+                                                    173,
+                                                    109,
+                                                    1
+                                                )
+                                                100%);
+                                background: -o-linear-gradient(transparent, transparent);
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
