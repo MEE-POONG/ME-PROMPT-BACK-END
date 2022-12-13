@@ -7,10 +7,6 @@ export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
-    const [searchTeam, setSearchTeam] = useState('')
-    console.log(searchTeam);
-    const [singleSelections, setSingleSelections] = useState([]);
-    const [multiSelections, setMultiSelections] = useState([]);
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>
@@ -22,38 +18,11 @@ export default function PositionModel() {
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">
-                        <InputGroup>
-                            <DropdownButton
-                                as={InputGroup.Prepend}
-                                variant="outline-secondary"
-                                title={searchTeam !== "" ? searchTeam : "เลือกผู้แนะนำ"}
-                                id="input-group-dropdown-1"
-                                disabled={searchTeam === ""}
-                            >
-                                {positionData.length ? (
-                                    positionData.map((e, index) => (
-                                        <Dropdown.Item
-                                            key={index}
-                                        // onClick={() => {
-                                        //     setAllianceAdd({ ...allianceAdd, adviserID: e._id, adviserView: e.usernameAG, usernameAG: e.usernameAG });
-                                        // }}
-                                        >
-                                            {e.team}
-                                        </Dropdown.Item>
-                                    ))) : (
-                                    <Dropdown.Item disabled>ไม่พบข้อมูล</Dropdown.Item>
-                                )}
-                            </DropdownButton>
-                            <Form.Control
-                                placeholder="ค้นหายูสแนะนำ"
-                                aria-label="ระบุยูสผู้แนะนำ"
-                                aria-describedby="basic-addon2"
-                                // disabled={allianceSearch.webSearch === ""}
-                                onChange={(e) => {
-                                    setSearchTeam(e.target.value);
-                                }}
-                            />
-                        </InputGroup>
+                        <Col md='3'>
+                            <div className="autocomplete w-100">
+                                {/* <input id="myInput" type="text" name="myCountry" placeholder="Country" /> */}ss
+                            </div>
+                        </Col>
                         <Form.Group as={Col} md="5" controlId="validationCustom01">
                             <Form.Label className='mt-1 mb-0'>ทีม</Form.Label>
                             <Form.Control
