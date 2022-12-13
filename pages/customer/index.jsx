@@ -5,33 +5,17 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
+import CreateModel from '@/container/Customer/CreateModel'
 
 export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
-    // const [{ data: customerById, loading: customerByIdLoading, error: customerByIdError }, getCustomerById] = useAxios({}, { manual: true })
-    // const [{ data: postData, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customers', method: 'POST' }, { manual: true });
-    // const [{ loading: updateCustomerLoading, error: updateCustomerError }, executeCustomerPut] = useAxios({}, { manual: true })
-    const [{ loading: deleteCustomerLoading, error: deleteCustomerError }, executeCustomerDelete] = useAxios({}, { manual: true })
-    // const [name, setName] = useState('');
-    // const [price, setPrice] = useState('');
-    // const [category, setCategory] = useState('');
-    // const [description, setDescription] = useState('');
-    // const [unit, setUnit] = useState('');
-    // const [amount, setAmount] = useState('');
-    // const [img, setImg] = useState('');
 
-    useEffect(() => {
-        console.log("acb : ", customerData);
-    }, [customerData])
+
+
     // useEffect(() => {
-    //     setName(customerData?.name)
-    //     setPrice(customerData?.price)
-    //     setCategory(customerData?.categoryId)
-    //     setDescription(customerData?.description)
-    //     setUnit(customerData?.unitId)
-    //     setAmount(customerData?.amount)
-    //     setImg(customerData?.image)
-    // }, [customerData])
+    //     console.log("acb : ", modelCustomer);
+    // }, [modelCustomer])
+
     if (loading) return <PageLoading />
     if (error) return <PageError />
     return (
@@ -40,9 +24,10 @@ export default function CustomerPage() {
                 <div className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">รายการสินค้า</h6>
-                        <Button bsPrefix='icon create'>
+                        {/* <Button bsPrefix='icon create' onClick={CreateModel(true)}>
                             <FaPlus />
-                        </Button>
+                        </Button> */}
+                        <CreateModel />
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
@@ -98,7 +83,6 @@ export default function CustomerPage() {
                     </div>
                 </div>
             </Container>
-
 
         </>
     )
