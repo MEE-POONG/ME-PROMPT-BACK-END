@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   products: [
     {
       id: '1',
@@ -28,4 +28,10 @@ export const data_two = {
     { id: '4', shift: 'x' },
   ],
 };
-export default data;
+
+export const positionData = [
+  { id: '1', team: 'a', position: 'a' },
+  { id: '2', team: 'a', position: 'b' },
+  { id: '3', team: 'b', position: 'c' },
+  { id: '4', team: 'b', position: 'd' },
+];

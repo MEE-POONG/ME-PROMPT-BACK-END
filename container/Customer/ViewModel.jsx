@@ -3,15 +3,16 @@ import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownBu
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 
-export default function CreateModel() {
+export default function ViewsModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
     return (
         <>
-            <Button bsPrefix={showCheck ? 'icon create active d-flex' : 'icon create d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มพนักงาน
+            <Button bsPrefix={showCheck ? 'icon create active' : 'icon create'} onClick={handleShow}>
+                <FaPlus />
             </Button>
+
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>เพิ่มสมาชิกบริษัท</Modal.Title>

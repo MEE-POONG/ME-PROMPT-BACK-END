@@ -19,7 +19,10 @@
     --bs-btn-disabled-border-color: var(--primary);
 }
 table {
-    vertical-align: middle;
+    th,
+    td {
+        vertical-align: middle;
+    }
     th:first-child {
         width: 3rem;
         text-align: end;
@@ -73,6 +76,7 @@ table {
 }
 button.icon,
 .back-to-top {
+    align-items: center;
     color: #000000;
     font-size: 1.25rem;
     background: #000000;
@@ -100,9 +104,9 @@ button.icon,
     &.active {
         border-color: #d5ad6d;
         background: #123f44;
+        color: #d5ad6d;
         background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
         svg {
-            color: #d5ad6d;
             background: -webkit-linear-gradient(transparent, transparent),
                 -webkit-linear-gradient(top, rgba(213, 173, 109, 1) 0%, rgba(213, 173, 109, 1) 26%, rgba(
                                 226,
@@ -115,5 +119,44 @@ button.icon,
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+    }
+}
+button {
+    &.cancel,
+    &.succeed {
+        font-weight: bold;
+        color: dark;
+        padding: 7px 10px;
+        outline: none;
+        background: var(--dark);
+        margin-top: 0.75rem;
+        border: 3px solid #000000;
+        margin: 0.75rem;
+        border-radius: 5px !important;
+        &:hover,
+        &.active {
+            color: #d5ad6d;
+            border-color: #d5ad6d;
+            background: #123f44;
+            background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+        }
+    }
+    &.cancel,
+    &.cancel-primary {
+        background: #ff4757;
+    }
+    &.succeed,
+    &.succeed-primary {
+        background: var(--success);
+    }
+}
+.input-group-text {
+    background-color: unset;
+    border: unset;
+}
+.position {
+    .dropdown-toggle {
+        color: #000000;
+        background-color: #e8e8e8;
     }
 }
