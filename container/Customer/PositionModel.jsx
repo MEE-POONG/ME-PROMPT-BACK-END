@@ -17,10 +17,16 @@ export default function PositionModel() {
         .map(position => position.position)
         .filter((position, index, self) => self.indexOf(position) === index)
         .reduce((teams, position) => [...teams, { id: position, label: position }], []);
-    // useEffect(() => {
-    //     console.log(teamDT);
-    // }, [teamDT])
-    // autocomplete(document.getElementById("myInput"), countries);
+
+    const [teamSelect, setTeamSelect] = useState('');
+    const [positionSelect, setPositionSelect] = useState('');
+    const clickTeam = value => {
+        setTeamSelect(value);
+    };
+    const clickPositiom = value => {
+        setPositionSelect(value);
+    };
+    console.log(teamSelect, " : ", positionSelect);
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>
@@ -33,10 +39,10 @@ export default function PositionModel() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete options={teams} label="เลือกทีม" />
+                            <AutoComplete options={teams} label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} />
                         </Col>
                         <Col md='6'>
-                            <AutoComplete options={positionList} label="หน้าที่งาน" />
+                            <AutoComplete options={positionList} label="หน้าที่งาน" placeholder="ระบุ หน้าที่งาน / ตำแหน่งรับผิดชอบ" value={clickPositiom} />
                         </Col>
                     </Row>
                 </Modal.Body>
