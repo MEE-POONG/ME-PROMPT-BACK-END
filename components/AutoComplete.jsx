@@ -14,7 +14,7 @@ export default function AutoComplete(props) {
     return (
         <>
             <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={() => { setShow(false) }}>
-                <Form.Label>เลือกทีม</Form.Label>
+                <Form.Label>{props.label}</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" value={selectTeam} onChange={(e) => { setSelectTeam(e.target.value) }} onClick={() => { setShow(true) }} />
                 <Dropdown.Menu show={show} className='w-100' onMouseOver={() => { setShow(true) }}>
                     {props.options?.map((value, index) => (

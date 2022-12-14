@@ -30,10 +30,10 @@ export const data_two = {
 };
 
 export const positionData = [
-  { id: '1', team: 'a', position: 'a' },
-  { id: '2', team: 'a', position: 'b' },
-  { id: '3', team: 'b', position: 'c' },
-  { id: '4', team: 'b', position: 'd' },
+  { id: '1', team: 'a', position: 'aa' },
+  { id: '2', team: 'a', position: 'bb' },
+  { id: '3', team: 'b', position: 'cc' },
+  { id: '4', team: 'b', position: 'dd' },
 ];
 
 export default [
