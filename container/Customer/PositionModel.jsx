@@ -7,11 +7,14 @@ export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
-    const [searchData, setSearchData] = useState('');
-    useEffect(() => {
-        console.log(searchData);
-    }, [searchData])
 
+    const [addData, setAddData] = useState({
+        team: '',
+        position: '',
+    });
+    useEffect(() => {
+        console.log(" : ", addData);
+    }, [addData])
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>
@@ -32,21 +35,24 @@ export default function PositionModel() {
                                     placeholder="ทีม"
                                     defaultValue="Mark"
                                     onChange={(e) => {
-                                        setSearchData(e.target.value);
+                                        setAddData(e.target.value);
                                     }}
                                 ></Form.Control>
-                                <Dropdown.Menu show={searchData !== ''} className='w-100'>
+                                <Dropdown.Menu show={addData !== ''} className='w-100'>
+                                    <Dropdown.Item className='d-flex align-items-center' onClick={() => { setAddData({ ...addData, team: addData }) }}>
+                                        <span className='me-auto'>
+                                            {addData}
+                                        </span>
+                                        <Button bsPrefix="succeed" className='py-0 px-1 m-0 fs-0-75'>
+                                            New
+                                        </Button>
+                                    </Dropdown.Item>
                                     {positionData ?
                                         positionData.map((e, index) => (
-                                            <Dropdown.Item key={index} className='d-flex'>
-                                                <span
-                                                // onClick={() => {
-                                                //     setAllianceAdd({ ...allianceAdd, adviserID: e._id, adviserView: e.usernameAG, usernameAG: e.usernameAG });
-                                                // }}
-                                                >
+                                            <Dropdown.Item key={index} className='d-flex' onClick={() => { setAddData({ ...addData, team: e.team }) }}>
+                                                <span>
                                                     {e.team}
                                                 </span>
-                                                <Badge className='ms-auto' bg="danger">New</Badge>
                                             </Dropdown.Item>
                                         ))
                                         : null}
