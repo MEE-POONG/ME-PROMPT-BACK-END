@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
-import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, Table } from 'react-bootstrap'
+import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table } from 'react-bootstrap'
 import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
@@ -22,9 +22,11 @@ export default function CustomerPage() {
     return (
         <>
             <Container fluid className="pt-4 px-4">
-                <div className="bg-secondary text-center rounded shadow p-4">
+                <Card className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
-                        <h6 className="mb-0">รายการสินค้า</h6>
+                        <Card.Title className="mb-0">
+                            รายการสินค้า
+                        </Card.Title>
                         {/* <Button bsPrefix='icon create' onClick={CreateModel(true)}>
                             <FaPlus />
                         </Button> */}
@@ -85,7 +87,7 @@ export default function CustomerPage() {
                             </tbody>
                         </Table>
                     </div>
-                </div>
+                </Card>
             </Container>
 
         </>
