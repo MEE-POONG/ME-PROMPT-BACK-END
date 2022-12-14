@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownButton, Dropdown, Badge } from 'react-bootstrap'
+import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownButton, Dropdown, Badge, ToggleButton } from 'react-bootstrap'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import { positionData } from '../../pages/data'
+import { Typeahead } from 'react-bootstrap-typeahead'
+import AutoComplete from '@/components/AutoComplete'
 export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
-
-    const [addData, setAddData] = useState({
-        team: '',
-        position: '',
-    });
-    useEffect(() => {
-        console.log(" : ", addData);
-    }, [addData])
+    const teams = positionData
+        .map(position => position.team)
+        .filter((team, index, self) => self.indexOf(team) === index)
+        .reduce((teams, team) => [...teams, { id: team, label: team }], []);
+    // useEffect(() => {
+    //     console.log(teamDT);
+    // }, [teamDT])
+    // autocomplete(document.getElementById("myInput"), countries);
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>
@@ -27,6 +29,25 @@ export default function PositionModel() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
+                            {/* <div
+                                // When the div is clicked, set the background color to dark
+                                onClick={() => setColor('dark')}
+                                // When the mouse leaves the div, set the background color to gold
+                                onMouseOut={() => setColor('gold')}
+                                style={{ backgroundColor: color }}
+                            >
+                                Click me to change the background color!
+                            </div>
+                            <div className="autocomplete w-100" onClick={() => { }}>
+                                <input id="myInput" type="text" name="myCountry" placeholder="Country" />
+                                <div id="myInputautocomplete-list" className="autocomplete-items">
+                                    <div>
+                                        <strong>A</strong>fghanistan
+                                        <input type="hidden" value="Afghanistan" />
+                                    </div>
+                                </div>
+                            </div> */}
+                            <AutoComplete options={teams} />
                             <Form.Group controlId="validationCustom01" className='position-relative w-100'>
                                 <Form.Label className='mt-1 mb-0'>ทีม</Form.Label>
                                 <Form.Control
@@ -34,22 +55,13 @@ export default function PositionModel() {
                                     type="text"
                                     placeholder="ทีม"
                                     defaultValue="Mark"
-                                    onChange={(e) => {
-                                        setAddData(e.target.value);
-                                    }}
+                                    onChange={(e) => { setTeamDT(e.target.value) }}
+
                                 ></Form.Control>
-                                <Dropdown.Menu show={addData !== ''} className='w-100'>
-                                    <Dropdown.Item className='d-flex align-items-center' onClick={() => { setAddData({ ...addData, team: addData }) }}>
-                                        <span className='me-auto'>
-                                            {addData}
-                                        </span>
-                                        <Button bsPrefix="succeed" className='py-0 px-1 m-0 fs-0-75'>
-                                            New
-                                        </Button>
-                                    </Dropdown.Item>
+                                <Dropdown.Menu className={'show w-100'} onHide={false}>
                                     {positionData ?
                                         positionData.map((e, index) => (
-                                            <Dropdown.Item key={index} className='d-flex' onClick={() => { setAddData({ ...addData, team: e.team }) }}>
+                                            <Dropdown.Item key={index} className='d-flex' onClick={() => { setTeamDT(e.tame) }}>
                                                 <span>
                                                     {e.team}
                                                 </span>
