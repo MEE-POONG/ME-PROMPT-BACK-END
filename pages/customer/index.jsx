@@ -10,13 +10,6 @@ import PositionModel from '@/container/Customer/PositionModel'
 
 export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
-
-
-
-    // useEffect(() => {
-    //     console.log("acb : ", modelCustomer);
-    // }, [modelCustomer])
-
     if (loading) return <PageLoading />
     if (error) return <PageError />
     return (
@@ -27,12 +20,9 @@ export default function CustomerPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        {/* <Button bsPrefix='icon create' onClick={CreateModel(true)}>
-                            <FaPlus />
-                        </Button> */}
+             
                         <div className='d-flex'>
                             <CreateModel />
-                            <PositionModel />
                         </div>
                     </div>
                     <div className="table-responsive">

@@ -31,7 +31,6 @@ export default function CustomerPage() {
                             <FaPlus />
                         </Button> */}
                         <div className='d-flex'>
-                            <CreateModel />
                             <PositionModel />
                         </div>
                     </div>

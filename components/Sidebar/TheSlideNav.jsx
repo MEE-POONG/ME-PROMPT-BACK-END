@@ -56,15 +56,25 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Link href="/customer">
-              <a className={asPath === "/customer" ? "nav-item nav-link active" : "nav-item nav-link"}>
-                <i className="me-2">
-                  <FaUsers />
-                </i>
-                Customer
-              </a>
-            </Link>
-            
+            <Dropdown.Toggle className={asPath === "/customer" || asPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              Customer
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-transparent border-0" show>
+              <Link id="buttons" href="/customer">
+                <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  สมาชิก
+                </a>
+              </Link>
+              <Link id="buttons" href="/customer/position">
+                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  ทีม
+                </a>
+              </Link>
+            </Dropdown.Menu>
+
             <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
@@ -112,7 +122,7 @@ export default function TheSlideNav() {
               </Link>
             </Dropdown.Menu>
 
-           
+
           </div>
         </nav>
       </div>

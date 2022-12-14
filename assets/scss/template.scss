@@ -169,11 +169,15 @@ h1,
                 margin-top: 0.25rem;
                 border-radius: 0 30px 30px 0;
                 &:hover,
-                &:focus,
                 &.active {
                     color: var(--primary);
                     background: var(--success);
                     border-color: var(--primary);
+                }
+                &:focus {
+                    color: var(--light);
+                    background: var(--dark);
+                    border-left: 3px solid var(--secondary);
                 }
             }
             .dropdown-toggle[aria-expanded="true"]::after {
@@ -230,6 +234,11 @@ button.bar-slide {
             .dropdown-item:hover,
             .dropdown-item.active {
                 background: var(--dark);
+            }
+            .dropdown-item:focus {
+                color: unset;
+                background: unset;
+                border-color: unset;
             }
             .dropdown-toggle::after {
                 transition: 0.5s;
