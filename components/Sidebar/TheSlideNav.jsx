@@ -22,15 +22,15 @@ export default function TheSlideNav() {
   const { asPath } = useRouter();
   const [checkClickPath, setCheckClickPath] = useState('/')
   useEffect(() => {
-    console.log(checkClickPath);
-  }, [checkClickPath])
+    setCheckClickPath(asPath);
+  }, [asPath])
 
   return (
     <>
       <div className="sidebar pe-4 pb-3 ">
         <nav className="navbar bg-secondary navbar-dark">
           <Link href="/">
-            <a className="navbar-brand mx-4 mb-3" onClick={() => { setCheckClickPath('/') }}>
+            <a className="navbar-brand mx-4 mb-3" >
               <h3 className="text-primary">
                 <FaUserEdit className="fa me-2" />
                 PigJungle
@@ -61,13 +61,13 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={asPath === "/customer" || asPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               Customer
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || asPath === "/customer" || asPath === "/customer/position"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
               <Link id="buttons" href="/customer">
                 <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
