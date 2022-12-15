@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownButton, Dropdown, Badge, ToggleButton } from 'react-bootstrap'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import { positionData } from '../../pages/data'
 import AutoComplete from '@/components/AutoComplete'
 export default function PositionModel() {
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
+    console.log(positionData);
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);

@@ -5,12 +5,10 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import CreateModel from '@/container/Customer/CreateModel'
-import PositionModel from '@/container/Customer/PositionModel'
+import PositionModel from '@/container/Position/PositionModel'
 
-export default function CustomerPage() {
-    const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
-
+export default function PositionPage() {
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
 
     if (loading) return <PageLoading />
     if (error) return <PageError />
@@ -22,12 +20,7 @@ export default function CustomerPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        {/* <Button bsPrefix='icon create' onClick={CreateModel(true)}>
-                            <FaPlus />
-                        </Button> */}
-                        <div className='d-flex'>
-                            <PositionModel />
-                        </div>
+                        <PositionModel/>
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
@@ -40,33 +33,25 @@ export default function CustomerPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {customerData?.map((customer, index) => (
+                                {positionData?.map((position, index) => (
                                     <tr key={index}>
                                         <td>
                                             {index + 1}.
                                         </td>
                                         <td>
-                                            {customer.firstname}{" "}{customer.lastname}
+                                            {position.team}
                                         </td>
                                         <td>
-                                            {customer.status}
+                                            {position.position}
                                         </td>
                                         <td>
-                                            {customer.Position.team}
-                                            <br />
-                                            {customer.Position.position}
-                                        </td>
-                                        <td>
-                                            <Button bsPrefix='icon view'>
-                                                <FaEye />
-                                            </Button>
                                             <Button bsPrefix='icon edit'
-                                            // onClick={() => ShowModalEdit(customer.id)}
+                                                onClick={() => ShowModalEdit(position.id)}
                                             >
                                                 <FaEdit />
                                             </Button>
                                             <Button bsPrefix='icon delete'
-                                            // onClick={() => executeCustomerDelete({ url: '/api/customer/' + customer.id, method: 'DELETE' })}
+                                            // onClick={() => executePositionDelete({ url: '/api/position/' + position.id, method: 'DELETE' })}
                                             >
                                                 <FaTrash />
                                             </Button>
@@ -82,4 +67,4 @@ export default function CustomerPage() {
         </>
     )
 }
-CustomerPage.layout = IndexPage
+PositionPage.layout = IndexPage

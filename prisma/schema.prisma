@@ -30,10 +30,10 @@ model Customer {
 
 model Position {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  team      String
+  position  String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   deletedAt DateTime?  @map("deleted_at")
-  team      String
-  position  String
   customer  Customer[]
 }
