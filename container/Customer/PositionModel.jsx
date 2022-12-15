@@ -3,7 +3,6 @@ import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownBu
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import { positionData } from '../../pages/data'
-import { Typeahead } from 'react-bootstrap-typeahead'
 import AutoComplete from '@/components/AutoComplete'
 export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
