@@ -9,7 +9,7 @@ export default function CreateModel() {
     const handleShow = () => setShowCheck(true);
     return (
         <>
-            <Button bsPrefix={showCheck ? 'icon create active d-flex' : 'icon create d-flex'} onClick={handleShow}>
+            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
                 <FaPlus />{" "}เพิ่มพนักงาน
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>

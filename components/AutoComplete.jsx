@@ -4,8 +4,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 export default function AutoComplete(props) {
     const [selected, setSelected] = useState([]);
     useEffect(() => {
-        console.log("selected : ", selected);
-        if (selected) {
+        if (selected && selected[0]) {
             props.value(selected)
         }
     }, [selected])
