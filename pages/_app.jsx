@@ -1,34 +1,26 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import Router from "next/router";
+import PageChange from "../components/PageChange/PageChange";
 import App from "next/app";
 import Head from "next/head";
-import Router from "next/router";
-import 'assets/scss/index.scss';
-// import 'assets/scss/style.scss';
-
-import PageChange from "../components/PageChange/PageChange";
 import SSRProvider from 'react-bootstrap/SSRProvider';
-
-// import "@fortawesome/fontawesome-free/css/all.min.css";
-// import "../styles/tailwind.scss";
-
+import 'assets/scss/index.scss';
 Router.events.on("routeChangeStart", (url) => {
-  console.log(`Loading: ${url}`);
+  const root = createRoot(document.getElementById("page-transition"));
   document.body.classList.add("body-page-transition");
-  ReactDOM.render(
-    <PageChange path={url} />,
-    document.getElementById("page-transition")
-  );
+  root.render(<PageChange path={url} />);
 });
 Router.events.on("routeChangeComplete", () => {
-  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
+  const root = createRoot(document.getElementById("page-transition"));
+  root.unmount();
   document.body.classList.remove("body-page-transition");
 });
 Router.events.on("routeChangeError", () => {
-  ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
+  const root = createRoot(document.getElementById("page-transition"));
+  root.unmount();
   document.body.classList.remove("body-page-transition");
 });
-
 export default class MyApp extends App {
   componentDidMount() {
     let comment = document.createComment(`
