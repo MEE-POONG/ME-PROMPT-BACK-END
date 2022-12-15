@@ -1,9 +1,9 @@
 import React from "react";
+import Head from "next/head";
 import ReactDOMClient from "react-dom/client"; // Import the ReactDOMClient package
 import Router from "next/router";
 import PageChange from "../components/PageChange/PageChange";
 import App from "next/app";
-import Head from "next/head";
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import 'assets/scss/index.scss';
 // Router.events.on("routeChangeStart", (url) => {
@@ -47,7 +47,13 @@ export default class MyApp extends App {
     return (
       <SSRProvider>
         <React.Fragment>
-
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+            <title>Notus NextJS by Creative Tim</title>
+          </Head>
           <Layout>
             <Component {...pageProps} />
           </Layout>

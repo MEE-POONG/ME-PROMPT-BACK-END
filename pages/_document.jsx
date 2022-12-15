@@ -14,11 +14,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          />
-          <title>Notus NextJS by Creative Tim</title>
         </Head>
         <body className="bg-body">
           <div id="page-transition"></div>
