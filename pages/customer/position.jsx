@@ -12,11 +12,6 @@ export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })
 
 
-
-    // useEffect(() => {
-    //     console.log("acb : ", modelCustomer);
-    // }, [modelCustomer])
-
     if (loading) return <PageLoading />
     if (error) return <PageError />
     return (

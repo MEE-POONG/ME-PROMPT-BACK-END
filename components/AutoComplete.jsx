@@ -3,10 +3,6 @@ import { Dropdown, Form } from 'react-bootstrap';
 export default function AutoComplete(props) {
     const [show, setShow] = useState(false);
     const [selectList, setselectList] = useState('');
-    useEffect(() => {
-        console.log(selectList);
-        props.value( selectList )
-    }, [selectList])
     return (
         <>
             <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={() => { setShow(false) }}>

@@ -25,7 +25,6 @@ export default function PositionModel() {
     const clickPositiom = value => {
         setPositionSelect(value);
     };
-    console.log(teamSelect, " : ", positionSelect);
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>

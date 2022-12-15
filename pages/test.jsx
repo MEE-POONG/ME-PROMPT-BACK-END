@@ -10,12 +10,10 @@ export default function TestPage() {
     const { products } = data;
     const [cartItems, setCartItems] = useState([]);
     useEffect(() => {
-        console.log("cartItems : ", cartItems);
     }, [cartItems])
 
     const onAdd = (product) => {
         const exist = cartItems.find((x) => x.id === product.id);
-        console.log("exist1", exist);
         if (exist) {
             setCartItems(
                 cartItems.map((x) =>

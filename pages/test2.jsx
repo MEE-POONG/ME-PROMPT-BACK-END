@@ -10,9 +10,6 @@ export default function TestPage() {
     const { listShfit } = data_two;
     const [allShiftcartItems, setCartItems] = useState([]);
     const [allShift, setAllShift] = useState([]);
-    useEffect(() => {
-        console.log("allShift : ", allShift);
-    }, [allShift])
     const onAdd = (addShift) => {
         const exist = allShift.find((x) => x.id === addShift.id);
 
@@ -20,7 +17,6 @@ export default function TestPage() {
             setAllShift(allShift.map((x) =>
                 x.id === addShift.id ? { ...exist, AtOt: !exist.AtOt } : x
             ));
-            console.log("exist", exist.shift, " , AtOt : ", exist.AtOt);
         } else {
             setAllShift([...allShift, { ...addShift, AtOt: false }]);
         }
