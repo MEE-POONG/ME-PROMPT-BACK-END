@@ -54,7 +54,7 @@ export default function AddGallery() {
             <Col md="4">
               <Image
                 onClick={() => returnFileUrl(defaultImage)}
-                src={'/images/testimonial-1.jpg'}
+                src={'/./images/testimonial-1.jpg'}
               />
             </Col>
             {/* {GalleryArray.map((GalleryArray, key) => {

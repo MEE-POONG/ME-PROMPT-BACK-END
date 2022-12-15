@@ -29,7 +29,7 @@ export default function IndexNavbar() {
           >
             <NavDropdown.Item href="#action/3.4">
               <div className="d-flex align-items-center">
-                <Image className="rounded-circle" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <Image className="rounded-circle" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="ms-2">
                   <h6 className="fw-normal mb-0">Jhon send you a message</h6>
                   <small>15 minutes ago</small>
@@ -39,7 +39,7 @@ export default function IndexNavbar() {
             <hr className="dropdown-divider" />
             <NavDropdown.Item href="#action/3.4">
               <div className="d-flex align-items-center">
-                <Image className="rounded-circle" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <Image className="rounded-circle" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="ms-2">
                   <h6 className="fw-normal mb-0">Jhon send you a message</h6>
                   <small>15 minutes ago</small>
@@ -49,7 +49,7 @@ export default function IndexNavbar() {
             <hr className="dropdown-divider" />
             <NavDropdown.Item href="#action/3.4">
               <div className="d-flex align-items-center">
-                <Image className="rounded-circle" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <Image className="rounded-circle" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="ms-2">
                   <h6 className="fw-normal mb-0">Jhon send you a message</h6>
                   <small>15 minutes ago</small>
@@ -93,7 +93,7 @@ export default function IndexNavbar() {
           <NavDropdown
             id="nav-dropdown-dark-example"
             title={<>
-              <Image className="rounded-circle me-lg-2" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+              <Image className="rounded-circle me-lg-2" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
               <span className="d-none d-lg-inline-flex">มอง มอง</span>
             </>}
             menuVariant="dark"

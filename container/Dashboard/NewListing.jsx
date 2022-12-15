@@ -14,7 +14,7 @@ export default function NewListing() {
                                 <a href="">Show All</a>
                             </div>
                             <div className="d-flex align-items-center border-bottom py-3">
-                                <Image className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                <Image className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                 <div className="w-100 ms-3">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h6 className="mb-0">Jhon Doe</h6>
@@ -24,7 +24,7 @@ export default function NewListing() {
                                 </div>
                             </div>
                             <div className="d-flex align-items-center border-bottom py-3">
-                                <Image className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                <Image className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                 <div className="w-100 ms-3">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h6 className="mb-0">Jhon Doe</h6>
@@ -34,7 +34,7 @@ export default function NewListing() {
                                 </div>
                             </div>
                             <div className="d-flex align-items-center border-bottom py-3">
-                                <Image className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                <Image className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                 <div className="w-100 ms-3">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h6 className="mb-0">Jhon Doe</h6>
@@ -44,7 +44,7 @@ export default function NewListing() {
                                 </div>
                             </div>
                             <div className="d-flex align-items-center pt-3">
-                                <Image className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                <Image className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                 <div className="w-100 ms-3">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h6 className="mb-0">Jhon Doe</h6>

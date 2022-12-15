@@ -25,7 +25,7 @@ export default function ViewsModel() {
                         <Col lg='4'>
                             <Form.Group controlId="formFile" >
                                 <Form.Label className='d-block mt-1 mb-0'>โปรไฟล์</Form.Label>
-                                <Image className="mb-2" src={'./images/img_avatar3.png'} alt="product_img" fluid rounded />
+                                <Image className="mb-2" src={'././images/img_avatar3.png'} alt="product_img" fluid rounded />
                                 <Form.Control type="file" accept="image/*" />
                             </Form.Group>
                         </Col>

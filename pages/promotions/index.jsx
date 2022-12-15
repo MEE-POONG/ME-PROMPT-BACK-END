@@ -39,7 +39,7 @@ export default function PromotionPage() {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                        <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                     </td>
                                     <td>บ้องแก้ว</td>
                                     <td>9.9</td>
@@ -53,7 +53,7 @@ export default function PromotionPage() {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                        <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                     </td>
                                     <td>บ้องขวดอิชิตัน</td>
                                     <td>420</td>
@@ -67,7 +67,7 @@ export default function PromotionPage() {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                                        <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                                     </td>
                                     <td>เซ็ตดูดจนลอย</td>
                                     <td>WeedDays</td>

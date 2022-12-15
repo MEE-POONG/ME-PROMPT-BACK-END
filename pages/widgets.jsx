@@ -27,7 +27,7 @@ export default function WidgetPage() {
                 <a href="">Show All</a>
               </div>
               <div className="d-flex align-items-center border-bottom py-3">
-                <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="w-100 ms-3">
                   <div className="d-flex w-100 justify-content-between">
                     <h6 className="mb-0">Jhon Doe</h6>
@@ -37,7 +37,7 @@ export default function WidgetPage() {
                 </div>
               </div>
               <div className="d-flex align-items-center border-bottom py-3">
-                <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="w-100 ms-3">
                   <div className="d-flex w-100 justify-content-between">
                     <h6 className="mb-0">Jhon Doe</h6>
@@ -47,7 +47,7 @@ export default function WidgetPage() {
                 </div>
               </div>
               <div className="d-flex align-items-center border-bottom py-3">
-                <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="w-100 ms-3">
                   <div className="d-flex w-100 justify-content-between">
                     <h6 className="mb-0">Jhon Doe</h6>
@@ -57,7 +57,7 @@ export default function WidgetPage() {
                 </div>
               </div>
               <div className="d-flex align-items-center pt-3">
-                <img className="rounded-circle flex-shrink-0" src={'images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <img className="rounded-circle flex-shrink-0" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="w-100 ms-3">
                   <div className="d-flex w-100 justify-content-between">
                     <h6 className="mb-0">Jhon Doe</h6>
@@ -139,13 +139,13 @@ export default function WidgetPage() {
               <h6 className="mb-4">Testimonial</h6>
               <div className="owl-carousel testimonial-carousel">
                 <div className="testimonial-item text-center">
-                  <img className="img-fluid rounded-circle mx-auto mb-4" src="images/testimonial-1.jpg" style={{ width: "100px", height: "100px" }} />
+                  <img className="img-fluid rounded-circle mx-auto mb-4" src="./images/testimonial-1.jpg" style={{ width: "100px", height: "100px" }} />
                   <h5 className="mb-1">Client Name</h5>
                   <p>Profession</p>
                   <p className="mb-0">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
                 </div>
                 <div className="testimonial-item text-center">
-                  <img className="img-fluid rounded-circle mx-auto mb-4" src={"images/testimonial-2.jpg"} style={{ width: "100px", height: "100px" }} />
+                  <img className="img-fluid rounded-circle mx-auto mb-4" src={"./images/testimonial-2.jpg"} style={{ width: "100px", height: "100px" }} />
                   <h5 className="mb-1">Client Name</h5>
                   <p>Profession</p>
                   <p className="mb-0">Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>

@@ -13,7 +13,7 @@ export default function TransferPage() {
     users: [
       {
         id: "1",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 01",
         email: "gg@gmail.com",
         tel: "022222222",
@@ -21,7 +21,7 @@ export default function TransferPage() {
       },
       {
         id: "2",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 02",
         email: "gg@gmail.com",
         tel: "022222222",
@@ -30,7 +30,7 @@ export default function TransferPage() {
       },
       {
         id: "3",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 03",
         email: "gg@gmail.com",
         tel: "022222222",
@@ -39,7 +39,7 @@ export default function TransferPage() {
       },
       {
         id: "4",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 04",
         email: "gg@gmail.com",
         tel: "022222222",
@@ -48,7 +48,7 @@ export default function TransferPage() {
       },
       {
         id: "5",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 05",
         email: "gg@gmail.com",
         tel: "022222222",
@@ -57,7 +57,7 @@ export default function TransferPage() {
       },
       {
         id: "6",
-        image: "images/user.jpg",
+        image: "./images/user.jpg",
         name: "กัญ 06",
         email: "gg@gmail.com",
         tel: "022222222",

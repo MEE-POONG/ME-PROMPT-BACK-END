@@ -41,7 +41,7 @@ export default function TheSlideNav() {
             <div className="position-relative">
               <Image
                 className="rounded-circle"
-                src={"images/user.jpg"}
+                src={"./images/user.jpg"}
                 alt=""
                 style={{ width: "40px", height: "40px" }}
               />
@@ -67,7 +67,7 @@ export default function TheSlideNav() {
               </i>
               Customer
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || asPath === "/customer" || asPath === "/customer/position"}>
               <Link id="buttons" href="/customer">
                 <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
