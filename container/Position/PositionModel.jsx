@@ -5,27 +5,21 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 export default function PositionModel() {
     const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
-    console.log(positionData);
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
     const teams = positionData
         .map(position => position.team)
         .filter((team, index, self) => self.indexOf(team) === index)
-        .reduce((teams, team) => [...teams, { id: team, label: team }], []);
-    const positionList = positionData
-        .map(position => position.position)
-        .filter((position, index, self) => self.indexOf(position) === index)
-        .reduce((teams, position) => [...teams, { id: position, label: position }], []);
-
+        .reduce((teams, team) => [...teams, { label: team }], []);
+    console.log("teams : ", teams);
     const [teamSelect, setTeamSelect] = useState('');
     const [positionSelect, setPositionSelect] = useState('');
+
     const clickTeam = value => {
-        setTeamSelect(value);
+        setTeamSelect(value.label);
     };
-    const clickPositiom = value => {
-        setPositionSelect(value);
-    };
+
     return (
         <>
             <Button bsPrefix={showCheck ? 'icon edit active d-flex' : 'icon edit d-flex'} onClick={handleShow}>
@@ -38,10 +32,13 @@ export default function PositionModel() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete options={teams} label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} />
+                            <AutoComplete options={teams} id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} />
                         </Col>
                         <Col md='6'>
-                            <AutoComplete options={positionList} label="หน้าที่งาน" placeholder="ระบุ หน้าที่งาน / ตำแหน่งรับผิดชอบ" value={clickPositiom} />
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน" onChange={(e) => { setPositionSelect(e.target.value) }} value={positionSelect} />
+                            </Form.Group>
                         </Col>
                     </Row>
                 </Modal.Body>
