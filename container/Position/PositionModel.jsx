@@ -5,10 +5,8 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-import AutoCompleteTwo from '@/components/AutoCompleteTwo'
-import AutoCompleteThree from '@/components/AutoCompleteThree'
 export default function PositionModel() {
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
+    const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
     const [teamSelect, setTeamSelect] = useState('');
@@ -18,22 +16,24 @@ export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
-    const teams = positionData
-        .map(position => position.team)
-        .filter((team, index, self) => self.indexOf(team) === index)
-        .reduce((teams, team) => [...teams, { label: team }], []);
+    const teams = positionTeam?.reduce((acc, item) => {
+        if (!acc.some(i => i.team === item.team)) {
+            acc.push(item);
+        }
+        return acc;
+    }, []);
 
     const clickTeam = value => {
-        setTeamSelect(value[0].label);
+        console.log("value 29 : ", value);
+        setTeamSelect(value);
     };
-
-    function handlePostData() {
+    useEffect(() => {
         if (teamSelect === '' || positionSelect === '') {
             setCheckValue(false)
         } else {
             setCheckValue(true)
         }
-        console.log("checkValue ", checkValue);
+        console.log("checkValue ", checkValue, "teamSelect : ", teamSelect, "positionSelect : ", positionSelect);
         // executePosition({
         //     data: {
         //         team: teamSelect,
@@ -47,6 +47,10 @@ export default function PositionModel() {
         //         handleClose()
         //     })
         // })
+    }, [teamSelect])
+
+    function handlePostData() {
+
     }
 
     if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
@@ -66,9 +70,7 @@ export default function PositionModel() {
                     <Row className="mb-3">
 
                         <Col md='6'>
-                            {/* <AutoComplete options={teams} id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} /> */}
-                            {/* <AutoCompleteTwo id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} /> */}
-                            <AutoCompleteThree id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
+                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">

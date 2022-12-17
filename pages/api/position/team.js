@@ -8,11 +8,14 @@ export default async function handler(req, res) {
             try {
                 const data = await prisma.position.findMany({
                     select: {
+                        id: true,
                         team: true
-                      },
-                      groupBy: {
-                        team: true
-                      }
+                    },
+                    where: {
+                        team: {
+                            not: ''
+                        }
+                    },
                 });
                 res.status(200).json(data)
             } catch (error) {
