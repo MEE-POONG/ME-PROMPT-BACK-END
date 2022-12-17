@@ -16,12 +16,8 @@ export default async function handler(req, res) {
             try {
                 await prisma.position.create({
                     data: {
-                        name: req.body.name,
-                        price: parseInt(req.body.price),
-                        description: req.body.description,
-                        image: req.body.image,
-                        categoryId: req.body.categoryId,
-                        amount: parseInt(req.body.amount),
+                        team: req.body.team,
+                        position: req.body.position,
                         unitId: req.body.unitId,
                     }
                 })

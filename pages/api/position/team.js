@@ -6,27 +6,17 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.position.findMany();
+                const data = await prisma.position.findMany({
+                    select: {
+                        team: true
+                      },
+                      groupBy: {
+                        team: true
+                      }
+                });
                 res.status(200).json(data)
             } catch (error) {
-                res.status(400).json({ success: false })
-            }
-            break
-        case 'POST':
-            try {
-                await prisma.position.create({
-                    data: {
-                        name: req.body.name,
-                        price: parseInt(req.body.price),
-                        description: req.body.description,
-                        image: req.body.image,
-                        categoryId: req.body.categoryId,
-                        amount: parseInt(req.body.amount),
-                        unitId: req.body.unitId,
-                    }
-                })
-                res.status(201).json({ success: true })
-            } catch (error) {
+                console.log(error);
                 res.status(400).json({ success: false })
             }
             break

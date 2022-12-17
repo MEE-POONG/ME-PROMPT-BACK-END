@@ -161,6 +161,15 @@ button {
         background-color: #e8e8e8;
     }
 }
-.fs-0-75{
-    font-size: .75rem;
+.fs-0-75 {
+    font-size: 0.75rem;
+}
+.modal-content {
+    .page-change {
+        height: 100%;
+        .loading,
+        .error {
+            height: 100%;
+        }
+    }
 }

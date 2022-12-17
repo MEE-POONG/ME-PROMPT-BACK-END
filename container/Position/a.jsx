@@ -6,18 +6,20 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 import AutoCompleteTwo from '@/components/AutoCompleteTwo'
-import AutoCompleteThree from '@/components/AutoCompleteThree'
 export default function PositionModel() {
     const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
-    const [teamSelect, setTeamSelect] = useState('');
-    const [positionSelect, setPositionSelect] = useState('');
+    const [teamSelect, setTeamSelect] = useState("");
+    const [positionSelect, setPositionSelect] = useState("");
     const [checkValue, setCheckValue] = useState(true);
+
+    const [showAutoComplete, setShowAutoComplete] = useState(false);
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => setShowCheck(false);
     const handleShow = () => setShowCheck(true);
+
     const teams = positionData
         .map(position => position.team)
         .filter((team, index, self) => self.indexOf(team) === index)
@@ -28,12 +30,12 @@ export default function PositionModel() {
     };
 
     function handlePostData() {
-        if (teamSelect === '' || positionSelect === '') {
+        if (teamSelect === "" || positionSelect === "") {
             setCheckValue(false)
         } else {
             setCheckValue(true)
         }
-        console.log("checkValue ", checkValue);
+        console.log("checkValue ", checkValue, "teamSelect : ", teamSelect, teamSelect === "", " positionSelect : ", positionSelect, positionSelect === "");
         // executePosition({
         //     data: {
         //         team: teamSelect,
@@ -41,8 +43,8 @@ export default function PositionModel() {
         //     }
         // }).then(() => {
         //     Promise.all([
-        //         setTeamSelect(''),
-        //         setPositionSelect(''),
+        //         setTeamSelect(""),
+        //         setPositionSelect(""),
         //     ]).then(() => {
         //         handleClose()
         //     })
@@ -62,13 +64,19 @@ export default function PositionModel() {
                     <Modal.Title className='text-center'>ทีม และ หน้าที่งาน</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <Row className="mb-3">
-
                         <Col md='6'>
-                            {/* <AutoComplete options={teams} id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} /> */}
-                            {/* <AutoCompleteTwo id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} /> */}
-                            <AutoCompleteThree id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
+                            <Form.Group className="mb-3 position-relative" controlId="Text  " onMouseOut={() => { setShowAutoComplete(false) }}>
+                                <Form.Label>เลือกทีม</Form.Label>
+                                <Form.Control type="text" placeholder="ระบุข้อมูลทีม" value={teamSelect} onChange={(e) => { setTeamSelect(e.target.value) }} onClick={() => { setShowAutoComplete(true) }} />
+                                <Dropdown.Menu show={showAutoComplete} className='w-100' onMouseOver={() => { setShowAutoComplete(true) }}>
+                                    {props.options?.map((value, index) => (
+                                        <Dropdown.Item key={index} onClick={() => { setShowAutoComplete(false); setTeamSelect(value.label) }} eventKey="2">
+                                            {value.label}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Form.Group>
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
