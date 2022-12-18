@@ -4,22 +4,20 @@ import { Dropdown, Form } from 'react-bootstrap';
 export default function AutoCompleteThree(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
-  const [selectTeam, setSelectTeam] = useState('');
+  const [selectValue, setSelectValue] = useState('');
   const handleClose = () => setShowData(false);
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
-    setFilteredData(filterData(props.options, selectTeam));
-  }, [selectTeam]);
+    setFilteredData(filterData(props.options, selectValue));
+  }, [selectValue]);
 
   useEffect(() => {
-    if (selectTeam !== '') {
-      props.value(selectTeam)
-    }
-  }, [selectTeam]);
+      props.value(selectValue)
+  }, [selectValue]);
 
-  function filterData(data, selectTeam) {
-    return data.filter(item => item.team.includes(selectTeam));
+  function filterData(data, selectValue) {
+    return data.filter(item => item.team.includes(selectValue));
   }
 
 
@@ -27,10 +25,15 @@ export default function AutoCompleteThree(props) {
     <>
       <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={handleClose}>
         <Form.Label>{props.label}</Form.Label>
-        <Form.Control type="email" placeholder={props.placeholder} value={selectTeam} onChange={() => setSelectTeam(event.target.value)} autoComplete="off" onMouseOver={handleShow} />
+        <Form.Control type="email" placeholder={props.placeholder} value={selectValue}
+          onChange={(e) => setSelectValue(e.target.value)} autoComplete="off"
+          onMouseOver={handleShow}
+          isValid={props.checkValue === false && selectValue !== '' ? true : false}
+          isInvalid={props.checkValue === false && selectValue === '' ? true : false}
+        />
         <Dropdown.Menu show={showData && filteredData.length} className='w-100' onMouseOver={handleShow}>
           {filteredData.map(item => (
-            <Dropdown.Item key={item.id} onClick={() => { setShowData(false); setSelectTeam(item.team) }}>
+            <Dropdown.Item key={item.id} onClick={() => { setShowData(false); setSelectValue(item.team) }}>
               {item.team}
             </Dropdown.Item>
           ))}

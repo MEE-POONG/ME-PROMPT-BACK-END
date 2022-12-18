@@ -14,7 +14,7 @@ export default function PositionModel() {
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
-    const handleClose = () => setShowCheck(false);
+    const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
     const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
@@ -28,12 +28,7 @@ export default function PositionModel() {
         setTeamSelect(value);
     };
     useEffect(() => {
-        if (teamSelect === '' || positionSelect === '') {
-            setCheckValue(false)
-        } else {
-            setCheckValue(true)
-        }
-        console.log("checkValue ", checkValue, "teamSelect : ", teamSelect, "positionSelect : ", positionSelect);
+
         // executePosition({
         //     data: {
         //         team: teamSelect,
@@ -48,9 +43,26 @@ export default function PositionModel() {
         //     })
         // })
     }, [teamSelect])
+    const handlePostData = () => {
+        setCheckValue(false)
+        if (teamSelect !== '' || positionSelect !== '') {
+            executePosition({
+                data: {
+                    team: teamSelect,
+                    position: positionSelect,
+                }
+            }).then(() => {
+                Promise.all([
+                    setTeamSelect(''),
+                    setPositionSelect(''),
+                ]).then(() => {
+                    if (positionPost.success) {
+                        handleClose()
+                    }
+                })
+            })
 
-    function handlePostData() {
-
+        }
     }
 
     if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
@@ -66,7 +78,6 @@ export default function PositionModel() {
                     <Modal.Title className='text-center'>ทีม และ หน้าที่งาน</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
                     <Row className="mb-3">
 
                         <Col md='6'>
@@ -75,7 +86,11 @@ export default function PositionModel() {
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน" onChange={(e) => { setPositionSelect(e.target.value) }} value={positionSelect} autoComplete="off" />
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                    onChange={(e) => { setPositionSelect(e.target.value) }}
+                                    value={positionSelect} autoComplete="off"
+                                    isValid={checkValue === false && positionSelect !== '' ? true : false}
+                                    isInvalid={checkValue === false && positionSelect === '' ? true : false} />
                             </Form.Group>
                         </Col>
                     </Row>
