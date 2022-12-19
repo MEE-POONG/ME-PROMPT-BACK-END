@@ -5,7 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionModel(props) {
+export default function PositionAddModel(props) {
     const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 

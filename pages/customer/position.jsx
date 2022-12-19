@@ -5,7 +5,8 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import PositionModel from '@/container/Position/PositionModel'
+import PositionAddModel from '@/container/Position/PositionAddModel'
+import PositionEditModel from '@/container/Position/PositionEditModel'
 
 export default function PositionPage() {
     const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
@@ -20,7 +21,7 @@ export default function PositionPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        <PositionModel getData={getPosition}/>
+                        <PositionAddModel getData={getPosition}/>
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
@@ -33,20 +34,20 @@ export default function PositionPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {positionData?.map((position, index) => (
+                                {positionData?.map((positionData, index) => (
                                     <tr key={index}>
                                         <td>
                                             {index + 1}.
                                         </td>
                                         <td>
-                                            {position.team}
+                                            {positionData.team}
                                         </td>
                                         <td>
-                                            {position.position}
+                                            {positionData.position}
                                         </td>
                                         <td>
                                             <Button bsPrefix='icon edit'
-                                                onClick={() => ShowModalEdit(position.id)}
+                                                onClick={() => PositionEditModel(positionData)}
                                             >
                                                 <FaEdit />
                                             </Button>
