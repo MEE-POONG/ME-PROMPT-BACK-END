@@ -5,11 +5,11 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionEditModel(props) {  
+export default function PositionEditModel(props) {
     const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
-    const [teamSelect, setTeamSelect] = useState('');
+    const [teamSelect, setTeamSelect] = useState(props.value.team);
     const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
@@ -55,9 +55,10 @@ export default function PositionEditModel(props) {
 
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มหน้าที่งาน
+            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaEdit />
             </Button>
+
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>ทีม และ หน้าที่งาน</Modal.Title>

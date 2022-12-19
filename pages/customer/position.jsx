@@ -46,11 +46,12 @@ export default function PositionPage() {
                                             {positionData.position}
                                         </td>
                                         <td>
-                                            <Button bsPrefix='icon edit'
+                                            {/* <Button bsPrefix='icon edit'
                                                 onClick={() => PositionEditModel(positionData)}
                                             >
                                                 <FaEdit />
-                                            </Button>
+                                            </Button> */}
+                                            <PositionEditModel value={positionData} />
                                             <Button bsPrefix='icon delete'
                                             // onClick={() => executePositionDelete({ url: '/api/position/' + position.id, method: 'DELETE' })}
                                             >
