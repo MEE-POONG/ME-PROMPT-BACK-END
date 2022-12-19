@@ -5,7 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionModel() {
+export default function PositionModel(props) {
     const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
@@ -16,6 +16,7 @@ export default function PositionModel() {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+    console.log("a123456  : ", props);
     const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
@@ -27,25 +28,9 @@ export default function PositionModel() {
         console.log("value 29 : ", value);
         setTeamSelect(value);
     };
-    useEffect(() => {
-
-        // executePosition({
-        //     data: {
-        //         team: teamSelect,
-        //         position: positionSelect,
-        //     }
-        // }).then(() => {
-        //     Promise.all([
-        //         setTeamSelect(''),
-        //         setPositionSelect(''),
-        //     ]).then(() => {
-        //         handleClose()
-        //     })
-        // })
-    }, [teamSelect])
     const handlePostData = () => {
         setCheckValue(false)
-        if (teamSelect !== '' || positionSelect !== '') {
+        if (teamSelect !== '' && positionSelect !== '') {
             executePosition({
                 data: {
                     team: teamSelect,
@@ -55,13 +40,13 @@ export default function PositionModel() {
                 Promise.all([
                     setTeamSelect(''),
                     setPositionSelect(''),
+                    props.getData(),
                 ]).then(() => {
-                    if (positionPost.success) {
+                    if (positionPost?.success) {
                         handleClose()
                     }
                 })
             })
-
         }
     }
 
@@ -79,7 +64,6 @@ export default function PositionModel() {
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">
-
                         <Col md='6'>
                             <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
                         </Col>

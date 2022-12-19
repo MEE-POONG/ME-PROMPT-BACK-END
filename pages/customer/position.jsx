@@ -20,7 +20,7 @@ export default function PositionPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        <PositionModel/>
+                        <PositionModel getData={getPosition}/>
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
