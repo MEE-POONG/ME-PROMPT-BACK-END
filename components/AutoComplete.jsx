@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 
-export default function AutoCompleteThree(props) {
+export default function AutoComplete(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
   const [selectValue, setSelectValue] = useState('');
   const handleClose = () => setShowData(false);
   const handleShow = () => setShowData(true);
-
   useEffect(() => {
-    setFilteredData(filterData(props.options, selectValue));
-  }, [selectValue]);
-
+    if (props?.defaultValue?.length > 1) {
+      setSelectValue(props.defaultValue)
+    }
+  }, []);
   useEffect(() => {
-      props.value(selectValue)
+    setFilteredData(filterData(props?.options, selectValue).slice(0, 6));
+    props.value(selectValue);
   }, [selectValue]);
 
   function filterData(data, selectValue) {
@@ -23,6 +24,9 @@ export default function AutoCompleteThree(props) {
 
   return (
     <>
+        {/* display: block;
+    overflow-x: auto;
+    height: 320px; */}
       <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={handleClose}>
         <Form.Label>{props.label}</Form.Label>
         <Form.Control type="email" placeholder={props.placeholder} value={selectValue}

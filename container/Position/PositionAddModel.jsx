@@ -6,8 +6,8 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 export default function PositionAddModel(props) {
-    const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
+    const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
+    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
     const [teamSelect, setTeamSelect] = useState('');
     const [positionSelect, setPositionSelect] = useState('');
@@ -16,7 +16,6 @@ export default function PositionAddModel(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    console.log("a123456  : ", props);
     const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
@@ -31,7 +30,7 @@ export default function PositionAddModel(props) {
     const handlePostData = () => {
         setCheckValue(false)
         if (teamSelect !== '' && positionSelect !== '') {
-            executePosition({
+            executePositionTeam({
                 data: {
                     team: teamSelect,
                     position: positionSelect,

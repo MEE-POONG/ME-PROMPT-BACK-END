@@ -7,16 +7,15 @@ import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 export default function PositionEditModel(props) {
     const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePosition] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
+    const [{ error: errorMessage, loading: updatePositionPutLoading }, executePositionTeamPut] = useAxios({ url: '/api/position', method: 'Put' }, { manual: true });
 
     const [teamSelect, setTeamSelect] = useState(props.value.team);
-    const [positionSelect, setPositionSelect] = useState('');
+    const [positionSelect, setPositionSelect] = useState(props.value.position);
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    console.log("a123456  : ", props);
     const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
@@ -25,32 +24,32 @@ export default function PositionEditModel(props) {
     }, []);
 
     const clickTeam = value => {
-        console.log("value 29 : ", value);
         setTeamSelect(value);
     };
-    const handlePostData = () => {
+    const handlePutData = () => {
         setCheckValue(false)
-        if (teamSelect !== '' && positionSelect !== '') {
-            executePosition({
-                data: {
-                    team: teamSelect,
-                    position: positionSelect,
-                }
-            }).then(() => {
-                Promise.all([
-                    setTeamSelect(''),
-                    setPositionSelect(''),
-                    props.getData(),
-                ]).then(() => {
-                    if (positionPost?.success) {
-                        handleClose()
-                    }
-                })
-            })
-        }
+        console.log("teamSelect : ", teamSelect, " positionSelect : ", positionSelect);
+        // if (teamSelect !== '' && positionSelect !== '') {
+        //     executePosition({
+        //         data: {
+        //             team: teamSelect,
+        //             position: positionSelect,
+        //         }
+        //     }).then(() => {
+        //         Promise.all([
+        //             setTeamSelect(''),
+        //             setPositionSelect(''),
+        //             props.getData(),
+        //         ]).then(() => {
+        //             if (positionPost?.success) {
+        //                 handleClose()
+        //             }
+        //         })
+        //     })
+        // }
     }
 
-    if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (loading || updatePositionPutLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
     if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
@@ -66,7 +65,7 @@ export default function PositionEditModel(props) {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
+                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={props.value.team} checkValue={checkValue} options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -84,7 +83,7 @@ export default function PositionEditModel(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handlePostData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
