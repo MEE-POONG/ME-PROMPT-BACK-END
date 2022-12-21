@@ -30,7 +30,6 @@ export default async function handler(req, res) {
                 })
                 prisma.$disconnect();
                 res.status(201).json({ success: true })
-                console.log("res : ", res);
             } catch (error) {
                 res.status(400).json({ success: false })
             }
