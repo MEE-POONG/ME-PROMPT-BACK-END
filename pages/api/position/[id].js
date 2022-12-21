@@ -6,11 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.position.findFirst({
-                    include: {
-                        category: true,
-                        unit: true
-                    },
+                const data = await prisma.Position.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -23,7 +19,7 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.position.update({
+                await prisma.Position.update({
                     where: {
                         id: req.query.id
                     },

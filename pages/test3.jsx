@@ -1,4 +1,5 @@
 import React from 'react';
+import { Table } from 'react-bootstrap';
 
 function MyTable(props) {
     const { data, itemsPerPage } = props;
@@ -18,7 +19,7 @@ function MyTable(props) {
 
     return (
         <div>
-            <table>
+               <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -37,7 +38,7 @@ function MyTable(props) {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </Table>
             <button onClick={handlePrevClick} disabled={page === 1}>
                 Previous
             </button>

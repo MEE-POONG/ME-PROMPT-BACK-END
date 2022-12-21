@@ -24,7 +24,6 @@ export default function PositionAddModel(props) {
     }, []);
 
     const clickTeam = value => {
-        console.log("value 29 : ", value);
         setTeamSelect(value);
     };
     const handlePostData = () => {

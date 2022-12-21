@@ -6,16 +6,18 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 export default function PositionEditModel(props) {
-    const [{ data: positionTeam, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ error: errorMessage, loading: updatePositionPutLoading }, executePositionTeamPut] = useAxios({ url: '/api/position', method: 'Put' }, { manual: true });
+    const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
+    const [{ loading: updatePositionTeamLoading, error: updatePositionTeamError }, executePositionTeamPut] = useAxios({}, { manual: true })
+    const [{ loading: deletePositionTeamLoading, error: deletePositionTeamError }, executePositionTeamDelete] = useAxios({}, { manual: true })
 
-    const [teamSelect, setTeamSelect] = useState(props.value.team);
-    const [positionSelect, setPositionSelect] = useState(props.value.position);
+    const [teamSelect, setTeamSelect] = useState(props?.value?.team);
+    const [positionSelect, setPositionSelect] = useState(props?.value?.position);
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+
     const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
@@ -27,10 +29,11 @@ export default function PositionEditModel(props) {
         setTeamSelect(value);
     };
     const handlePutData = () => {
-        setCheckValue(false)
-        console.log("teamSelect : ", teamSelect, " positionSelect : ", positionSelect);
+        setCheckValue(false);
         // if (teamSelect !== '' && positionSelect !== '') {
-        //     executePosition({
+        //     executePositionTeamPut({
+        //         url: '/api/position/' + props?.value?.id,
+        //         method: 'PUT',
         //         data: {
         //             team: teamSelect,
         //             position: positionSelect,
@@ -49,8 +52,8 @@ export default function PositionEditModel(props) {
         // }
     }
 
-    if (loading || updatePositionPutLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (loading || updatePositionTeamLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (error || deletePositionTeamError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -65,7 +68,7 @@ export default function PositionEditModel(props) {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={props.value.team} checkValue={checkValue} options={teams} />
+                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={props?.value?.team} checkValue={checkValue} options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
