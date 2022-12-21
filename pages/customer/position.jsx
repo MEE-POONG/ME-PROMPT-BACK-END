@@ -5,8 +5,9 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import PositionAddModel from '@/container/Position/PositionAddModel'
-import PositionEditModel from '@/container/Position/PositionEditModel'
+import PositionAddModal from '@/container/Position/PositionAddModal'
+import PositionEditModal from '@/container/Position/PositionEditModal'
+import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
 
 export default function PositionPage() {
     const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
@@ -21,7 +22,7 @@ export default function PositionPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        <PositionAddModel getData={getPosition} />
+                        <PositionAddModal getData={getPosition} />
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
@@ -46,17 +47,8 @@ export default function PositionPage() {
                                             {positionData.position}
                                         </td>
                                         <td>
-                                            {/* <Button bsPrefix='icon edit'
-                                                onClick={() => PositionEditModel(positionData)}
-                                            >
-                                                <FaEdit />
-                                            </Button> */}
-                                            <PositionEditModel value={positionData} getData={getPosition} />
-                                            <Button bsPrefix='icon delete'
-                                            // onClick={() => executePositionDelete({ url: '/api/position/' + position.id, method: 'DELETE' })}
-                                            >
-                                                <FaTrash />
-                                            </Button>
+                                            <PositionEditModal value={positionData} getData={getPosition} />
+                                            <PositionDeleteModal value={positionData} getData={getPosition} />
                                         </td>
                                     </tr>
                                 ))}

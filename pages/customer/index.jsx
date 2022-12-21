@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 import CreateModel from '@/container/Customer/CreateModel'
-import PositionModel from '@/container/Position/PositionAddModel'
+import PositionModel from '@/container/Position/PositionAddModal'
 
 export default function CustomerPage() {
     const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: '/api/customer' })

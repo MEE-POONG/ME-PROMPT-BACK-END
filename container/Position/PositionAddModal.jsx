@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownButton, Dropdown, Badge, ToggleButton } from 'react-bootstrap'
-import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
+import React, { useState } from 'react'
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
+import { FaPlus } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionDeleteModel(props) {
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+export default function PositionAddModal(props) {
+    const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
+    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
-    const [teamSelect, setTeamSelect] = useState(props?.value?.team);
-    const [positionSelect, setPositionSelect] = useState(props?.value?.position);
+    const [teamSelect, setTeamSelect] = useState('');
+    const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-
-    const teams = position?.reduce((acc, item) => {
+    const teams = positionTeam?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
         }
@@ -26,12 +26,10 @@ export default function PositionDeleteModel(props) {
     const clickTeam = value => {
         setTeamSelect(value);
     };
-    const handlePutData = () => {
-        setCheckValue(false);
+    const handlePostData = () => {
+        setCheckValue(false)
         if (teamSelect !== '' && positionSelect !== '') {
-            executePositionPut({
-                url: '/api/position/' + props?.value?.id,
-                method: 'PUT',
+            executePositionTeam({
                 data: {
                     team: teamSelect,
                     position: positionSelect,
@@ -42,7 +40,7 @@ export default function PositionDeleteModel(props) {
                     setPositionSelect(''),
                     props.getData(),
                 ]).then(() => {
-                    if (updatePositionLoading?.success) {
+                    if (positionPost?.success) {
                         handleClose()
                     }
                 })
@@ -50,23 +48,22 @@ export default function PositionDeleteModel(props) {
         }
     }
 
-    if (loading || deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
-            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
-                <FaEdit />
+            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
+                <FaPlus />{" "}เพิ่มหน้าที่งาน
             </Button>
-
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ทีม และ หน้าที่งาน</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มทีมและหน้าที่งาน</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={props?.value?.team} checkValue={checkValue} options={teams} />
+                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -75,8 +72,7 @@ export default function PositionDeleteModel(props) {
                                     onChange={(e) => { setPositionSelect(e.target.value) }}
                                     value={positionSelect} autoComplete="off"
                                     isValid={checkValue === false && positionSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && positionSelect === '' ? true : false}
-                                />
+                                    isInvalid={checkValue === false && positionSelect === '' ? true : false} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -85,7 +81,7 @@ export default function PositionDeleteModel(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handlePostData}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
