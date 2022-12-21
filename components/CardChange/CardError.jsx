@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 export default function CardError() {
 
     return (
-        <div fluid className="page-change">
+        <div className="page-change">
             <Card className='error'>
                 <div className="ring">
                     <h1>Error</h1>

@@ -7,8 +7,8 @@ import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 export default function PositionEditModel(props) {
     const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
-    const [{ data: positionPut, loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+    const [{ data: positionPut, loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
+    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
 
     const [teamSelect, setTeamSelect] = useState(props?.value?.team);
     const [positionSelect, setPositionSelect] = useState(props?.value?.position);
@@ -44,7 +44,7 @@ export default function PositionEditModel(props) {
                     setPositionSelect(''),
                     props.getData(),
                 ]).then(() => {
-                    console.log(positionPut);
+                    console.log("positionPut");
                     // if (positionPut?.success) {
                     //     handleClose()
                     // }
@@ -78,7 +78,8 @@ export default function PositionEditModel(props) {
                                     onChange={(e) => { setPositionSelect(e.target.value) }}
                                     value={positionSelect} autoComplete="off"
                                     isValid={checkValue === false && positionSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && positionSelect === '' ? true : false} />
+                                    isInvalid={checkValue === false && positionSelect === '' ? true : false}
+                                />
                             </Form.Group>
                         </Col>
                     </Row>

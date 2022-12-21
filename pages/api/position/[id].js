@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.Position.findFirst({
+                const data = await prisma.position.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.Position.update({
+                await prisma.position.update({
                     where: {
                         id: req.query.id
                     },
@@ -30,6 +30,7 @@ export default async function handler(req, res) {
                 })
                 prisma.$disconnect();
                 res.status(201).json({ success: true })
+                console.log("res : ", res);
             } catch (error) {
                 res.status(400).json({ success: false })
             }
