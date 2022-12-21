@@ -21,7 +21,7 @@ export default function PositionPage() {
                         <Card.Title className="mb-0">
                             รายการสินค้า
                         </Card.Title>
-                        <PositionAddModel getData={getPosition}/>
+                        <PositionAddModel getData={getPosition} />
                     </div>
                     <div className="table-responsive">
                         <Table className="table table-striped table-hover mb-0">
@@ -51,7 +51,7 @@ export default function PositionPage() {
                                             >
                                                 <FaEdit />
                                             </Button> */}
-                                            <PositionEditModel value={positionData} />
+                                            <PositionEditModel value={positionData} getData={getPosition} />
                                             <Button bsPrefix='icon delete'
                                             // onClick={() => executePositionDelete({ url: '/api/position/' + position.id, method: 'DELETE' })}
                                             >
