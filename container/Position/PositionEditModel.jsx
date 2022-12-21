@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Modal, Button, Form, Image, InputGroup, Row, Col, DropdownButton, Dropdown, Badge, ToggleButton } from 'react-bootstrap'
-import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
+import React, { useState } from 'react'
+import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
+import { FaEdit } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
@@ -8,7 +8,6 @@ import CardError from '@/components/CardChange/CardError'
 export default function PositionEditModel(props) {
     const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
 
     const [teamSelect, setTeamSelect] = useState(props?.value?.team);
     const [positionSelect, setPositionSelect] = useState(props?.value?.position);
@@ -53,7 +52,7 @@ export default function PositionEditModel(props) {
     }
 
     if (loading || updatePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (error || updatePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>

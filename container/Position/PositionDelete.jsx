@@ -5,9 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionEditModel(props) {
-    const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
+export default function PositionDeleteModel(props) {
     const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
 
     const [teamSelect, setTeamSelect] = useState(props?.value?.team);
@@ -52,7 +50,7 @@ export default function PositionEditModel(props) {
         }
     }
 
-    if (loading || updatePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (loading || deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
     if (error || deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
