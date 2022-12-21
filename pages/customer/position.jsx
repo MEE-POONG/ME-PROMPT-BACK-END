@@ -58,14 +58,15 @@ function MyTable(props) {
                     <Pagination.Next />
                     <Pagination.Last onClick={handleNextClick} disabled={page * itemsPerPage >= data?.length} />
                 </Pagination>
-                <Form.Control
-                    type='number'
-                    min={10}
-                    max={100}
-                    placeholder="Username"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                />
+                <Form.Select aria-label="10" bsPrefix='array-show'>
+                    <option className='text-end' value="10" selected>10{" "}</option>
+                    <option className='text-end' value="30">30{" "}</option>
+                    <option className='text-end' value="50">50{" "}</option>
+                    <option className='text-end' value="100">100{" "}</option>
+                    <option className='text-end' value="300">300{" "}</option>
+                    <option className='text-end' value="500">500{" "}</option>
+                    <option className='text-end' value="1000" >1000{" "}</option>
+                </Form.Select>
             </div>
 
         </div>
