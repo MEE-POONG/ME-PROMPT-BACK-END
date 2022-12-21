@@ -5,7 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionAddModal(props) {
+export default function PositionAddModal() {
     const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
 
@@ -38,7 +38,7 @@ export default function PositionAddModal(props) {
                 Promise.all([
                     setTeamSelect(''),
                     setPositionSelect(''),
-                    props.getData(),
+                    getPositionTeam(),
                 ]).then(() => {
                     if (positionPost?.success) {
                         handleClose()

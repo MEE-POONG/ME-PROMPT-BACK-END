@@ -164,7 +164,7 @@ button {
 .fs-0-75 {
     font-size: 0.75rem;
 }
-.modal-data{
+.modal-data {
     height: 500px;
 }
 .modal-content {
@@ -175,4 +175,10 @@ button {
             height: 100%;
         }
     }
+}
+.dcc-space-between {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
 }

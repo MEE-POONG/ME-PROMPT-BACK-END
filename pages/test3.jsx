@@ -19,7 +19,7 @@ function MyTable(props) {
 
     return (
         <div>
-               <Table striped bordered hover>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -29,9 +29,9 @@ function MyTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentItems.map((item) => (
+                    {currentItems.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{item.id}</td>
+                            <td>{index + 1}</td>
                             <td>{item.name}</td>
                             <td>{item.age}</td>
                             <td>{item.address}</td>
@@ -53,6 +53,38 @@ export default function TestThree() {
     const data = [
         { id: 1, name: 'Alice', age: 25, address: 'New York' },
         { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
+        { id: 2, name: 'Bob', age: 32, address: 'Los Angeles' },
         // ...
         { id: 100, name: 'Eve', age: 29, address: 'Chicago' },
     ];
@@ -61,4 +93,4 @@ export default function TestThree() {
 
     return <MyTable data={data} itemsPerPage={itemsPerPage} />;
 }
-TestThree.layout = IndexPage
+// TestThree.layout = IndexPage
