@@ -4,13 +4,12 @@ import { Dropdown, Form } from 'react-bootstrap';
 export default function AutoComplete(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState("");
   const handleClose = () => setShowData(false);
   const handleShow = () => setShowData(true);
+
   useEffect(() => {
-    setSelectValue(props?.defaultValue)
-  }, []);
-  useEffect(() => {
+    console.log(selectValue);
     setFilteredData(filterData(props?.options, selectValue).slice(0, 6));
     props?.value(selectValue);
   }, [selectValue]);
@@ -19,17 +18,18 @@ export default function AutoComplete(props) {
     return data.filter(item => item.team.includes(selectValue));
   }
 
-
+  function handleInputChange(event) {
+    setSelectValue(event.target.value);
+  }
   return (
     <>
-      {/* display: block;
-    overflow-x: auto;
-    height: 320px; */}
+
       <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={handleClose}>
         <Form.Label>{props?.label}</Form.Label>
         <Form.Control type="text" placeholder={props?.placeholder}
-          defaultValue={selectValue}
-          onChange={(e) => setSelectValue(e.target.value)} autoComplete="off"
+          value={selectValue}
+          autoComplete="off"
+          onChange={handleInputChange}
           onMouseOver={handleShow}
           isValid={props?.checkValue === false && selectValue !== '' ? true : false}
           isInvalid={props?.checkValue === false && selectValue === '' ? true : false}

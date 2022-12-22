@@ -9,19 +9,20 @@ export default function MyComponent() {
     const [pageSize, setPageSize] = useState(10);
     const [positions, setPositions] = useState([]);
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({}, { manual: true })
 
     const handlePageChange = (pageNumber) => {
         setPage(pageNumber);
     };
 
     useEffect(() => {
+
         // const fetchData = async () => {
         // const positions = await prisma.position.findMany({
         //     skip: (page - 1) * pageSize,
         //     take: pageSize,
         // });
-        setPositions(positionData);
+        // setPositions(positionData);
         // };
         // fetchData();
     }, []);

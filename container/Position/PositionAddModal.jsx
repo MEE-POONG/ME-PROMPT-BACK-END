@@ -8,7 +8,6 @@ import CardError from '@/components/CardChange/CardError'
 export default function PositionAddModal() {
     const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
-
     const [teamSelect, setTeamSelect] = useState('');
     const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);

@@ -12,6 +12,19 @@ function MyTable(props) {
 
     const { data, itemsPerPage } = props;
     const [page, setPage] = React.useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    useEffect(() => {
+        getPosition({
+            data: {
+                page: page,
+                pageSize: pageSize,
+            }
+        }).then(() => {
+            // setPositions(positionData);
+            // CloseModal()
+        })
+    }, []);
 
     const handlePrevClick = () => {
         setPage(page - 1);
@@ -59,13 +72,13 @@ function MyTable(props) {
                     <Pagination.Last onClick={handleNextClick} disabled={page * itemsPerPage >= data?.length} />
                 </Pagination>
                 <Form.Select aria-label="10" bsPrefix='array-show'>
-                    <option className='text-end' value="10" selected>10{" "}</option>
-                    <option className='text-end' value="30">30{" "}</option>
-                    <option className='text-end' value="50">50{" "}</option>
-                    <option className='text-end' value="100">100{" "}</option>
-                    <option className='text-end' value="300">300{" "}</option>
-                    <option className='text-end' value="500">500{" "}</option>
-                    <option className='text-end' value="1000" >1000{" "}</option>
+                    <option className='text-end' value="10" selected={pageSize === 10} onClick={() => { setPageSize(10) }}>10{" "}</option>
+                    <option className='text-end' value="30" selected={pageSize === 30} onClick={() => { setPageSize(30) }}>30{" "}</option>
+                    <option className='text-end' value="50" selected={pageSize === 50} onClick={() => { setPageSize(50) }}>50{" "}</option>
+                    <option className='text-end' value="100" selected={pageSize === 100} onClick={() => { setPageSize(100) }}>100{" "}</option>
+                    <option className='text-end' value="300" selected={pageSize === 300} onClick={() => { setPageSize(300) }}>300{" "}</option>
+                    <option className='text-end' value="500" selected={pageSize === 500} onClick={() => { setPageSize(500) }}>500{" "}</option>
+                    <option className='text-end' value="1000" selected={pageSize === 1000} onClick={() => { setPageSize(1000) }}>1000{" "}</option>
                 </Form.Select>
             </div>
 
