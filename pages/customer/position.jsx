@@ -88,8 +88,6 @@ export default function PositionPage() {
     };
     const handleSelectPageSize = (sizeValue) => {
         getPosition({ url: `/api/position?page=1&pageSize=${sizeValue}` })
-
-
     };
 
     if (loading) {
