@@ -60,6 +60,8 @@ export default function PositionPage() {
 
     useEffect(() => {
         if (positionData) {
+            console.log(positionData.totolPage * positionData.pageSize
+            );
             setParams({
                 ...params,
                 page: positionData.page,
@@ -86,7 +88,7 @@ export default function PositionPage() {
         getPosition({ url: `/api/position?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getPosition({ url: `/api/position?page=${params.page}&pageSize=${sizeValue}` })
+        getPosition({ url: `/api/position?page=1&pageSize=${sizeValue}` })
 
 
     };
@@ -123,13 +125,13 @@ export default function PositionPage() {
                         </Pagination>
                         <Form.Select aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
                             <option value="10" >10</option>
-                            <option value="20" >20</option>
-                            <option value="30" >30</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
                             <option value="50">50</option>
-                            <option value="100" >100</option>
-                            <option value="300" >300</option>
-                            <option value="500" >500</option>
-                            <option value="1000" >1000</option>
+                            <option value="100">100</option>
+                            <option value="300">300</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
                         </Form.Select>
                     </div>
                 </div >
