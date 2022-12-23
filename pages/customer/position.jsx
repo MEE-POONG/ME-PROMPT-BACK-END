@@ -10,6 +10,7 @@ import PositionEditModal from '@/container/Position/PositionEditModal'
 import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
+    const [numberSet, setNumberSet] = useState(props?.setNum);
     useEffect(() => {
         setCurrentItems(currentItems);
     }, [props]);
@@ -31,7 +32,7 @@ function MyTable(props) {
                     {currentItems.length ? (
                         currentItems?.map((item, index) => (
                             <tr key={item.id}>
-                                <td>{index + 1}</td>
+                                <td>{index + 1 + numberSet}</td>
                                 <td>{item.team}</td>
                                 <td>{item.position}</td>
                                 <td>
@@ -55,14 +56,18 @@ export default function PositionPage() {
         pageSize: '10'
     });
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${params.page}&pageSize=${params.pageSize}`, method: 'GET' });
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
 
-    // useEffect(() => {
-    //     getPosition({ url: url, method: 'GET' }).then(() => {
-    //         // CloseModal()
-    //         console.log(positionData);
-    //     })
-    // }, [params]);
+    useEffect(() => {
+        if (positionData) {
+            setParams({
+                ...params,
+                page: positionData.page,
+                pageSize: positionData.pageSize
+            });
+        }
+
+    }, [positionData]);
 
     const handlePrevClick = () => {
         setParams({
@@ -77,17 +82,13 @@ export default function PositionPage() {
             page: params.page + 1
         });
     };
-    const handleSelectPage = (val) => {
-        setParams({
-            ...params,
-            page: val
-        });
+    const handleSelectPage = (pageValue) => {
+        getPosition({ url: `/api/position?page=${pageValue}&pageSize=${params.pageSize}` })
     };
-    const handlePageSize = (event) => {
-        setParams({
-            ...params,
-            pageSize: event.target.value
-        });
+    const handleSelectPageSize = (sizeValue) => {
+        getPosition({ url: `/api/position?page=${params.page}&pageSize=${sizeValue}` })
+
+
     };
 
     if (loading) {
@@ -106,28 +107,29 @@ export default function PositionPage() {
                     <PositionAddModal getData={getPosition} />
                 </div>
                 <div className="table-responsive">
-                    <MyTable data={positionData?.data} />
+                    <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} />
                     <div className='dcc-space-between'>
                         <Pagination className='mb-0'>
                             <Pagination.First />
                             <Pagination.Prev onClick={handlePrevClick} disabled={params.page === 1} />
                             {[...Array(positionData.totolPage).keys()].map((i) => {
-                                const page = i + 1
+                                const pageValue = i + 1
                                 return (
-                                    <Pagination.Item key={i} onClick={() => { getPosition({ url: `/api/position?page=${page}&pageSize=${params.pageSize}` }) }}>{page}</Pagination.Item>
+                                    <Pagination.Item key={i} onClick={() => { handleSelectPage(pageValue) }}>{pageValue}</Pagination.Item>
                                 )
                             })}
                             <Pagination.Next onClick={handleNextClick} disabled={params.page * params.pageSize >= positionData?.data?.length} />
                             <Pagination.Last />
                         </Pagination>
-                        <Form.Select aria-label="10" bsPrefix='array-show' value={params.pageSize}>
-                            <option className='text-end' defaultValue>10</option>
-                            <option className='text-end'>30</option>
-                            <option className='text-end'>50</option>
-                            <option className='text-end'>100</option>
-                            <option className='text-end'>300</option>
-                            <option className='text-end'>500</option>
-                            <option className='text-end'>1000</option>
+                        <Form.Select aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
+                            <option value="10" >10</option>
+                            <option value="20" >20</option>
+                            <option value="30" >30</option>
+                            <option value="50">50</option>
+                            <option value="100" >100</option>
+                            <option value="300" >300</option>
+                            <option value="500" >500</option>
+                            <option value="1000" >1000</option>
                         </Form.Select>
                     </div>
                 </div >
