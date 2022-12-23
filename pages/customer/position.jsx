@@ -53,7 +53,7 @@ function MyTable(props) {
 export default function PositionPage() {
     const [params, setParams] = useState({
         page: '1',
-        pageSize: '10'
+        pageSize: '1'
     });
 
     const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
@@ -114,7 +114,7 @@ export default function PositionPage() {
                             {[...Array(positionData.totolPage).keys()].map((i) => {
                                 const pageValue = i + 1
                                 return (
-                                    <Pagination.Item key={i} onClick={() => { handleSelectPage(pageValue) }}>{pageValue}</Pagination.Item>
+                                    <Pagination.Item key={i} active={positionData.page === pageValue} onClick={() => { handleSelectPage(pageValue) }}>{pageValue}</Pagination.Item>
                                 )
                             })}
                             <Pagination.Next onClick={() => { handleSelectPage(params.page + 1) }} disabled={positionData.totolPage === positionData.page} />
