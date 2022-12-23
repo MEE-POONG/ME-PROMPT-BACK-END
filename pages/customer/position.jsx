@@ -123,7 +123,7 @@ export default function PositionPage() {
                             <Pagination.Next onClick={handleNextClick} disabled={params.page * params.pageSize >= positionData?.data?.length} />
                             <Pagination.Last />
                         </Pagination>
-                        <Form.Select aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
+                        <Form.Select className='page-size' aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
                             <option value="10" >10</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
