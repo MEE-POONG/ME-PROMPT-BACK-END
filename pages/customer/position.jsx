@@ -22,7 +22,7 @@ function MyTable(props) {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No.</th>
                         <th>Team</th>
                         <th>Position</th>
                         <th>Manager</th>
@@ -60,8 +60,7 @@ export default function PositionPage() {
 
     useEffect(() => {
         if (positionData) {
-            console.log(positionData.totolPage * positionData.pageSize
-            );
+            console.log(positionData);
             setParams({
                 ...params,
                 page: positionData.page,
@@ -112,16 +111,16 @@ export default function PositionPage() {
                     <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} />
                     <div className='dcc-space-between'>
                         <Pagination className='mb-0'>
-                            <Pagination.First />
-                            <Pagination.Prev onClick={handlePrevClick} disabled={params.page === 1} />
+                            <Pagination.First onClick={() => { handleSelectPage(1) }} disabled={params.page === 1} />
+                            <Pagination.Prev onClick={() => { handleSelectPage(params.page - 1) }} disabled={params.page === 1} />
                             {[...Array(positionData.totolPage).keys()].map((i) => {
                                 const pageValue = i + 1
                                 return (
                                     <Pagination.Item key={i} onClick={() => { handleSelectPage(pageValue) }}>{pageValue}</Pagination.Item>
                                 )
                             })}
-                            <Pagination.Next onClick={handleNextClick} disabled={params.page * params.pageSize >= positionData?.data?.length} />
-                            <Pagination.Last />
+                            <Pagination.Next onClick={() => { handleSelectPage(params.page + 1) }} disabled={positionData.totolPage === positionData.page} />
+                            <Pagination.Last onClick={() => { handleSelectPage(positionData.totolPage) }} disabled={positionData.totolPage === positionData.page} />
                         </Pagination>
                         <Form.Select className='page-size' aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
                             <option value="10" >10</option>
