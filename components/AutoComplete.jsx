@@ -4,12 +4,18 @@ import { Dropdown, Form } from 'react-bootstrap';
 export default function AutoComplete(props) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
-  const [selectValue, setSelectValue] = useState("");
+  const [selectValue, setSelectValue] = useState('');
   const handleClose = () => setShowData(false);
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
-    console.log(selectValue);
+    console.log("props", props);
+    if (props) {
+      setSelectValue(props?.defaultValue);
+    }
+  }, []);
+  useEffect(() => {
+    console.log("selectValue :", selectValue);
     setFilteredData(filterData(props?.options, selectValue).slice(0, 6));
     props?.value(selectValue);
   }, [selectValue]);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
@@ -9,13 +9,19 @@ export default function PositionEditModal(props) {
     const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
 
-    const [teamSelect, setTeamSelect] = useState(props?.value?.team);
-    const [positionSelect, setPositionSelect] = useState(props?.value?.position);
+    const [teamSelect, setTeamSelect] = useState('');
+    const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+    useEffect(() => {
+        if (props) {
+            setTeamSelect(props?.value?.team);
+            setPositionSelect(props?.value?.position);
+        }
+    }, [props]);
 
     const teams = position?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
@@ -67,7 +73,7 @@ export default function PositionEditModal(props) {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={props?.value?.team} checkValue={checkValue} options={teams} />
+                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={teamSelect} checkValue={checkValue} options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">

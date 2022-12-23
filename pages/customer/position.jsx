@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import queryString from 'query-string';
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination } from 'react-bootstrap'
 import useAxios from 'axios-hooks'
@@ -8,39 +9,16 @@ import PositionAddModal from '@/container/Position/PositionAddModal'
 import PositionEditModal from '@/container/Position/PositionEditModal'
 import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
 function MyTable(props) {
-    // const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
-
-    // const { data, itemsPerPage } = props;
-    // const [page, setPage] = React.useState(1);
-    // const [pageSize, setPageSize] = useState(10);
-
+    const [currentItems, setCurrentItems] = useState(props?.data);
     useEffect(() => {
-        // getPosition({
-        //     data: {
-        //         page: page,
-        //         pageSize: pageSize,
-        //     }
-        // }).then(() => {
-        //     // setPositions(positionData);
-        //     // CloseModal()
-        // })
-    }, []);
+        setCurrentItems(currentItems);
+    }, [props]);
 
-    // const handlePrevClick = () => {
-    //     setPage(page - 1);
-    // };
 
-    // const handleNextClick = () => {
-    //     setPage(page + 1);
-    // };
-
-    // const startIndex = (page - 1) * itemsPerPage;
-    // const endIndex = startIndex + itemsPerPage;
-    // const currentItems = data
 
     return (
         <div>
-            {/* <Table striped bordered hover>
+            <Table striped bordered hover>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -49,50 +27,75 @@ function MyTable(props) {
                         <th>Manager</th>
                     </tr>
                 </thead>
-                <tbody> */}
-            {/* {currentItems?.map((item, index) => (
-                        <tr key={item.id}>
-                            <td>{index + 1}</td>
-                            <td>{item.team}</td>
-                            <td>{item.position}</td>
-                            <td>
-                                <PositionEditModal value={positionData} getData={getPosition} />
-                                <PositionDeleteModal value={positionData} getData={getPosition} />
-                            </td>
-                        </tr>
-                    ))} */}
-            {/* </tbody>
-            </Table> */}
-            <div className='dcc-space-between'>
-                {/* <Pagination className='mb-0'>
-                    <Pagination.First onClick={handlePrevClick} disabled={page === 1} />
-                    <Pagination.Prev />
-                    <Pagination.Item>{10}</Pagination.Item>
-                    <Pagination.Next />
-                    <Pagination.Last onClick={handleNextClick} disabled={page * itemsPerPage >= data?.length} />
-                </Pagination>
-                <Form.Select aria-label="10" bsPrefix='array-show'>
-                    <option className='text-end' value="10" selected={pageSize === 10} onClick={() => { setPageSize(10) }}>10{" "}</option>
-                    <option className='text-end' value="30" selected={pageSize === 30} onClick={() => { setPageSize(30) }}>30{" "}</option>
-                    <option className='text-end' value="50" selected={pageSize === 50} onClick={() => { setPageSize(50) }}>50{" "}</option>
-                    <option className='text-end' value="100" selected={pageSize === 100} onClick={() => { setPageSize(100) }}>100{" "}</option>
-                    <option className='text-end' value="300" selected={pageSize === 300} onClick={() => { setPageSize(300) }}>300{" "}</option>
-                    <option className='text-end' value="500" selected={pageSize === 500} onClick={() => { setPageSize(500) }}>500{" "}</option>
-                    <option className='text-end' value="1000" selected={pageSize === 1000} onClick={() => { setPageSize(1000) }}>1000{" "}</option>
-                </Form.Select> */}
-            </div>
+                <tbody>
+                    {currentItems.length ? (
+                        currentItems?.map((item, index) => (
+                            <tr key={item.id}>
+                                <td>{index + 1}</td>
+                                <td>{item.team}</td>
+                                <td>{item.position}</td>
+                                <td>
+                                    <PositionEditModal value={item} getData={props?.getData} />
+                                    <PositionDeleteModal value={item} getData={props?.getData} />
+                                </td>
+                            </tr>
+                        )))
+                        : ""}
+                </tbody>
+            </Table>
+
 
         </div>
     );
 }
 
 export default function PositionPage() {
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: '/api/position' })
+    const [params, setParams] = useState({
+        page: '1',
+        pageSize: '10'
+    });
 
-    const itemsPerPage = 10;
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${params.page}&pageSize=${params.pageSize}`, method: 'GET' });
 
-    if (loading) return <PageLoading />
-    if (error) return <PageError />
+    // useEffect(() => {
+    //     getPosition({ url: url, method: 'GET' }).then(() => {
+    //         // CloseModal()
+    //         console.log(positionData);
+    //     })
+    // }, [params]);
+
+    const handlePrevClick = () => {
+        setParams({
+            ...params,
+            page: params.page - 1
+        });
+    };
+
+    const handleNextClick = () => {
+        setParams({
+            ...params,
+            page: params.page + 1
+        });
+    };
+    const handleSelectPage = (val) => {
+        setParams({
+            ...params,
+            page: val
+        });
+    };
+    const handlePageSize = (event) => {
+        setParams({
+            ...params,
+            pageSize: event.target.value
+        });
+    };
+
+    if (loading) {
+        return <PageLoading />;
+    }
+    if (error) {
+        return <PageError />;
+    }
     return (
         <Container fluid className="pt-4 px-4">
             <Card className="bg-secondary text-center rounded shadow p-4">
@@ -103,7 +106,30 @@ export default function PositionPage() {
                     <PositionAddModal getData={getPosition} />
                 </div>
                 <div className="table-responsive">
-                    <MyTable data={positionData} itemsPerPage={itemsPerPage} />
+                    <MyTable data={positionData?.data} />
+                    <div className='dcc-space-between'>
+                        <Pagination className='mb-0'>
+                            <Pagination.First />
+                            <Pagination.Prev onClick={handlePrevClick} disabled={params.page === 1} />
+                            {[...Array(positionData.totolPage).keys()].map((i) => {
+                                const page = i + 1
+                                return (
+                                    <Pagination.Item key={i} onClick={() => { getPosition({ url: `/api/position?page=${page}&pageSize=${params.pageSize}` }) }}>{page}</Pagination.Item>
+                                )
+                            })}
+                            <Pagination.Next onClick={handleNextClick} disabled={params.page * params.pageSize >= positionData?.data?.length} />
+                            <Pagination.Last />
+                        </Pagination>
+                        <Form.Select aria-label="10" bsPrefix='array-show' value={params.pageSize}>
+                            <option className='text-end' defaultValue>10</option>
+                            <option className='text-end'>30</option>
+                            <option className='text-end'>50</option>
+                            <option className='text-end'>100</option>
+                            <option className='text-end'>300</option>
+                            <option className='text-end'>500</option>
+                            <option className='text-end'>1000</option>
+                        </Form.Select>
+                    </div>
                 </div >
             </Card >
         </Container >
