@@ -177,12 +177,13 @@ button {
     }
 }
 .dcc-space-between {
+    width: 100%;
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: space-between;
 }
-.page-size{
+.page-size {
     width: 80px;
     padding: 0.375rem 0.25rem 0.375rem 0.75rem;
 }

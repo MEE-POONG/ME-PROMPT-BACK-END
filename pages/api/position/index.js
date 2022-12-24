@@ -15,8 +15,8 @@ export default async function handler(req, res) {
                         take: pageSize,
                     })
                 ])
-                const totolPage = Math.ceil(data[0] / pageSize);
-                res.status(200).json({ data: data[1], page, pageSize, totolPage })
+                const totalPage = Math.ceil(data[0] / pageSize);
+                res.status(200).json({ data: data[1], page, pageSize, totalPage })
             } catch (error) {
                 res.status(400).json({ success: false })
             }

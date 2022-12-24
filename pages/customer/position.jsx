@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import queryString from 'query-string';
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination } from 'react-bootstrap'
+import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
@@ -14,8 +14,6 @@ function MyTable(props) {
     useEffect(() => {
         setCurrentItems(currentItems);
     }, [props]);
-
-
 
     return (
         <div>
@@ -56,7 +54,7 @@ export default function PositionPage() {
         pageSize: '1'
     });
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'1'}`, method: 'GET' });
 
     useEffect(() => {
         if (positionData) {
@@ -70,19 +68,6 @@ export default function PositionPage() {
 
     }, [positionData]);
 
-    const handlePrevClick = () => {
-        setParams({
-            ...params,
-            page: params.page - 1
-        });
-    };
-
-    const handleNextClick = () => {
-        setParams({
-            ...params,
-            page: params.page + 1
-        });
-    };
     const handleSelectPage = (pageValue) => {
         getPosition({ url: `/api/position?page=${pageValue}&pageSize=${params.pageSize}` })
     };
@@ -108,28 +93,7 @@ export default function PositionPage() {
                 <div className="table-responsive">
                     <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} />
                     <div className='dcc-space-between'>
-                        <Pagination className='mb-0'>
-                            <Pagination.First onClick={() => { handleSelectPage(1) }} disabled={params.page === 1} />
-                            <Pagination.Prev onClick={() => { handleSelectPage(params.page - 1) }} disabled={params.page === 1} />
-                            {[...Array(positionData.totolPage).keys()].map((i) => {
-                                const pageValue = i + 1
-                                return (
-                                    <Pagination.Item key={i} active={positionData.page === pageValue} onClick={() => { handleSelectPage(pageValue) }}>{pageValue}</Pagination.Item>
-                                )
-                            })}
-                            <Pagination.Next onClick={() => { handleSelectPage(params.page + 1) }} disabled={positionData.totolPage === positionData.page} />
-                            <Pagination.Last onClick={() => { handleSelectPage(positionData.totolPage) }} disabled={positionData.totolPage === positionData.page} />
-                        </Pagination>
-                        <Form.Select className='page-size' aria-label="Default select example" onChange={(e) => { handleSelectPageSize(e.target.value) }} value={params.pageSize ? params.pageSize : '10'} >
-                            <option value="10" >10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="300">300</option>
-                            <option value="500">500</option>
-                            <option value="1000">1000</option>
-                        </Form.Select>
+                        <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
                     </div>
                 </div >
             </Card >
