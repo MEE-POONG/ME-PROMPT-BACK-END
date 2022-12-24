@@ -9,6 +9,7 @@ import PositionAddModal from '@/container/Position/PositionAddModal'
 import PositionEditModal from '@/container/Position/PositionEditModal'
 import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
 function MyTable(props) {
+    console.log("props  dadsdad",props);
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
     useEffect(() => {
@@ -42,8 +43,6 @@ function MyTable(props) {
                         : ""}
                 </tbody>
             </Table>
-
-
         </div>
     );
 }
@@ -51,10 +50,10 @@ function MyTable(props) {
 export default function PositionPage() {
     const [params, setParams] = useState({
         page: '1',
-        pageSize: '1'
+        pageSize: '10'
     });
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'1'}`, method: 'GET' });
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
 
     useEffect(() => {
         if (positionData) {
@@ -91,7 +90,7 @@ export default function PositionPage() {
                     <PositionAddModal getData={getPosition} />
                 </div>
                 <div className="table-responsive">
-                    <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} />
+                    <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} getData={getPosition}/>
                     <div className='dcc-space-between'>
                         <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
                     </div>
