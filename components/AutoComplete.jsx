@@ -9,13 +9,11 @@ export default function AutoComplete(props) {
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
-    console.log("props", props);
     if (props) {
       setSelectValue(props?.defaultValue);
     }
   }, []);
   useEffect(() => {
-    console.log("selectValue :", selectValue);
     setFilteredData(filterData(props?.options, selectValue).slice(0, 6));
     props?.value(selectValue);
   }, [selectValue]);

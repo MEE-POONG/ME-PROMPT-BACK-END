@@ -9,7 +9,6 @@ import PositionAddModal from '@/container/Position/PositionAddModal'
 import PositionEditModal from '@/container/Position/PositionEditModal'
 import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
 function MyTable(props) {
-    console.log("props  dadsdad",props);
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
     useEffect(() => {
@@ -57,7 +56,6 @@ export default function PositionPage() {
 
     useEffect(() => {
         if (positionData) {
-            console.log(positionData);
             setParams({
                 ...params,
                 page: positionData.page,

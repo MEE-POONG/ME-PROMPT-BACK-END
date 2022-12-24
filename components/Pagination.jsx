@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Pagination, Form } from 'react-bootstrap';
 
 export default function MyPagination({ page, totalPages, onChangePage, onChangePageSize, pageSize }) {
-    console.log(totalPages);
     const pageNumbers = [];
     for (let i = page - 2; i <= page + 2; i++) {
         if (i > 0 && i <= totalPages) {
