@@ -13,6 +13,8 @@ export default function PositionAddModal() {
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
+
+
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
     const teams = positionTeam?.reduce((acc, item) => {
@@ -25,7 +27,7 @@ export default function PositionAddModal() {
     const clickTeam = value => {
         setTeamSelect(value);
     };
-    const handlePostData = () => {
+    const handleSubmit = () => {
         setCheckValue(false)
         if (teamSelect !== '' && positionSelect !== '') {
             executePositionTeam({
@@ -39,11 +41,9 @@ export default function PositionAddModal() {
                     setPositionSelect(''),
                     getPositionTeam(),
                 ]).then(() => {
-                    if (positionPost?.success) {
-                        handleClose()
-                    }
+                    handleClose()
                 })
-            })
+            });
         }
     }
 
@@ -62,13 +62,14 @@ export default function PositionAddModal() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete 
-                            id="position-team" 
-                            label="เลือกทีม" 
-                            placeholder="ระบุทีม / แผนกงาน" 
-                            listData={teams} 
-                            value={clickTeam} 
-                            onChangeCheck={checkValue}  />
+                            <AutoComplete
+                                id="position-team"
+                                label="เลือกทีม"
+                                placeholder="ระบุทีม / แผนกงาน"
+                                options={teams}
+                                value={''}
+                                valueReturn={clickTeam}
+                                onChangeCheck={checkValue} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -86,7 +87,7 @@ export default function PositionAddModal() {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handlePostData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>

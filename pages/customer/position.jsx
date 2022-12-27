@@ -60,7 +60,6 @@ export default function PositionPage() {
                 pageSize: positionData.pageSize
             });
         }
-
     }, [positionData]);
 
     const handleSelectPage = (pageValue) => {
@@ -83,7 +82,7 @@ export default function PositionPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <PositionAddModal getData={getPosition} value={''}/>
+                    <PositionAddModal />
                 </div>
                 <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} getData={getPosition} />
                 <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />

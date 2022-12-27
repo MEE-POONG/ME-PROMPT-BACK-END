@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 
-export default function AutoComplete({ id, label, placeholder, listData, value, onChangeCheck }) {
+export default function AutoComplete({ id, label, placeholder, options, value, valueReturn, onChangeCheck }) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
   const [selectValue, setSelectValue] = useState('');
@@ -9,16 +9,20 @@ export default function AutoComplete({ id, label, placeholder, listData, value, 
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
-    setSelectValue(value);
+    if (value !== '') {
+      setSelectValue(value);
+    }
   }, []);
   useEffect(() => {
-    // setFilteredData(filterData(listData, selectValue).slice(0, 6));
-    value(selectValue);
+    if (selectValue !== '') {
+      filterData(options, value)
+      valueReturn(selectValue);
+    }
   }, [selectValue]);
 
-  // function filterData(data, selectValue) {
-  //   return data.filter(item => item.team.includes(selectValue));
-  // }
+  function filterData(data, selectValue) {
+    setFilteredData(data.filter(item => item.team.includes(selectValue)).slice(0, 6));
+  }
 
   function handleInputChange(event) {
     setSelectValue(event.target.value);
@@ -26,7 +30,7 @@ export default function AutoComplete({ id, label, placeholder, listData, value, 
   return (
     <>
 
-      <Form.Group className="mb-3 position-relative" controlId="formBasicEmail" onMouseOut={handleClose}>
+      <Form.Group className="mb-3 position-relative" controlId={id} onMouseOut={handleClose}>
         <Form.Label>{label}</Form.Label>
         <Form.Control type="text" placeholder={placeholder}
           value={selectValue}

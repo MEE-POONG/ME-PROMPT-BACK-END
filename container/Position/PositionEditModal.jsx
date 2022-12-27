@@ -77,8 +77,8 @@ export default function PositionEditModal(props) {
                             id="position-team" 
                             label="เลือกทีม" 
                             placeholder="ระบุทีม / แผนกงาน" 
-                            value={clickTeam} 
-                            defaultValue={teamSelect} 
+                            value={teamSelect}
+                            valueReturn={clickTeam}
                             checkValue={checkValue} 
                             options={teams} />
                         </Col>
