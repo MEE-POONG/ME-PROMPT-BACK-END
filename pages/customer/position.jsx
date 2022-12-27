@@ -16,33 +16,31 @@ function MyTable(props) {
     }, [props]);
 
     return (
-        <div>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Team</th>
-                        <th>Position</th>
-                        <th>Manager</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentItems.length ? (
-                        currentItems?.map((item, index) => (
-                            <tr key={item.id}>
-                                <td>{index + 1 + numberSet}</td>
-                                <td>{item.team}</td>
-                                <td>{item.position}</td>
-                                <td>
-                                    <PositionEditModal value={item} getData={props?.getData} />
-                                    <PositionDeleteModal value={item} getData={props?.getData} />
-                                </td>
-                            </tr>
-                        )))
-                        : ""}
-                </tbody>
-            </Table>
-        </div>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Team</th>
+                    <th>Position</th>
+                    <th>Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                {currentItems.length ? (
+                    currentItems?.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{index + 1 + numberSet}</td>
+                            <td>{item.team}</td>
+                            <td>{item.position}</td>
+                            <td>
+                                <PositionEditModal value={item} getData={props?.getData} />
+                                <PositionDeleteModal value={item} getData={props?.getData} />
+                            </td>
+                        </tr>
+                    )))
+                    : ""}
+            </tbody>
+        </Table>
     );
 }
 
@@ -52,7 +50,7 @@ export default function PositionPage() {
         pageSize: '10'
     });
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
+    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=1&pageSize=10`, method: 'GET' });
 
     useEffect(() => {
         if (positionData) {
@@ -85,14 +83,10 @@ export default function PositionPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <PositionAddModal getData={getPosition} />
+                    <PositionAddModal getData={getPosition} value={''}/>
                 </div>
-                <div className="table-responsive">
-                    <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} getData={getPosition}/>
-                    <div className='dcc-space-between'>
-                        <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
-                    </div>
-                </div >
+                <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} getData={getPosition} />
+                <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );

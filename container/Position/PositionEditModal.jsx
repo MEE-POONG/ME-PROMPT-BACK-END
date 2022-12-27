@@ -73,7 +73,14 @@ export default function PositionEditModal(props) {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} defaultValue={teamSelect} checkValue={checkValue} options={teams} />
+                            <AutoComplete 
+                            id="position-team" 
+                            label="เลือกทีม" 
+                            placeholder="ระบุทีม / แผนกงาน" 
+                            value={clickTeam} 
+                            defaultValue={teamSelect} 
+                            checkValue={checkValue} 
+                            options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">

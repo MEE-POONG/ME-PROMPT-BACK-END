@@ -79,7 +79,7 @@ export default function CustomerPage() {
         pageSize: '10'
     });
 
-    const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: `/api/customer?page=${'1'}&pageSize=${'10'}`, method: 'GET' });
+    const [{ data: customerData, loading, error }, getCustomer] = useAxios();
 
     useEffect(() => {
         if (customerData) {

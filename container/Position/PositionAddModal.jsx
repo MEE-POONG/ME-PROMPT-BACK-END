@@ -62,7 +62,13 @@ export default function PositionAddModal() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
+                            <AutoComplete 
+                            id="position-team" 
+                            label="เลือกทีม" 
+                            placeholder="ระบุทีม / แผนกงาน" 
+                            listData={teams} 
+                            value={clickTeam} 
+                            onChangeCheck={checkValue}  />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
