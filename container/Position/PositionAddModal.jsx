@@ -5,7 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionAddModal() {
+export default function PositionAddModal(props) {
     const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
     const [teamSelect, setTeamSelect] = useState('');
@@ -39,8 +39,9 @@ export default function PositionAddModal() {
                 Promise.all([
                     setTeamSelect(''),
                     setPositionSelect(''),
-                    getPositionTeam(),
+                    props.getData(),
                 ]).then(() => {
+                    console.log(props);
                     handleClose()
                 })
             });
@@ -69,7 +70,7 @@ export default function PositionAddModal() {
                                 options={teams}
                                 value={''}
                                 valueReturn={clickTeam}
-                                onChangeCheck={checkValue} />
+                                checkValue={checkValue} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -78,7 +79,8 @@ export default function PositionAddModal() {
                                     onChange={(e) => { setPositionSelect(e.target.value) }}
                                     value={positionSelect} autoComplete="off"
                                     isValid={checkValue === false && positionSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && positionSelect === '' ? true : false} />
+                                    isInvalid={checkValue === false && positionSelect === '' ? true : false}
+                                />
                             </Form.Group>
                         </Col>
                     </Row>

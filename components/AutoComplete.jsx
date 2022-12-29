@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 
-export default function AutoComplete({ id, label, placeholder, options, value, valueReturn, onChangeCheck }) {
+export default function AutoComplete({ id, label, placeholder, options, value, valueReturn, checkValue }) {
   const [filteredData, setFilteredData] = useState([]);
   const [showData, setShowData] = useState(false);
   const [selectValue, setSelectValue] = useState('');
@@ -9,15 +9,14 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
+    console.log("value : ", value);
     if (value !== '') {
       setSelectValue(value);
     }
   }, []);
   useEffect(() => {
-    if (selectValue !== '') {
-      filterData(options, value)
-      valueReturn(selectValue);
-    }
+    filterData(options, value)
+    valueReturn(selectValue);
   }, [selectValue]);
 
   function filterData(data, selectValue) {
@@ -37,8 +36,8 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
           autoComplete="off"
           onChange={handleInputChange}
           onMouseOver={handleShow}
-          isValid={onChangeCheck === false && selectValue !== '' ? true : false}
-          isInvalid={onChangeCheck === false && selectValue === '' ? true : false}
+          isValid={checkValue === false && selectValue !== '' ? true : false}
+          isInvalid={checkValue === false && selectValue === '' ? true : false}
         />
         <Dropdown.Menu show={showData && filteredData.length} className='w-100' onMouseOver={handleShow}>
           {filteredData.map(item => (
