@@ -3,12 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Customer {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  Position   Position? @relation(fields: [positionId], references: [id])
   username   String
   password   String
   firstname  String
@@ -24,12 +25,11 @@ model Customer {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime? @map("deleted_at")
-  positionId String?   @db.Uuid
-  Position   Position? @relation(fields: [positionId], references: [id])
+  positionId String?   @db.ObjectId
 }
 
 model Position {
-  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   team      String
   position  String
   createdAt DateTime   @default(now())

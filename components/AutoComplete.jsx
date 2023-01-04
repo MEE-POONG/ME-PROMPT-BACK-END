@@ -9,7 +9,6 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
   const handleShow = () => setShowData(true);
 
   useEffect(() => {
-    console.log("value : ", value);
     if (value !== '') {
       setSelectValue(value);
     }

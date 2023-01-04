@@ -4,7 +4,6 @@ import { FaEdit, FaEye, FaPlus, FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 
 export default function ModelError({ showCheck, fnShow }) {
-    console.log("showCheck", showCheck);
 
     return (
         <Modal show={showCheck} onHide={fnShow} centered size='lg'>

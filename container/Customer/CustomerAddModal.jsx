@@ -5,14 +5,16 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionAddModal() {
-    const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
-    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
-    const [teamSelect, setTeamSelect] = useState('');
-    const [positionSelect, setPositionSelect] = useState('');
+export default function CustomerAddModal(props) {
+    const [{ data: positionTeam, loading, error }, getCustomerTeam] = useAxios({ url: '/api/positon/team' })
+    // const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomerTeam] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
+    // const [teamSelect, setTeamSelect] = useState('');
+    const [customerSelect, setCustomerSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
+
+
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
     const teams = positionTeam?.reduce((acc, item) => {
@@ -25,30 +27,28 @@ export default function PositionAddModal() {
     const clickTeam = value => {
         setTeamSelect(value);
     };
-    const handlePostData = () => {
+    const handleSubmit = () => {
         setCheckValue(false)
-        if (teamSelect !== '' && positionSelect !== '') {
-            executePositionTeam({
+        if (teamSelect !== '' && customerSelect !== '') {
+            executeCustomerTeam({
                 data: {
                     team: teamSelect,
-                    position: positionSelect,
+                    customer: customerSelect,
                 }
             }).then(() => {
                 Promise.all([
                     setTeamSelect(''),
-                    setPositionSelect(''),
-                    getPositionTeam(),
+                    setCustomerSelect(''),
+                    props.getData(),
                 ]).then(() => {
-                    if (positionPost?.success) {
-                        handleClose()
-                    }
+                    handleClose()
                 })
-            })
+            });
         }
     }
 
-    if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    // if (loading || customerLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -62,16 +62,24 @@ export default function PositionAddModal() {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete id="position-team" label="เลือกทีม" placeholder="ระบุทีม / แผนกงาน" value={clickTeam} checkValue={checkValue} options={teams} />
+                            <AutoComplete
+                                id="customer-team"
+                                label="เลือกทีม"
+                                placeholder="ระบุทีม / แผนกงาน"
+                                options={teams}
+                                value={''}
+                                valueReturn={clickTeam}
+                                checkValue={checkValue} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                    onChange={(e) => { setPositionSelect(e.target.value) }}
-                                    value={positionSelect} autoComplete="off"
-                                    isValid={checkValue === false && positionSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && positionSelect === '' ? true : false} />
+                                    onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                    value={customerSelect} autoComplete="off"
+                                    isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                    isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -80,7 +88,7 @@ export default function PositionAddModal() {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handlePostData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>

@@ -1,75 +1,61 @@
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
-import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination } from 'react-bootstrap'
+import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
 import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
-// import CustomerAddModal from '@/container/Customer/CustomerAddModal'
-// import CustomerEditModal from '@/container/Customer/CustomerEditModal'
-// import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
+import CustomerAddModal from '@/container/Customer/CustomerAddModal'
+import CustomerEditModal from '@/container/Customer/CustomerEditModal'
+import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
     useEffect(() => {
-        console.log(currentItems);
         setCurrentItems(currentItems);
+        console.log(props);
     }, [props]);
 
     return (
-        <div>
-            <Table striped bordered hover>
-                <thead>
-                    <tr className="text-center">
-                        <th >No.</th>
-                        <th >รูปภาพ</th>
-                        <th >ชื่อ - นามสกุล</th>
-                        <th >ใช้งานเว็บ</th>
-                        <th >ตำแหน่งงาน</th>
-                        <th >จัดการ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentItems?.map((item, index) => (
-                        <tr key={index}>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>IMG</th>
+                    <th>FullName</th>
+                    <th>Position</th>
+                    <th>Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                {currentItems.length ? (
+                    currentItems?.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{index + 1 + numberSet}</td>
                             <td>
-                                {index + 1}.
-                            </td>
-                            <td>
-                                <Image className="rounded" src={item?.img} alt="" style={{ width: "100px", height: "100px" }} />
+                                <Image src={item.img} alt={"Profile : " + item.firstname +" "+item.lastname} width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
                                 {item.firstname}{" "}{item.lastname}
                             </td>
                             <td>
-                                {item.status}
-                            </td>
-                            <td>
-                                {item.Position.team}
+                                <Badge bg="primary">
+                                    {item.Position?.team}
+                                </Badge>
                                 <br />
-                                {item.Position.customer}
+                                <Badge bg="success">
+                                    {item.Position?.position}
+                                </Badge>
                             </td>
                             <td>
-                                <Button bsPrefix='icon view'>
-                                    <FaEye />
-                                </Button>
-                                <Button bsPrefix='icon edit'
-                                // onClick={() => ShowModalEdit(customer.id)}
-                                >
-                                    <FaEdit />
-                                </Button>
-                                <Button bsPrefix='icon delete'
-                                // onClick={() => executeCustomerDelete({ url: '/api/customer/' + customer.id, method: 'DELETE' })}
-                                >
-                                    <FaTrash />
-                                </Button>
+                                <CustomerEditModal value={item} getData={props?.getData} />
+                                <CustomerDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+                    )))
+                    : ""}
+            </tbody>
+        </Table>
     );
 }
 
@@ -79,8 +65,7 @@ export default function CustomerPage() {
         pageSize: '10'
     });
 
-    const [{ data: customerData, loading, error }, getCustomer] = useAxios();
-
+    const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: `/api/customer?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
         if (customerData) {
             setParams({
@@ -89,7 +74,6 @@ export default function CustomerPage() {
                 pageSize: customerData.pageSize
             });
         }
-
     }, [customerData]);
 
     const handleSelectPage = (pageValue) => {
@@ -112,14 +96,10 @@ export default function CustomerPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    {/* <CustomerAddModal getData={getCustomer} /> */}
+                    <CustomerAddModal getData={getCustomer}/>
                 </div>
-                <div className="table-responsive">
-                    <MyTable data={customerData?.data} setNum={(customerData?.page * customerData?.pageSize) - customerData?.pageSize} />
-                    <div className='dcc-space-between'>
-                        <MyPagination page={customerData.page} totalPages={customerData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
-                    </div>
-                </div >
+                <MyTable data={customerData?.data} setNum={(customerData?.page * customerData?.pageSize) - customerData?.pageSize} getData={getCustomer} />
+                <MyPagination page={customerData.page} totalPages={customerData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );

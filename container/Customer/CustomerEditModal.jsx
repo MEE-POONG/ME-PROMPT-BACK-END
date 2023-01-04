@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
-import { FaPlus } from 'react-icons/fa'
+import { FaEdit } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
-import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionAddModal(props) {
-    const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
-    const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
+export default function PositionEditModal(props) {
+    const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
+    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
+
     const [teamSelect, setTeamSelect] = useState('');
     const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
-
-
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    const teams = positionTeam?.reduce((acc, item) => {
+    useEffect(() => {
+        if (props) {
+            setTeamSelect(props?.value?.team);
+            setPositionSelect(props?.value?.position);
+        }
+    }, [props]);
+
+    const teams = position?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
         }
@@ -27,10 +34,12 @@ export default function PositionAddModal(props) {
     const clickTeam = value => {
         setTeamSelect(value);
     };
-    const handleSubmit = () => {
-        setCheckValue(false)
+    const handlePutData = () => {
+        setCheckValue(false);
         if (teamSelect !== '' && positionSelect !== '') {
-            executePositionTeam({
+            executePositionPut({
+                url: '/api/position/' + props?.value?.id,
+                method: 'PUT',
                 data: {
                     team: teamSelect,
                     position: positionSelect,
@@ -41,35 +50,38 @@ export default function PositionAddModal(props) {
                     setPositionSelect(''),
                     props.getData(),
                 ]).then(() => {
-                    handleClose()
+                    if (updatePositionLoading?.success) {
+                        handleClose()
+                    }
                 })
-            });
+            })
         }
     }
 
-    if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
+    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มหน้าที่งาน
+            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaEdit />
             </Button>
+
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มทีมและหน้าที่งาน</Modal.Title>
+                    <Modal.Title className='text-center'>แก้ไขเพิ่มทีมและหน้าที่งาน</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete
-                                id="position-team"
-                                label="เลือกทีม"
-                                placeholder="ระบุทีม / แผนกงาน"
-                                options={teams}
-                                value={''}
-                                valueReturn={clickTeam}
-                                checkValue={checkValue} />
+                            <AutoComplete 
+                            id="position-team" 
+                            label="เลือกทีม" 
+                            placeholder="ระบุทีม / แผนกงาน" 
+                            value={teamSelect}
+                            valueReturn={clickTeam}
+                            checkValue={checkValue} 
+                            options={teams} />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -88,8 +100,8 @@ export default function PositionAddModal(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
-                        ยืนยันการเพิ่ม
+                    <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
+                        ยืนยันการแก้ไข
                     </Button>
                 </Modal.Footer>
             </Modal>
