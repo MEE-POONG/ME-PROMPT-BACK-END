@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 export default function ModelLoading({ showCheck }) {
 
     return (
-        <Modal show onHide={handleClose} centered size='lg'>
+        <Modal show={showCheck} centered size='lg'>
             <div className="page-change">
                 <Card className='loading'>
                     <div className="ring">

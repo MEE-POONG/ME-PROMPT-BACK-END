@@ -5,6 +5,7 @@ import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
 import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function PositionEditModal(props) {
     const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
     const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
@@ -58,8 +59,7 @@ export default function PositionEditModal(props) {
     }
 
     if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (loading || updatePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || updatePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
