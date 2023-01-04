@@ -33,7 +33,7 @@ export default function TheSlideNav() {
             <a className="navbar-brand mx-4 mb-3" >
               <h3 className="text-primary">
                 <FaUserEdit className="fa me-2" />
-                PigJungle
+                MeePrompt 
               </h3>
             </a>
           </Link>
