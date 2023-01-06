@@ -178,6 +178,10 @@ button {
             justify-content: center;
         }
     }
+    .form-customer{
+        max-height: 500px;
+        overflow-y: auto;
+    }
 }
 .dcc-space-between {
     width: 100%;
@@ -192,4 +196,7 @@ button {
 }
 .object-fit-cover{
     object-fit: cover;
+}
+.object-fit-contain{
+    object-fit: contain;
 }

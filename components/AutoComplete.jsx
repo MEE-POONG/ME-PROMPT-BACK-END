@@ -19,7 +19,7 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
   }, [selectValue]);
 
   function filterData(data, selectValue) {
-    setFilteredData(data.filter(item => item.team.includes(selectValue)).slice(0, 6));
+    setFilteredData(data?.filter(item => item?.team.includes(selectValue)).slice(0, 6));
   }
 
   function handleInputChange(event) {
@@ -38,8 +38,8 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
           isValid={checkValue === false && selectValue !== '' ? true : false}
           isInvalid={checkValue === false && selectValue === '' ? true : false}
         />
-        <Dropdown.Menu show={showData && filteredData.length} className='w-100' onMouseOver={handleShow}>
-          {filteredData.map(item => (
+        <Dropdown.Menu show={showData && filteredData?.length > 0} className='w-100' onMouseOver={handleShow}>
+          {filteredData?.map(item => (
             <Dropdown.Item key={item.id} onClick={() => { setShowData(false); setSelectValue(item.team) }}>
               {item.team}
             </Dropdown.Item>
