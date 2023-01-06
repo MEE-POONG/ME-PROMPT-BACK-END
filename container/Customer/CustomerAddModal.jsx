@@ -148,9 +148,9 @@ export default function CustomerAddModal(props) {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col md='6'>
+                        <Col md='12'>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
+                                <Form.Label>รหัสไปษณีย์</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 // onChange={(e) => { setCustomerSelect(e.target.value) }}
                                 // value={customerSelect} autoComplete="off"
@@ -159,7 +159,7 @@ export default function CustomerAddModal(props) {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col md='6'>
+                        <Col md='12'>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
