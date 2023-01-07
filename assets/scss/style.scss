@@ -179,9 +179,12 @@ button {
         }
     }
     .form-customer {
-        overflow-y: auto;
+        height: 90vh;
+
+        .model-body {
+            overflow-y: auto;
+        }
     }
-    height: 90vh;
 }
 .dcc-space-between {
     width: 100%;
