@@ -24,7 +24,7 @@ export default function TheSlideNav() {
   useEffect(() => {
     setCheckClickPath(asPath);
   }, [asPath])
-
+  const handlePath = (valPath) => { checkClickPath === valPath ? setCheckClickPath('') : setCheckClickPath(valPath) };
   return (
     <>
       <div className="sidebar pe-4 pb-3 ">
@@ -33,7 +33,7 @@ export default function TheSlideNav() {
             <a className="navbar-brand mx-4 mb-3" >
               <h3 className="text-primary">
                 <FaUserEdit className="fa me-2" />
-                MeePrompt 
+                MeePrompt
               </h3>
             </a>
           </Link>
@@ -61,13 +61,13 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => handlePath('/customer')} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               Customer
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"} >
               <Link id="buttons" href="/customer">
                 <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
