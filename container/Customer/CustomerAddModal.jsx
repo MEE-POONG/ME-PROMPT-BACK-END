@@ -55,11 +55,11 @@ export default function CustomerAddModal(props) {
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
                 <FaPlus />{" "}เพิ่มสมาชิก
             </Button>
-            <Modal show={showCheck} onHide={handleClose} centered size='lg'>
+            <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-customer'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className='form-customer'>
+                <Modal.Body >
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="formFile">
