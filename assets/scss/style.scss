@@ -178,13 +178,6 @@ button {
             justify-content: center;
         }
     }
-    .form-customer {
-        height: 90vh;
-
-        .model-body {
-            overflow-y: auto;
-        }
-    }
 }
 .dcc-space-between {
     width: 100%;
@@ -202,4 +195,19 @@ button {
 }
 .object-fit-contain {
     object-fit: contain;
+}
+@media (min-width: 576px) {
+    .form-customer {
+        .modal-dialog {
+            height: calc(100% - var(--bs-modal-margin) * 2);
+            .modal-content {
+                height: 100%;
+                .modal-body {
+                    // height: 75%;
+                    overflow-y: auto;
+                    // height: 90vh;
+                }
+            }
+        }
+    }
 }
