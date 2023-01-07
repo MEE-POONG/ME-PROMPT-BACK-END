@@ -83,21 +83,19 @@ export default function CustomerAddModal(props) {
                                     </Form.Group>
                                 </Col>
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="passwork">
+                                    <Form.Group className="mb-3" controlId="password">
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                         />
                                     </Form.Group>
                                 </Col>
-
                             </Row>
-
                         </Col>
                     </Row>
                     <h4>ข้อมูลส่วนตัว</h4>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
@@ -105,7 +103,7 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="lastname">
                                 <Form.Label>นามสกุล</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
@@ -114,7 +112,7 @@ export default function CustomerAddModal(props) {
                         </Col>
                         <Col md='6'>
                             <AutoComplete
-                                id="customer-team"
+                                id="team"
                                 label="แผนกงาน"
                                 placeholder="ระบุทีม / แผนกงาน"
                                 // options={teams}
@@ -124,7 +122,7 @@ export default function CustomerAddModal(props) {
                             />
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="position">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
@@ -186,7 +184,7 @@ export default function CustomerAddModal(props) {
                     <h4>โซเชียล</h4>
                     <Row>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="postalCode">
+                            <Form.Group className="mb-3" controlId="facebook">
                                 <Form.Label>Facebook</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
@@ -194,7 +192,7 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="province">
+                            <Form.Group className="mb-3" controlId="line">
                                 <Form.Label>Line</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
@@ -202,7 +200,7 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="district">
+                            <Form.Group className="mb-3" controlId="intragarm">
                                 <Form.Label>Intragarm</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 
