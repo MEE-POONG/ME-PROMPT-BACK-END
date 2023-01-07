@@ -62,7 +62,7 @@ export default function CustomerAddModal(props) {
                 <Modal.Body >
                     <Row>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formFile">
+                            <Form.Group className="mb-3" controlId="image">
                                 <Form.Label className='text-center'>เลือกรูปโปรไฟล์</Form.Label>
                                 <Image
                                     width={"100%"}
@@ -76,14 +76,14 @@ export default function CustomerAddModal(props) {
                         <Col md='6'>
                             <Row>
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Group className="mb-3" controlId="username">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                         />
                                     </Form.Group>
                                 </Col>
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Group className="mb-3" controlId="passwork">
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                         />
