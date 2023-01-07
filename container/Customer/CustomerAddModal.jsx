@@ -62,7 +62,7 @@ export default function CustomerAddModal(props) {
                 <Modal.Body className='form-customer'>
                     <Row>
                         <Col md='6'>
-                            <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Group className="mb-3" controlId="formFile">
                                 <Form.Label className='text-center'>เลือกรูปโปรไฟล์</Form.Label>
                                 <Image
                                     width={"100%"}
@@ -138,7 +138,7 @@ export default function CustomerAddModal(props) {
                             />
                         </Col>
                         <Col md='6'>
-                            <Form.Group controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 // onChange={(e) => { setCustomerSelect(e.target.value) }}
@@ -148,8 +148,11 @@ export default function CustomerAddModal(props) {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col md='12'>
-                            <Form.Group controlId="formBasicEmail">
+                    </Row>
+                    <h4>ที่อยู่</h4>
+                    <Row>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="postalCode">
                                 <Form.Label>รหัสไปษณีย์</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 // onChange={(e) => { setCustomerSelect(e.target.value) }}
@@ -159,9 +162,89 @@ export default function CustomerAddModal(props) {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col md='12'>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="province">
+                                <Form.Label>จังหวัด</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="district">
+                                <Form.Label>อำเภอ</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="subDistrict">
+                                <Form.Label>ตำบล</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="addressOne">
+                                <Form.Label>ที่อยู่</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="addressTwo">
+                                <Form.Label>ที่อยู่ เพิ่มเติม</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <h4>โซเชียล</h4>
+                    <Row>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="postalCode">
+                                <Form.Label>Facebook</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="province">
+                                <Form.Label>Line</Form.Label>
+                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
+                                // value={customerSelect} autoComplete="off"
+                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
+                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            <Form.Group className="mb-3" controlId="district">
+                                <Form.Label>Intragarm</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                 // onChange={(e) => { setCustomerSelect(e.target.value) }}
                                 // value={customerSelect} autoComplete="off"
