@@ -55,6 +55,7 @@ function MyTable(props) {
                         <td>undefined</td>
                         <td>undefined</td>
                         <td>undefined</td>
+                        <td>undefined</td>
                     </tr>}
             </tbody>
         </Table>
