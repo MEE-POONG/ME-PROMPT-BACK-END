@@ -11,10 +11,6 @@ import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
-    useEffect(() => {
-        setCurrentItems(currentItems);
-        console.log(props);
-    }, [props]);
 
     return (
         <Table striped bordered hover>
@@ -33,7 +29,7 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.img} alt={"Profile : " + item.firstname +" "+item.lastname} width="150px" height="150px" className='object-fit-cover' />
+                                <Image src={item.img} alt={"Profile : " + item.firstname + " " + item.lastname} width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
                                 {item.firstname}{" "}{item.lastname}
@@ -53,7 +49,13 @@ function MyTable(props) {
                             </td>
                         </tr>
                     )))
-                    : ""}
+                    :
+                    <tr>
+                        <td>0</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                    </tr>}
             </tbody>
         </Table>
     );
@@ -96,7 +98,7 @@ export default function CustomerPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <CustomerAddModal getData={getCustomer}/>
+                    <CustomerAddModal getData={getCustomer} />
                 </div>
                 <MyTable data={customerData?.data} setNum={(customerData?.page * customerData?.pageSize) - customerData?.pageSize} getData={getCustomer} />
                 <MyPagination page={customerData.page} totalPages={customerData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
