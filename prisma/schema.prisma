@@ -8,26 +8,27 @@ datasource db {
 }
 
 model Customer {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  Position     Position? @relation(fields: [positionId], references: [id])
-  username     String
-  password     String
-  firstname    String
-  lastname     String
-  img          String
-  facebook     String
-  line         String
-  intragarm    String
-  addressOne   String
-  addressTwo   String
-  addressThree String
-  city         String
-  postalCode   String
-  status       String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  deletedAt    DateTime? @map("deleted_at")
-  positionId   String?   @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  Position      Position? @relation(fields: [positionId], references: [id])
+  username      String
+  password      String
+  img           String
+  firstname     String
+  lastname      String
+  facebook      String
+  line          String
+  intragarm     String
+  addressOne    String
+  addressTwo    String
+  subDistrict   String
+  district      String
+  city          String
+  postalCode    String
+  statusManager String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime? @map("deleted_at")
+  positionId    String?   @db.ObjectId
 }
 
 model Position {
