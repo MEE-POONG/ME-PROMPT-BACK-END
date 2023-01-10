@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form, Row, Col, Image, InputGroup } from 'react-bootstrap'
 import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import AutoComplete from '@/components/AutoComplete'
+// import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 export default function CustomerAddModal(props) {
-    // const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/positon/team' })
+    const [{ data: position, positionLoading, positionError }, getPosition] = useAxios({ url: '/api/position/position' })
     // const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomerTeam] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
     const [positionSelect, setPositionSelect] = useState('');
 
@@ -35,6 +35,7 @@ export default function CustomerAddModal(props) {
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+    console.log(position);
     // const teams = positionTeam?.reduce((acc, item) => {
     //     if (!acc.some(i => i.team === item.team)) {
     //         acc.push(item);
@@ -58,6 +59,9 @@ export default function CustomerAddModal(props) {
     };
     const clickHandler = () => {
         setShowPass(!showPass);
+    }
+    const clickHandlerClose = () => {
+        setShowPass(false);
     }
     const handleSubmit = () => {
         setCheckValue(false)
@@ -181,27 +185,26 @@ export default function CustomerAddModal(props) {
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="username">
                                         <Form.Label>Username</Form.Label>
-
-                                        <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                        <Form.Control type="text" placeholder="สร้างยูสเซอร์ประจำตัว"
                                             onChange={event => setUsername(event.target.value)}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* <Col md='12'>
-                                    <InputGroup className="mb-3" >
+                                <Col md='12'>
+                                    <Form.Label>Password</Form.Label>
+                                    <InputGroup className="mb-3" onClick={clickHandler} onMouseOut={clickHandlerClose}>
                                         <Form.Control aria-label="Amount (to the nearest dollar)"
-                                            type="password" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                            type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
                                             id="password"
                                             onChange={event => setPassword(event.target.value)}
-
                                             isValid={checkValue === false && password !== '' ? true : false}
                                             isInvalid={checkValue === false && password === '' ? true : false}
                                         />
-                                        <InputGroup.Text onClick={clickHandler} onMouseOut={clickHandler}>{showPass ? <FaEye /> : <FaEyeSlash />}</InputGroup.Text>
+                                        <InputGroup.Text >{showPass ? <FaEye /> : <FaEyeSlash />}</InputGroup.Text>
                                     </InputGroup>
-                                </Col> */}
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
@@ -210,37 +213,45 @@ export default function CustomerAddModal(props) {
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>ชื่อ</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                <Form.Control type="text" placeholder="ระบุ ชื่อจริง"
                                     onChange={event => setFirstname(event.target.value)}
+                                    isValid={checkValue === false && firstname !== '' ? true : false}
+                                    isInvalid={checkValue === false && firstname === '' ? true : false}
                                 />
                             </Form.Group>
                         </Col>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="lastname">
                                 <Form.Label>นามสกุล</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                <Form.Control type="text" placeholder="ระบุนามสกุล"
                                     onChange={event => setLastname(event.target.value)}
+                                    isValid={checkValue === false && lastname !== '' ? true : false}
+                                    isInvalid={checkValue === false && lastname === '' ? true : false}
                                 />
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <AutoComplete
-                                id="team"
-                                label="แผนกงาน"
-                                placeholder="ระบุทีม / แผนกงาน"
-                                // options={teams}
-                                // value={''}
-                                valueReturn={clickTeam}
-                            // checkValue={checkValue} 
-                            />
-                        </Col>
-                        <Col md='6'>
+
                             <Form.Group className="mb-3" controlId="position">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
+                                // isValid={checkValue === false && position !== '' ? true : false}
+                                // isInvalid={checkValue === false && position === '' ? true : false}
                                 // onChange={event => setPosition(event.target.value)}
                                 />
                             </Form.Group>
+                        </Col>
+                        <Col md='6'>
+                            {/* <AutoComplete
+                                id="team"
+                                label="หน้าที่ / ตำแหน่งงาน"
+                                placeholder="ระบุหน้าที่งาน / ตำแหน่งงาน"
+                                options={position}
+                                value={''}
+                                valueReturn={clickTeam}
+                                checkValue={checkValue}
+                            /> */}
+                          
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>
