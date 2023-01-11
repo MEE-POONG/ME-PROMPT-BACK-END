@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
+                console.log("s 27", req.body);
                 await prisma.customer.create({
                     data: {
                         positionId: req.body.positionId,
@@ -47,7 +48,7 @@ export default async function handler(req, res) {
                 })
                 res.status(201).json({ success: true })
             } catch (error) {
-                console.log(req.body);
+                console.log("error : ", error);
                 res.status(400).json({ success: false })
             }
             break
@@ -56,3 +57,6 @@ export default async function handler(req, res) {
             res.status(405).end(`Method ${method} Not Allowed`)
     }
 }
+
+
+

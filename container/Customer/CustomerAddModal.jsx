@@ -10,14 +10,17 @@ import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerAddModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
     const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
+    const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
+
     const [positionSelect, setPositionSelect] = useState({
         id: '',
         team: '',
-        positio: '',
+        position: '',
     });
 
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
+    const [filteredData, setFilteredData] = useState([]);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -41,13 +44,14 @@ export default function CustomerAddModal(props) {
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    // console.log(position);
-    // const teams = positionTeam?.reduce((acc, item) => {
-    //     if (!acc.some(i => i.team === item.team)) {
-    //         acc.push(item);
-    //     }
-    //     return acc;
-    // }, []);
+    useEffect(() => {
+        filterData(positionSearch, positionSelect.position)
+    }, [positionSelect]);
+
+    function filterData(data, selectValue) {
+        setFilteredData(data?.filter(item => item?.position.includes(selectValue)).slice(0, 6));
+    }
+
     const onImageChange = (e) => {
         setImage([...e.target.files])
     }
@@ -66,61 +70,65 @@ export default function CustomerAddModal(props) {
     const clickHandlerClose = () => {
         setShowPass(false);
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setCheckValue(false)
-        console.log(74);
-        // if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
-        //     console.log(76);
-        //     executeCustomer({
-        //         data: {
-        //             username: username,
-        //             password: password,
-        //             img: image,
-        //             firstname: firstname,
-        //             lastname: lastname,
-        //             positionId: positionSelect?.id,
-        //             postalCode: postalCode,
-        //             city: city,
-        //             district: district,
-        //             subDistrict: subDistrict,
-        //             addressOne: addressOne,
-        //             addressTwo: addressTwo,
-        //             statusManager: statusManager,
-        //             facebook: facebook,
-        //             line: line,
-        //             intragarm: intragarm,
-        //         }
-        //     }).then(() => {
-        //         Promise.all([
-        //             setUsername(''),
-        //             setPassword(''),
-        //             setImage(''),
-        //             setFirstname(''),
-        //             setLastname(''),
-        //             setPositionSelect({ ...positionSelect, id: '', team: '', position: '' }),
+        console.log("s", image);
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
+            console.log(76, " : ", image);
+            let data = new FormData()
+            data.append('file', image[0])
+            const imageData = await uploadImage({ data: data })
+            const id = imageData.data.result.id
+            executeCustomer({
+                data: {
+                    username: username,
+                    password: password,
+                    img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+                    firstname: firstname,
+                    lastname: lastname,
+                    positionId: positionSelect?.id,
+                    postalCode: postalCode,
+                    city: city,
+                    district: district,
+                    subDistrict: subDistrict,
+                    addressOne: addressOne,
+                    addressTwo: addressTwo,
+                    statusManager: statusManager,
+                    facebook: facebook,
+                    line: line,
+                    intragarm: intragarm,
+                }
+            }).then(() => {
+                Promise.all([
+                    setUsername(''),
+                    setPassword(''),
+                    setImage(''),
+                    setFirstname(''),
+                    setLastname(''),
+                    setPositionSelect({ ...positionSelect, id: '', team: '', position: '' }),
 
-        //             setAddressOne(''),
-        //             setAddressTwo(''),
-        //             setSubDistrict(''),
-        //             setDistrict(''),
-        //             setCity(''),
-        //             setPostalCode(''),
+                    setPostalCode(''),
+                    setCity(''),
+                    setDistrict(''),
+                    setSubDistrict(''),
+                    setAddressOne(''),
+                    setAddressTwo(''),
 
-        //             setStatusManager(''),
-        //             setFacebook(''),
-        //             setLine(''),
-        //             setIntragarm(''),
+                    setStatusManager(''),
+                    setFacebook(''),
+                    setLine(''),
+                    setIntragarm(''),
 
-        //             props.getData(),
-        //         ]).then(() => {
-        //             handleClose()
-        //         })
-        //     });
-        // }
+                    props.getData(),
+                ]).then(() => {
+                    handleClose()
+                })
+            });
+        }
     }
 
-    if (loading || customerLoading) return <ModelLoading showCheck={showCheck} />
-    if (error || errorMessage) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (loading || customerLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || errorMessage || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
@@ -210,17 +218,18 @@ export default function CustomerAddModal(props) {
                             <Dropdown>
                                 <Dropdown.Toggle id="team" bsPrefix='p-0' className="w-100" >
                                     <Form.Control
+                                        id='value-position'
                                         autoFocus
                                         autoComplete="off"
                                         placeholder="ระบุหน้าที่งาน / ตำแหน่งงาน"
-                                        onChange={event => setPositionSelect(event.target.value)}
+                                        onChange={event => setPositionSelect({ ...positionSelect, position: event.target.value })}
                                         value={positionSelect?.position}
                                         isValid={checkValue === false && positionSelect !== '' ? true : false}
                                         isInvalid={checkValue === false && positionSelect === '' ? true : false}
                                     />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='w-100'>
-                                    {positionSearch?.map(item => (
+                                    {filteredData?.map(item => (
                                         <Dropdown.Item key={item.id} onClick={() => { setPositionSelect(item) }}>
                                             {item.position}
                                         </Dropdown.Item>
