@@ -42,6 +42,7 @@ export default async function handler(req, res) {
                         city: req.body.city,
                         postalCode: req.body.postalCode,
                         statusManager: req.body.statusManager,
+
                     }
                 })
                 res.status(201).json({ success: true })

@@ -58,9 +58,8 @@ export default function PositionEditModal(props) {
         }
     }
 
-    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
-    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
-
+    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>

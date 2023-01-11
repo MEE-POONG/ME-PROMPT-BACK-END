@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Button, Form, Row, Col, Image, InputGroup } from 'react-bootstrap'
+import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown } from 'react-bootstrap'
 import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerAddModal(props) {
-    const [{ data: position, positionLoading, positionError }, getPosition] = useAxios({ url: '/api/position/position' })
-    // const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomerTeam] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
-    const [positionSelect, setPositionSelect] = useState('');
+    const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
+    const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
+    const [positionSelect, setPositionSelect] = useState({
+        id: '',
+        team: '',
+        positio: '',
+    });
 
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
@@ -23,7 +29,7 @@ export default function CustomerAddModal(props) {
     const [district, setDistrict] = useState('');
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
-    const [status, setStatus] = useState('A');
+    const [statusManager, setStatusManager] = useState('A');
 
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
@@ -35,7 +41,7 @@ export default function CustomerAddModal(props) {
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    console.log(position);
+    // console.log(position);
     // const teams = positionTeam?.reduce((acc, item) => {
     //     if (!acc.some(i => i.team === item.team)) {
     //         acc.push(item);
@@ -54,9 +60,6 @@ export default function CustomerAddModal(props) {
         setImageURL(newImageUrl)
     }, [image])
 
-    const clickTeam = value => {
-        setPositionSelect(value);
-    };
     const clickHandler = () => {
         setShowPass(!showPass);
     }
@@ -65,98 +68,59 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = () => {
         setCheckValue(false)
-        // if (username !== '' && password !== '') {
-        //     console.log("ssss");
-        //     executeCustomerTeam({
+        console.log(74);
+        // if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
+        //     console.log(76);
+        //     executeCustomer({
         //         data: {
-        //             team: positionSelect,
-        //             customer: customerSelect,
+        //             username: username,
+        //             password: password,
+        //             img: image,
+        //             firstname: firstname,
+        //             lastname: lastname,
+        //             positionId: positionSelect?.id,
+        //             postalCode: postalCode,
+        //             city: city,
+        //             district: district,
+        //             subDistrict: subDistrict,
+        //             addressOne: addressOne,
+        //             addressTwo: addressTwo,
+        //             statusManager: statusManager,
+        //             facebook: facebook,
+        //             line: line,
+        //             intragarm: intragarm,
         //         }
         //     }).then(() => {
         //         Promise.all([
-        //             setPositionSelect(''),
-        //             setCustomerSelect(''),
+        //             setUsername(''),
+        //             setPassword(''),
+        //             setImage(''),
+        //             setFirstname(''),
+        //             setLastname(''),
+        //             setPositionSelect({ ...positionSelect, id: '', team: '', position: '' }),
+
+        //             setAddressOne(''),
+        //             setAddressTwo(''),
+        //             setSubDistrict(''),
+        //             setDistrict(''),
+        //             setCity(''),
+        //             setPostalCode(''),
+
+        //             setStatusManager(''),
+        //             setFacebook(''),
+        //             setLine(''),
+        //             setIntragarm(''),
+
         //             props.getData(),
         //         ]).then(() => {
         //             handleClose()
         //         })
         //     });
         // }
-
-        console.log("username : ", username);
-        console.log("password : ", password);
-        console.log("image :", image);
-        console.log("firstname : ", firstname);
-        console.log("lastname : ", lastname);
-        console.log("addressOne : ", addressOne);
-        console.log("addressTwo : ", addressTwo);
-        console.log("subDistrict : ", subDistrict);
-        console.log("subDistrict : ", subDistrict);
-        console.log("district : ", district);
-        console.log("city : ", city);
-        console.log("postalCode : ", postalCode);
-        console.log("status : ", status);
-        console.log("facebook : ", facebook);
-        console.log("line : ", line);
-        console.log("intragarm :  ", intragarm);
-        // if (username !== '' && password !== '') {(async () => {
-
-        //     let data = new FormData()
-        //     data.append('file', img[0])
-        //     const imageData = await uploadImage({ data: data })
-        //     const id = imageData.data.result.id
-
-        //     await executeCustomer({
-        //         data: {
-        //             username: username,
-        //             password: password,
-        //             firstname: firstname,
-        //             lastname: lastname,
-        //             img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
-        //             facebook: facebook,
-        //             line: line,
-        //             intragarm: intragarm,
-        //             addressOne: addressOne,
-        //             addressTwo: addressTwo,
-        //             addressThree: addressThree,
-        //             city: city,
-        //             postalCode: postalCode,
-        //             status: status,
-        //             // city: city,
-        //             // district: district,
-        //             // subDistrict: subDistrict,
-        //         }
-        //     }).then(() => {
-        //         Promise.all([
-        //             setUsername(''),
-        //             setPassword(''),
-        //             setFirstname(''),
-        //             setLastname(''),
-        //             setImg(''),
-        //             setFacebook(''),
-        //             setLine(''),
-        //             setIntragarm(''),
-        //             setAddressOne(''),
-        //             setAddressTwo(''),
-        //             setAddressThree(''),
-        //             setCity(''),
-        //             setPostalCode(''),
-        //             setStatus(''),
-        //             // setCity(''),
-        //             // setDistrict(''),
-        //             // setSubDistrict(''),
-
-        //             props.getData(),
-        //         ]).then(() => {
-        //             handleClose()
-        //         })
-        //     });
-        // })}
     }
 
-    // if (loading || customerLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+    if (loading || customerLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || errorMessage) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
@@ -233,25 +197,36 @@ export default function CustomerAddModal(props) {
                         <Col md='6'>
 
                             <Form.Group className="mb-3" controlId="position">
-                                <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
+                                <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                // isValid={checkValue === false && position !== '' ? true : false}
-                                // isInvalid={checkValue === false && position === '' ? true : false}
-                                // onChange={event => setPosition(event.target.value)}
+                                    disabled
+                                    value={positionSelect?.team}
                                 />
                             </Form.Group>
+
                         </Col>
                         <Col md='6'>
-                            {/* <AutoComplete
-                                id="team"
-                                label="หน้าที่ / ตำแหน่งงาน"
-                                placeholder="ระบุหน้าที่งาน / ตำแหน่งงาน"
-                                options={position}
-                                value={''}
-                                valueReturn={clickTeam}
-                                checkValue={checkValue}
-                            /> */}
-                          
+                            <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
+                            <Dropdown>
+                                <Dropdown.Toggle id="team" bsPrefix='p-0' className="w-100" >
+                                    <Form.Control
+                                        autoFocus
+                                        autoComplete="off"
+                                        placeholder="ระบุหน้าที่งาน / ตำแหน่งงาน"
+                                        onChange={event => setPositionSelect(event.target.value)}
+                                        value={positionSelect?.position}
+                                        isValid={checkValue === false && positionSelect !== '' ? true : false}
+                                        isInvalid={checkValue === false && positionSelect === '' ? true : false}
+                                    />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu className='w-100'>
+                                    {positionSearch?.map(item => (
+                                        <Dropdown.Item key={item.id} onClick={() => { setPositionSelect(item) }}>
+                                            {item.position}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>

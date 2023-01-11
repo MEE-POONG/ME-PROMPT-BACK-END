@@ -13,7 +13,7 @@ export default async function handler(req, res) {
                         position: true,
                     },
                     where: {
-                        position: {
+                        team: {
                             not: ''
                         }
                     },

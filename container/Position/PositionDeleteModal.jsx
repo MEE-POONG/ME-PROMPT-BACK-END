@@ -24,9 +24,8 @@ export default function PositionDeleteModal(props) {
         })
     }
 
-    if (deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+    if (deletePositionLoading) return <ModelLoading showCheck={showCheck} />
+    if (deletePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
