@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown } from 'react-bootstrap'
+import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
 import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
+import { Typeahead } from 'react-bootstrap-typeahead'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
@@ -12,15 +13,11 @@ export default function CustomerAddModal(props) {
     const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
 
-    const [positionSelect, setPositionSelect] = useState({
-        id: '',
-        team: '',
-        position: '',
-    });
+    const [positionSelect, setPositionSelect] = useState([]);
 
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
-    const [filteredData, setFilteredData] = useState([]);
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -45,15 +42,12 @@ export default function CustomerAddModal(props) {
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
     useEffect(() => {
-        filterData(positionSearch, positionSelect.position)
+        console.log(50, positionSelect);
     }, [positionSelect]);
-
-    function filterData(data, selectValue) {
-        setFilteredData(data?.filter(item => item?.position.includes(selectValue)).slice(0, 6));
-    }
 
     const onImageChange = (e) => {
         setImage([...e.target.files])
+        console.log("image", image);
     }
 
 
@@ -151,7 +145,10 @@ export default function CustomerAddModal(props) {
                                     src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : "./images/default.png"}
                                     className="p-4 object-fit-contain"
                                     alt="" />
-                                <Form.Control type="file" accept="img/*" onChange={onImageChange} />
+                                <Form.Control type="file" accept="img/*" onChange={onImageChange}
+                                    isValid={checkValue === false && image.length > 1 ? true : false}
+                                    isInvalid={checkValue === false && image.length === 0 ? true : false}
+                                />
                             </Form.Group>
                         </Col>
                         <Col md='6'>
@@ -164,12 +161,15 @@ export default function CustomerAddModal(props) {
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
                                         />
+                                        <Form.Text className={checkValue === false && password.length < 8 ? "text-muted" : "d-none"}>
+                                            กรอกอย่างน้อย 8-15 ตัวอักษร
+                                        </Form.Text>
                                     </Form.Group>
                                 </Col>
                                 <Col md='12'>
                                     <Form.Label>Password</Form.Label>
-                                    <InputGroup className="mb-3" onClick={clickHandler} onMouseOut={clickHandlerClose}>
-                                        <Form.Control aria-label="Amount (to the nearest dollar)"
+                                    <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose}>
+                                        <Form.Control
                                             type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
                                             id="password"
                                             onChange={event => setPassword(event.target.value)}
@@ -178,6 +178,9 @@ export default function CustomerAddModal(props) {
                                         />
                                         <InputGroup.Text >{showPass ? <FaEye /> : <FaEyeSlash />}</InputGroup.Text>
                                     </InputGroup>
+                                    <Form.Text className={checkValue === false && password.length < 8 ? "text-muted" : "d-none"}>
+                                        กรอกอย่างน้อย 8-15 ตัวอักษร
+                                    </Form.Text>
                                 </Col>
                             </Row>
                         </Col>
@@ -210,34 +213,22 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    value={positionSelect?.team}
+                                    value={positionSelect?.[0]?.team}
                                 />
                             </Form.Group>
 
                         </Col>
-                        <Col md='6'>
+                        <Col md='6' >
                             <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
-                            <Dropdown>
-                                <Dropdown.Toggle id="team" bsPrefix='p-0' className="w-100" >
-                                    <Form.Control
-                                        id='value-position'
-                                        autoFocus
-                                        autoComplete="off"
-                                        placeholder="คลิกเพื่อเลือกหน้าที่งาน / ตำแหน่งงาน"
-                                        onChange={event => setPositionSelect({ ...positionSelect, position: event.target.value })}
-                                        value={positionSelect?.position}
-                                        isValid={checkValue === false && (positionSelect.id !== '' || positionSelect.position !== '') ? true : false}
-                                        isInvalid={checkValue === false && (positionSelect.id === '' || positionSelect.position === '') ? true : false}
-                                    />
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu className='w-100'>
-                                    {filteredData?.map(item => (
-                                        <Dropdown.Item key={item.id} onClick={() => { setPositionSelect(item) }}>
-                                            {item.position}
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            <Typeahead
+                                id="team-typeahead"
+                                labelKey="position"
+                                options={positionSearch}
+                                placeholder="Search for a team..."
+                                onChange={(positionSelect) => setPositionSelect(positionSelect)}
+                                isValid={checkValue === false && positionSelect.length > 0 ? true : false}
+                                isInvalid={checkValue === false && positionSelect.length === 0 ? true : false}
+                            />
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>

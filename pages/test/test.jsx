@@ -24,7 +24,11 @@ export default function TestPage() {
   return (
     <>
       <Dropdown>
-        <Dropdown.Toggle as={InputToggle} id="dropdown-custom-components" />
+        <Form.Control 
+          id='value-position'
+          autoFocus
+          autoComplete="off"
+        />
         <Dropdown.Menu  >
           <Dropdown.Item eventKey="1">Red</Dropdown.Item>
           <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
