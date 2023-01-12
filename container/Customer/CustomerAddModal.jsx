@@ -71,10 +71,12 @@ export default function CustomerAddModal(props) {
         setShowPass(false);
     }
     const handleSubmit = async () => {
-        setCheckValue(false)
-        console.log("s", image);
+        setCheckValue(false);
+        console.log(positionSelect);
+        if (positionSelect?.id == "") {
+            setPositionSelect({ ...positionSelect, id: "", team: '', position: '' })
+        }
         if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
-            console.log(76, " : ", image);
             let data = new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
@@ -221,11 +223,11 @@ export default function CustomerAddModal(props) {
                                         id='value-position'
                                         autoFocus
                                         autoComplete="off"
-                                        placeholder="ระบุหน้าที่งาน / ตำแหน่งงาน"
+                                        placeholder="คลิกเพื่อเลือกหน้าที่งาน / ตำแหน่งงาน"
                                         onChange={event => setPositionSelect({ ...positionSelect, position: event.target.value })}
                                         value={positionSelect?.position}
-                                        isValid={checkValue === false && positionSelect !== '' ? true : false}
-                                        isInvalid={checkValue === false && positionSelect === '' ? true : false}
+                                        isValid={checkValue === false && (positionSelect.id !== '' || positionSelect.position !== '') ? true : false}
+                                        isInvalid={checkValue === false && (positionSelect.id === '' || positionSelect.position === '') ? true : false}
                                     />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className='w-100'>

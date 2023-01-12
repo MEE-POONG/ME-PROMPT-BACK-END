@@ -8,18 +8,24 @@ export default function TestPage() {
   const [showData, setShowData] = useState(false);
   const handleClose = () => setShowData(false);
   const handleShow = () => setShowData(true);
+  const InputToggle = React.forwardRef(({ onClick }, ref) => (
+
+    <Form.Control ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      id='value-position'
+      autoFocus
+      autoComplete="off"
+    />
+
+  ));
   return (
     <>
-      <Dropdown onMouseOut={handleClose} onMouseOver={handleShow} >
-        <Dropdown.Toggle id="dropdown-custom-components" bsPrefix='p-0'>
-          <Form.Control
-            autoFocus
-            placeholder="Type to filter..."
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-          />
-        </Dropdown.Toggle>
-        <Dropdown.Menu show={showData} >
+      <Dropdown>
+        <Dropdown.Toggle as={InputToggle} id="dropdown-custom-components" />
+        <Dropdown.Menu  >
           <Dropdown.Item eventKey="1">Red</Dropdown.Item>
           <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
           <Dropdown.Item eventKey="3" active>
