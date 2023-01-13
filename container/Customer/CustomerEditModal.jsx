@@ -59,7 +59,7 @@ export default function PositionEditModal(props) {
     }
 
     if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
-    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (error || updatePositionError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>

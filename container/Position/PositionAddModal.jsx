@@ -3,8 +3,8 @@ import { Modal, Button, Form, Row, Col, Dropdown } from 'react-bootstrap'
 import { FaPlus } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function PositionAddModal(props) {
     const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });

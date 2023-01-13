@@ -2,30 +2,31 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
-export default function PositionDeleteModal(props) {
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
+export default function CustomerDeleteModal(props) {
+    console.log("delete", props.value);
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteCustomerLoading, error: deleteCustomerError }, executeCustomerDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executePositionDelete({
-            url: '/api/position/' + props?.value?.id,
+        executeCustomerDelete({
+            url: '/api/customer/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deletePositionLoading?.success) {
+                if (deleteCustomerLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deletePositionLoading) return <ModelLoading showCheck={showCheck} />
-    if (deletePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (deleteCustomerLoading) return <ModelLoading showCheck={showCheck} />
+    if (deleteCustomerError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
@@ -33,11 +34,11 @@ export default function PositionDeleteModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ลบรายการทีมและตำแหน่ง</Modal.Title>
+                    <Modal.Title className='text-center'>ลบข้อมูลสมาชิกบริษัท</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Modal.Title>ทีม : <span className='text-danger'> {props?.value?.team}</span></Modal.Title>
-                    <Modal.Title>ตำแหน่งงาน : <span className='text-danger'>{props?.value?.position}</span></Modal.Title>
+                    <Modal.Title>สมาชิก : <span className='text-danger'>{props?.value?.firstname}{' '}{props?.value?.lastname}</span></Modal.Title>
+                    <Modal.Title>ตำแหน่งงาน : <span className='text-danger'>{props?.value?.Position?.team}</span> ตำแหน่งงาน : <span className='text-danger'>{props?.value?.Position?.position}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

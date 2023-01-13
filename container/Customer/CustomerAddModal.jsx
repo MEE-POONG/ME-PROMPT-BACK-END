@@ -41,13 +41,10 @@ export default function CustomerAddModal(props) {
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-    useEffect(() => {
-        console.log(50, positionSelect);
-    }, [positionSelect]);
+   
 
     const onImageChange = (e) => {
         setImage([...e.target.files])
-        console.log("image", image);
     }
 
 
@@ -66,7 +63,6 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        console.log(positionSelect);
         if (positionSelect?.id == "") {
             setPositionSelect({ ...positionSelect, id: "", team: '', position: '' })
         }

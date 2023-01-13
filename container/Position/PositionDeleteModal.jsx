@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function PositionDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
