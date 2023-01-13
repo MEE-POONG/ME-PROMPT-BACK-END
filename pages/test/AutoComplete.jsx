@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
-import MyPagination from "@/components/Pagination"
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form'
+import useAxios from 'axios-hooks';
 export default function TestPage() {
-  const [value, setValue] = useState('');
-  const [showData, setShowData] = useState(false);
-  const handleClose = () => setShowData(false);
-  const handleShow = () => setShowData(true);
-  const InputToggle = React.forwardRef(({ onClick }, ref) => (
+  const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
 
-    
+  const [options, setOptions] = useState([
+    { id: '', team: 'ไม่พบ', position: 'ไม่พบ' },
+  ]);
+  const [positionSelect, setPositionSelect] = useState([]);
+  useEffect(() => {
+    if (positionSearch) setOptions(positionSearch);
+  }, [positionSearch])
 
-  ));
   return (
     <>
-      <Dropdown>
-        <Form.Control ref={ref}
-          id='value-position'
-          autoFocus
-          autoComplete="off"
+
+      <Form.Group>
+        <Form.Label>Single Selection</Form.Label>
+        <Typeahead
+          id="basic-typeahead-single"
+          labelKey="position"
+          onChange={setPositionSelect}
+          options={options}
+          placeholder="Choose a state..."
+          selected={positionSelect}
         />
-        <Dropdown.Menu  >
-          <Dropdown.Item eventKey="1">Red</Dropdown.Item>
-          <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
-          <Dropdown.Item eventKey="3" active>
-            Orange
-          </Dropdown.Item>
-          <Dropdown.Item eventKey="1">Red-Orange</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      </Form.Group>
     </>
   );
 }

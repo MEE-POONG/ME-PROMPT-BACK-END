@@ -4,8 +4,6 @@ import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerAddModal(props) {
@@ -29,7 +27,7 @@ export default function CustomerAddModal(props) {
     const [district, setDistrict] = useState('');
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
-    const [statusManager, setStatusManager] = useState('A');
+    const [statusManager, setStatusManager] = useState("");
 
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
@@ -41,12 +39,15 @@ export default function CustomerAddModal(props) {
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-   
+
 
     const onImageChange = (e) => {
         setImage([...e.target.files])
     }
-
+    const [options, setOptions] = useState([]);
+    useEffect(() => {
+        if (positionSearch) setOptions(positionSearch);
+    }, [positionSearch])
 
     useEffect(() => {
         if (image.length < 1) return
@@ -54,7 +55,9 @@ export default function CustomerAddModal(props) {
         image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
-
+    useEffect(() => {
+        if (positionSearch) setOptions(positionSearch);
+    }, [positionSearch])
     const clickHandler = () => {
         setShowPass(!showPass);
     }
@@ -63,9 +66,6 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        if (positionSelect?.id == "") {
-            setPositionSelect({ ...positionSelect, id: "", team: '', position: '' })
-        }
         if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
             let data = new FormData()
             data.append('file', image[0])
@@ -97,7 +97,6 @@ export default function CustomerAddModal(props) {
                     setImage(''),
                     setFirstname(''),
                     setLastname(''),
-                    setPositionSelect({ ...positionSelect, id: '', team: '', position: '' }),
 
                     setPostalCode(''),
                     setCity(''),
@@ -164,7 +163,7 @@ export default function CustomerAddModal(props) {
                                 </Col>
                                 <Col md='12'>
                                     <Form.Label>Password</Form.Label>
-                                    <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose}>
+                                    <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose} className="mb-3">
                                         <Form.Control
                                             type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
                                             id="password"
@@ -177,6 +176,23 @@ export default function CustomerAddModal(props) {
                                     <Form.Text className={checkValue === false && password.length < 8 ? "text-muted" : "d-none"}>
                                         กรอกอย่างน้อย 8-15 ตัวอักษร
                                     </Form.Text>
+                                </Col>
+                                <Col md="12">
+                                    <Form.Group className="mb-3" controlId="username">
+                                        <Form.Label>Manager Status</Form.Label>
+                                        <Form.Select
+                                            isValid={checkValue === false && statusManager !== '' ? true : false}
+                                            isInvalid={checkValue === false && statusManager === '' ? true : false}
+                                            value={statusManager}
+                                            onChange={(event) => setStatusManager(event.target.value)}
+                                            aria-label="Select an option"
+                                        >
+                                            <option value="" disabled>-เลือกสถานะดูแลเว็บ-</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Operator">Operator</option>
+                                            <option value="Unauthorized">Unauthorized</option>
+                                        </Form.Select>
+                                    </Form.Group>
                                 </Col>
                             </Row>
                         </Col>
@@ -204,7 +220,6 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-
                             <Form.Group className="mb-3" controlId="position">
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
@@ -215,16 +230,17 @@ export default function CustomerAddModal(props) {
 
                         </Col>
                         <Col md='6' >
-                            <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
-                            <Typeahead
-                                id="team-typeahead"
-                                labelKey="position"
-                                options={positionSearch}
-                                placeholder="Search for a team..."
-                                onChange={(positionSelect) => setPositionSelect(positionSelect)}
-                                isValid={checkValue === false && positionSelect.length > 0 ? true : false}
-                                isInvalid={checkValue === false && positionSelect.length === 0 ? true : false}
-                            />
+                            <Form.Group>
+                                <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
+                                <Typeahead
+                                    id="basic-typeahead-single"
+                                    labelKey="position"
+                                    onChange={setPositionSelect}
+                                    options={options}
+                                    placeholder="เลือกตำแหน่งงานภายใน"
+                                    selected={positionSelect}
+                                />
+                            </Form.Group>
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>
