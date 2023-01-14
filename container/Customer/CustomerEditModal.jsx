@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
-import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaEdit, FaUserCircle } from 'react-icons/fa'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerAddModal(props) {
-    const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
-    const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
+    const [{ data: positionSearch, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
+    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({ url: '/api/customer', method: 'PUT' }, { manual: true })
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
 
     const [positionSelect, setPositionSelect] = useState([]);
 
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
-
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFirstname] = useState('');
@@ -28,18 +26,36 @@ export default function CustomerAddModal(props) {
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [statusManager, setStatusManager] = useState("");
-
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
     const [intragarm, setIntragarm] = useState('');
-
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
     const [showPass, setShowPass] = useState(false);
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
-
+    useEffect(() => {
+        if (props) {
+            setPositionSelect(props?.value?.[0]?.Position);
+            setImage(props?.value?.[0]?.img);
+            setImageURL(props?.value?.[0]?.position);
+            setUsername(props?.value?.[0]?.username);
+            setPassword(props?.value?.[0]?.password);
+            setFirstname(props?.value?.[0]?.firstname);
+            setLastname(props?.value?.[0]?.lastname);
+            setAddressOne(props?.value?.[0]?.addressOne);
+            setAddressTwo(props?.value?.[0]?.addressTwo);
+            setSubDistrict(props?.value?.[0]?.subDistrict);
+            setDistrict(props?.value?.[0]?.district);
+            setCity(props?.value?.[0]?.city);
+            setPostalCode(props?.value?.[0]?.postalCode);
+            setStatusManager(props?.value?.[0]?.statusManager);
+            setFacebook(props?.value?.[0]?.facebook);
+            setLine(props?.value?.[0]?.line);
+            setIntragarm(props?.value?.[0]?.intragarm);
+        }
+    }, [props]);
 
     const onImageChange = (e) => {
         setImage([...e.target.files])
@@ -50,9 +66,9 @@ export default function CustomerAddModal(props) {
     }, [positionSearch])
 
     useEffect(() => {
-        if (image.length < 1) return
+        if (image?.length < 1) return
         const newImageUrl = []
-        image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+        image?.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
     useEffect(() => {
@@ -118,12 +134,13 @@ export default function CustomerAddModal(props) {
         }
     }
 
-    if (loading || customerLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
-    if (error || errorMessage || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || updatePositionError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
+
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสมาชิก
+            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaEdit />
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-customer'>
                 <Modal.Header closeButton>

@@ -50,7 +50,7 @@ export default function CustomerAddModal(props) {
     }, [positionSearch])
 
     useEffect(() => {
-        if (image.length < 1) return
+        if (image?.length < 1) return
         const newImageUrl = []
         image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
