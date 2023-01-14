@@ -66,7 +66,7 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0].id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
             let data = new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
@@ -78,7 +78,7 @@ export default function CustomerAddModal(props) {
                     img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                     firstname: firstname,
                     lastname: lastname,
-                    positionId: positionSelect?.id,
+                    positionId: positionSelect?.[0].id,
                     postalCode: postalCode,
                     city: city,
                     district: district,

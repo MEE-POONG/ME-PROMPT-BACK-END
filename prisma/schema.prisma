@@ -17,7 +17,7 @@ model Customer {
   lastname      String
   facebook      String
   line          String
-  intragarm     String
+  instagram     String
   addressOne    String
   addressTwo    String
   subDistrict   String

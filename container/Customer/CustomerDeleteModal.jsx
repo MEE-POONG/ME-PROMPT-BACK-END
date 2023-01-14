@@ -5,7 +5,6 @@ import useAxios from 'axios-hooks'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerDeleteModal(props) {
-    console.log("delete", props.value);
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);

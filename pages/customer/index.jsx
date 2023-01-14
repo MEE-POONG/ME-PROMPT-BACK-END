@@ -9,6 +9,7 @@ import CustomerAddModal from '@/container/Customer/CustomerAddModal'
 import CustomerEditModal from '@/container/Customer/CustomerEditModal'
 import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
 function MyTable(props) {
+    console.log(props);
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
 
@@ -20,6 +21,7 @@ function MyTable(props) {
                     <th>IMG</th>
                     <th>FullName</th>
                     <th>Position</th>
+                    <th>Social</th>
                     <th>Manager</th>
                 </tr>
             </thead>
@@ -44,6 +46,19 @@ function MyTable(props) {
                                 </Badge>
                             </td>
                             <td>
+                                <Badge bg="facebook">
+                                    {item.facebook}
+                                </Badge>
+                                <br />
+                                <Badge bg="line">
+                                    {item.line}
+                                </Badge>
+                                <br />
+                                <Badge bg="instagram">
+                                    {item.instagram}
+                                </Badge>
+                            </td>
+                            <td>
                                 <CustomerEditModal value={item} getData={props?.getData} />
                                 <CustomerDeleteModal value={item} getData={props?.getData} />
                             </td>
@@ -52,6 +67,7 @@ function MyTable(props) {
                     :
                     <tr>
                         <td>0</td>
+                        <td>undefined</td>
                         <td>undefined</td>
                         <td>undefined</td>
                         <td>undefined</td>
