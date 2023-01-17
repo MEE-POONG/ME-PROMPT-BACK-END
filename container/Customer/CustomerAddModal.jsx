@@ -16,7 +16,6 @@ export default function CustomerAddModal(props) {
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
 
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFirstname] = useState('');
@@ -70,8 +69,8 @@ export default function CustomerAddModal(props) {
             let data = new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
-            const id = imageData.data.result.idl;
-            console.log(74);
+            const id = imageData.data.result.id;
+            console.log(74, " : ", imageData);
             executeCustomer({
                 data: {
                     username: username,
