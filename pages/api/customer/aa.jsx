@@ -44,7 +44,7 @@ export default async function handler(req, res) {
                         img: req.body.img,
                         facebook: req.body.facebook,
                         line: req.body.line,
-                        intragarm: req.body.intragarm,
+                        instagram: req.body.instagram,
                         addressOne: req.body.addressOne,
                         addressTwo: req.body.addressTwo,
                         addressThree: req.body.addressThree,
@@ -108,7 +108,7 @@ export default function CustomerAddModal(props) {
     const [lastname, setLastname] = useState('');
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
-    const [intragarm, setIntragarm] = useState('');
+    const [instagram, setInstagram] = useState('');
     const [addressOne, setAddressOne] = useState('');
     const [addressTwo, setAddressTwo] = useState('');
     const [addressThree, setAddressThree] = useState('');
@@ -154,7 +154,7 @@ export default function CustomerAddModal(props) {
                     img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                     facebook: facebook,
                     line: line,
-                    intragarm: intragarm,
+                    instagram: instagram,
                     addressOne: addressOne,
                     addressTwo: addressTwo,
                     addressThree: addressThree,
@@ -174,7 +174,7 @@ export default function CustomerAddModal(props) {
                     setImg(''),
                     setFacebook(''),
                     setLine(''),
-                    setIntragarm(''),
+                    setInstagram(''),
                     setAddressOne(''),
                     setAddressTwo(''),
                     setAddressThree(''),
@@ -390,13 +390,13 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="intragarm">
-                                <Form.Label>Intragarm</Form.Label>
+                            <Form.Group className="mb-3" controlId="instagram">
+                                <Form.Label>Instagram</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                    onChange={(e) => { setIntragarm(e.target.value) }}
-                                    value={intragarm} autoComplete="off"
-                                    isValid={checkValue === false && intragarm !== '' ? true : false}
-                                    isInvalid={checkValue === false && intragarm === '' ? true : false}
+                                    onChange={(e) => { setInstagram(e.target.value) }}
+                                    value={instagram} autoComplete="off"
+                                    isValid={checkValue === false && instagram !== '' ? true : false}
+                                    isInvalid={checkValue === false && instagram === '' ? true : false}
                                 />
                             </Form.Group>
                         </Col>

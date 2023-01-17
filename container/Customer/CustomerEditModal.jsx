@@ -28,7 +28,7 @@ export default function CustomerAddModal(props) {
     const [statusManager, setStatusManager] = useState("");
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
-    const [intragarm, setIntragarm] = useState('');
+    const [instagram, setInstagram] = useState('');
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
     const [showPass, setShowPass] = useState(false);
@@ -53,7 +53,7 @@ export default function CustomerAddModal(props) {
             setStatusManager(props?.value?.[0]?.statusManager);
             setFacebook(props?.value?.[0]?.facebook);
             setLine(props?.value?.[0]?.line);
-            setIntragarm(props?.value?.[0]?.intragarm);
+            setInstagram(props?.value?.[0]?.instagram);
         }
     }, [props]);
 
@@ -82,7 +82,7 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0].id !== '' && facebook !== '' && line !== '' && intragarm !== '') {
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0].id !== '' && facebook !== '' && line !== '' && instagram !== '') {
             let data = new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
@@ -104,7 +104,7 @@ export default function CustomerAddModal(props) {
                     statusManager: statusManager,
                     facebook: facebook,
                     line: line,
-                    intragarm: intragarm,
+                    instagram: instagram,
                 }
             }).then(() => {
                 Promise.all([
@@ -124,7 +124,7 @@ export default function CustomerAddModal(props) {
                     setStatusManager(''),
                     setFacebook(''),
                     setLine(''),
-                    setIntragarm(''),
+                    setInstagram(''),
 
                     props.getData(),
                 ]).then(() => {
@@ -335,10 +335,10 @@ export default function CustomerAddModal(props) {
                             </Form.Group>
                         </Col>
                         <Col md='6'>
-                            <Form.Group className="mb-3" controlId="intragarm">
-                                <Form.Label>Intragarm</Form.Label>
+                            <Form.Group className="mb-3" controlId="instagram">
+                                <Form.Label>Instagram</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                    onChange={event => setIntragarm(event.target.value)}
+                                    onChange={event => setInstagram(event.target.value)}
                                 />
                             </Form.Group>
                         </Col>
