@@ -18,11 +18,12 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>IMG</th>
+                    <th className='min-width'>IMG</th>
                     <th>FullName</th>
+                    <th>Permission Type</th>
                     <th>Position</th>
                     <th>Social</th>
-                    <th>Manager</th>
+                    <th className='min-width'>Manager</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,11 +31,18 @@ function MyTable(props) {
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
-                            <td>
+                            <td className='min-width'>
                                 <Image src={item.img} alt={"Profile : " + item.firstname + " " + item.lastname} width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
                                 {item.firstname}{" "}{item.lastname}
+                            </td>
+                            <td>
+                                <h3>
+                                    <Badge bg="primary">
+                                        {item.statusManager}
+                                    </Badge>
+                                </h3>
                             </td>
                             <td>
                                 <Badge bg="primary">
@@ -58,8 +66,9 @@ function MyTable(props) {
                                     {item.instagram}
                                 </Badge>
                             </td>
-                            <td>
+                            <td className='min-width'>
                                 <CustomerEditModal value={item} getData={props?.getData} />
+                                <br />
                                 <CustomerDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
