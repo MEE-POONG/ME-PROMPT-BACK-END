@@ -224,25 +224,21 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    value={positionSelect?.[0]?.team}
+                                    defaultValue={positionSelect?.[0]?.team}
                                 />
                             </Form.Group>
 
                         </Col>
                         <Col md='6' >
-                            <Form.Group>
-                                <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
-                                <Typeahead
-                                    id="basic-typeahead-single"
-                                    labelKey="position"
-                                    onChange={setPositionSelect}
-                                    options={options}
-                                    placeholder="เลือกตำแหน่งงานภายใน"
-                                    selected={positionSelect}
-                                    isValid={checkValue === false && positionSelect.length > 0 ? true : false}
-                                    isInvalid={checkValue === false && positionSelect.length === 0 ? true : false}
-                                />
-                            </Form.Group>
+                            <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
+                            <Typeahead
+                                id="basic-typeahead-single"
+                                labelKey="position"
+                                onChange={setPositionSelect}
+                                options={options}
+                                placeholder="Choose a state..."
+                                selected={positionSelect}
+                            />
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>

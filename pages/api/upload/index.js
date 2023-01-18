@@ -47,15 +47,15 @@ const handler = nc()
                 console.log(error);
                 res.status(400).send(error.message)
             });
-        fs.unlink(req.file.path, (err => {
-            if (err) console.log(err);
-            else {
-                console.log("\nDeleted file: example_file.txt");
+        // fs.unlink(req.file.path, (err => {
+        //     if (err) console.log(err);
+        //     else {
+        //         console.log("\nDeleted file: example_file.txt");
 
-                // Get the files in current directory
-                // after deletion
-            }
-        }));
+        //         // Get the files in current directory
+        //         // after deletion
+        //     }
+        // }));
 
     })
     .delete(async (req, res) => {
