@@ -93,6 +93,7 @@ export default function CustomerPage() {
                 pageSize: customerData.pageSize
             });
         }
+        console.log(customerData);
     }, [customerData]);
 
     const handleSelectPage = (pageValue) => {
