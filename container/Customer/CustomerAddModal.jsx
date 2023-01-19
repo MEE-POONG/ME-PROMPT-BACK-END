@@ -40,14 +40,14 @@ export default function CustomerAddModal(props) {
     const handleShow = () => setShowCheck(true);
 
 
-    const onImageChange = (e) => {
-        setImage([...e.target.files])
-    }
+
     const [options, setOptions] = useState([]);
     useEffect(() => {
         if (positionSearch) setOptions(positionSearch);
     }, [positionSearch])
-
+    const onImageChange = (e) => {
+        setImage([...e.target.files])
+    }
     useEffect(() => {
         if (image?.length < 1) return
         const newImageUrl = []

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
-import { FaEye, FaEyeSlash, FaEdit, FaUserCircle } from 'react-icons/fa'
+import { FaEdit, FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerAddModal(props) {
-    const [{ data: positionSearch, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({ url: '/api/customer', method: 'PUT' }, { manual: true })
+export default function CustomerEditModal(props) {
+    const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
+    const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
 
     const [positionSelect, setPositionSelect] = useState([]);
 
     const [image, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [firstname, setFirstname] = useState('');
@@ -26,20 +27,23 @@ export default function CustomerAddModal(props) {
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [statusManager, setStatusManager] = useState("");
+
     const [facebook, setFacebook] = useState('');
     const [line, setLine] = useState('');
     const [instagram, setInstagram] = useState('');
+
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
     const [showPass, setShowPass] = useState(false);
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+
     useEffect(() => {
         if (props) {
             setPositionSelect(props?.value?.[0]?.Position);
-            setImage(props?.value?.[0]?.img);
-            setImageURL(props?.value?.[0]?.position);
+            // setImage(props?.value?.[0]?.img);
+            // setImageURL(props?.value?.[0]?.position);
             setUsername(props?.value?.[0]?.username);
             setPassword(props?.value?.[0]?.password);
             setFirstname(props?.value?.[0]?.firstname);
@@ -57,18 +61,17 @@ export default function CustomerAddModal(props) {
         }
     }, [props]);
 
-    const onImageChange = (e) => {
-        setImage([...e.target.files])
-    }
     const [options, setOptions] = useState([]);
     useEffect(() => {
         if (positionSearch) setOptions(positionSearch);
     }, [positionSearch])
-
+    const onImageChange = (e) => {
+        setImage([...e.target.files])
+    }
     useEffect(() => {
         if (image?.length < 1) return
         const newImageUrl = []
-        image?.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+        image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
     useEffect(() => {
@@ -82,11 +85,12 @@ export default function CustomerAddModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0].id !== '' && facebook !== '' && line !== '' && instagram !== '') {
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0]?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
             let data = new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
-            const id = imageData.data.result.id
+            const id = imageData.data.result.id;
+            console.log(74, " : ", imageData);
             executeCustomer({
                 data: {
                     username: username,
@@ -134,9 +138,8 @@ export default function CustomerAddModal(props) {
         }
     }
 
-    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck} />
-    if (error || updatePositionError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
-
+    if (loading || customerLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || errorMessage || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
@@ -241,23 +244,21 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    value={positionSelect?.[0]?.team}
+                                    defaultValue={positionSelect?.[0]?.team}
                                 />
                             </Form.Group>
 
                         </Col>
                         <Col md='6' >
-                            <Form.Group>
-                                <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
-                                <Typeahead
-                                    id="basic-typeahead-single"
-                                    labelKey="position"
-                                    onChange={setPositionSelect}
-                                    options={options}
-                                    placeholder="เลือกตำแหน่งงานภายใน"
-                                    selected={positionSelect}
-                                />
-                            </Form.Group>
+                            <Form.Label>หน้าที่ / ตำแหน่งงาน</Form.Label>
+                            <Typeahead
+                                id="basic-typeahead-single"
+                                labelKey="position"
+                                onChange={setPositionSelect}
+                                options={options}
+                                placeholder="Choose a state..."
+                                selected={positionSelect}
+                            />
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>

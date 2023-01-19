@@ -35,36 +35,43 @@ function MyTable(props) {
                                 <Image src={item.img} alt={"Profile : " + item.firstname + " " + item.lastname} width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
-                                {item.firstname}{" "}{item.lastname}
+                                <h4>
+                                    {item.firstname}{" "}{item.lastname}
+                                </h4>
                             </td>
                             <td>
-                                <h3>
+                                <h4>
                                     <Badge bg="primary">
                                         {item.statusManager}
                                     </Badge>
-                                </h3>
+                                </h4>
                             </td>
                             <td>
-                                <Badge bg="primary">
-                                    {item.Position?.team}
-                                </Badge>
-                                <br />
-                                <Badge bg="success">
-                                    {item.Position?.position}
-                                </Badge>
+                                <h4>
+                                    <Badge bg="primary">
+                                        {item.Position?.team}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="success">
+                                        {item.Position?.position}
+                                    </Badge>
+                                </h4>
                             </td>
                             <td>
-                                <Badge bg="facebook">
-                                    {item.facebook}
-                                </Badge>
-                                <br />
-                                <Badge bg="line">
-                                    {item.line}
-                                </Badge>
-                                <br />
-                                <Badge bg="instagram">
-                                    {item.instagram}
-                                </Badge>
+                                <h4>
+
+                                    <Badge bg="facebook">
+                                        {item.facebook}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="line">
+                                        {item.line}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="instagram">
+                                        {item.instagram}
+                                    </Badge>
+                                </h4>
                             </td>
                             <td className='min-width'>
                                 <CustomerEditModal value={item} getData={props?.getData} />
