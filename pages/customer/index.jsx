@@ -9,7 +9,6 @@ import CustomerAddModal from '@/container/Customer/CustomerAddModal'
 import CustomerEditModal from '@/container/Customer/CustomerEditModal'
 import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
 function MyTable(props) {
-    console.log(props);
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
 
@@ -109,7 +108,6 @@ export default function CustomerPage() {
                 pageSize: customerData.pageSize
             });
         }
-        console.log(customerData);
     }, [customerData]);
 
     const handleSelectPage = (pageValue) => {

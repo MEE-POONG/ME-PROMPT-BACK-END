@@ -54,9 +54,7 @@ export default function CustomerAddModal(props) {
         image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
-    useEffect(() => {
-        if (positionSearch) setOptions(positionSearch);
-    }, [positionSearch])
+
     const clickHandler = () => {
         setShowPass(!showPass);
     }
@@ -183,7 +181,7 @@ export default function CustomerAddModal(props) {
                                         <Form.Select
                                             isValid={checkValue === false && statusManager !== '' ? true : false}
                                             isInvalid={checkValue === false && statusManager === '' ? true : false}
-                                            value={statusManager}
+                                            defaultValue={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
                                         >
@@ -239,6 +237,7 @@ export default function CustomerAddModal(props) {
                                 placeholder="Choose a state..."
                                 selected={positionSelect}
                             />
+                            
                         </Col>
                     </Row>
                     <h4>ที่อยู่</h4>

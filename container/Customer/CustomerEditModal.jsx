@@ -8,12 +8,14 @@ import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 export default function CustomerEditModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
-    const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
+    const [{ loading: updateLoading, error: updateError }, executeUpdatePut] = useAxios({}, { manual: true })
 
     const [positionSelect, setPositionSelect] = useState([]);
 
+    const [img, setImg] = useState([])
     const [image, setImage] = useState([])
+    const [imageDefault, setImageDefault] = useState("./images/default.png")
     const [imageURL, setImageURL] = useState([])
 
     const [username, setUsername] = useState('');
@@ -24,7 +26,7 @@ export default function CustomerEditModal(props) {
     const [addressTwo, setAddressTwo] = useState('');
     const [subDistrict, setSubDistrict] = useState('');
     const [district, setDistrict] = useState('');
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState(''); <s></s>
     const [postalCode, setPostalCode] = useState('');
     const [statusManager, setStatusManager] = useState("");
 
@@ -41,23 +43,25 @@ export default function CustomerEditModal(props) {
 
     useEffect(() => {
         if (props) {
-            setPositionSelect(props?.value?.[0]?.Position);
-            // setImage(props?.value?.[0]?.img);
-            // setImageURL(props?.value?.[0]?.position);
-            setUsername(props?.value?.[0]?.username);
-            setPassword(props?.value?.[0]?.password);
-            setFirstname(props?.value?.[0]?.firstname);
-            setLastname(props?.value?.[0]?.lastname);
-            setAddressOne(props?.value?.[0]?.addressOne);
-            setAddressTwo(props?.value?.[0]?.addressTwo);
-            setSubDistrict(props?.value?.[0]?.subDistrict);
-            setDistrict(props?.value?.[0]?.district);
-            setCity(props?.value?.[0]?.city);
-            setPostalCode(props?.value?.[0]?.postalCode);
-            setStatusManager(props?.value?.[0]?.statusManager);
-            setFacebook(props?.value?.[0]?.facebook);
-            setLine(props?.value?.[0]?.line);
-            setInstagram(props?.value?.[0]?.instagram);
+            console.log(props);
+            setPositionSelect(props?.value?.Position);
+            setImageDefault(props?.value?.img);
+            setImg(props?.value?.img);
+            setUsername(props?.value?.username);
+            setPassword(props?.value?.password);
+            setFirstname(props?.value?.firstname);
+            setLastname(props?.value?.lastname);
+            setAddressOne(props?.value?.addressOne);
+            setAddressTwo(props?.value?.addressTwo);
+            setSubDistrict(props?.value?.subDistrict);
+            setDistrict(props?.value?.district);
+            setCity(props?.value?.city);
+            setPostalCode(props?.value?.postalCode);
+            setStatusManager(props?.value?.statusManager);
+            setFacebook(props?.value?.facebook);
+            setLine(props?.value?.line);
+            setInstagram(props?.value?.instagram);
+
         }
     }, [props]);
 
@@ -65,6 +69,7 @@ export default function CustomerEditModal(props) {
     useEffect(() => {
         if (positionSearch) setOptions(positionSearch);
     }, [positionSearch])
+
     const onImageChange = (e) => {
         setImage([...e.target.files])
     }
@@ -74,9 +79,6 @@ export default function CustomerEditModal(props) {
         image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
-    useEffect(() => {
-        if (positionSearch) setOptions(positionSearch);
-    }, [positionSearch])
     const clickHandler = () => {
         setShowPass(!showPass);
     }
@@ -85,61 +87,81 @@ export default function CustomerEditModal(props) {
     }
     const handleSubmit = async () => {
         setCheckValue(false);
-        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0]?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
             let data = new FormData()
-            data.append('file', image[0])
-            const imageData = await uploadImage({ data: data })
-            const id = imageData.data.result.id;
-            console.log(74, " : ", imageData);
-            executeCustomer({
-                data: {
-                    username: username,
-                    password: password,
-                    img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
-                    firstname: firstname,
-                    lastname: lastname,
-                    positionId: positionSelect?.[0].id,
-                    postalCode: postalCode,
-                    city: city,
-                    district: district,
-                    subDistrict: subDistrict,
-                    addressOne: addressOne,
-                    addressTwo: addressTwo,
-                    statusManager: statusManager,
-                    facebook: facebook,
-                    line: line,
-                    instagram: instagram,
-                }
-            }).then(() => {
-                Promise.all([
-                    setUsername(''),
-                    setPassword(''),
-                    setImage(''),
-                    setFirstname(''),
-                    setLastname(''),
+            if (image.length > 0) {
+                data.append('file', image[0])
+                const imageData = await uploadImage({ data: data })
+                let id = imageData.data.result.id;
+            }
+            console.log("id", `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`);
+            console.log("username", username);
+            console.log("password", password);
+            console.log("img", image.length > 0 ? `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public` : img);
+            console.log("firstname", firstname);
+            console.log("lastname", lastname);
+            console.log("positionSelect", positionSelect);
+            console.log("postalCode", postalCode);
+            console.log("city", city);
+            console.log("district", district);
+            console.log("subDistrict", subDistrict);
+            console.log("addressOne", addressOne);
+            console.log("addressTwo", addressTwo);
+            console.log("statusManager", statusManager);
+            console.log("facebook", facebook);
+            console.log("line", line);
+            console.log("instagram", instagram);
+            // executeUpdatePut({
+            //     url: '/api/position/' + props?.value?.id,
+            //     method: 'PUT',
+            //     data: {
+            //         username: username,
+            //         password: password,
+            //         img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+            //         firstname: firstname,
+            //         lastname: lastname,
+            //         positionId: positionSelect?.id,
+            //         postalCode: postalCode,
+            //         city: city,
+            //         district: district,
+            //         subDistrict: subDistrict,
+            //         addressOne: addressOne,
+            //         addressTwo: addressTwo,
+            //         statusManager: statusManager,
+            //         facebook: facebook,
+            //         line: line,
+            //         instagram: instagram,
+            //     }
+            // }).then(() => {
+            //     Promise.all([
+            //         setUsername(''),
+            //         setPassword(''),
+            //         setImage(''),
+            //         setFirstname(''),
+            //         setLastname(''),
 
-                    setPostalCode(''),
-                    setCity(''),
-                    setDistrict(''),
-                    setSubDistrict(''),
-                    setAddressOne(''),
-                    setAddressTwo(''),
+            //         setPostalCode(''),
+            //         setCity(''),
+            //         setDistrict(''),
+            //         setSubDistrict(''),
+            //         setAddressOne(''),
+            //         setAddressTwo(''),
 
-                    setStatusManager(''),
-                    setFacebook(''),
-                    setLine(''),
-                    setInstagram(''),
+            //         setStatusManager(''),
+            //         setFacebook(''),
+            //         setLine(''),
+            //         setInstagram(''),
 
-                    props.getData(),
-                ]).then(() => {
-                    handleClose()
-                })
-            });
+            //         props.getData(),
+            //     ]).then(() => {
+            //         handleClose()
+            //     })
+            // });
         }
     }
 
-    if (loading || customerLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
-    if (error || errorMessage || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (loading || updateLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || updateError || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
@@ -157,7 +179,7 @@ export default function CustomerEditModal(props) {
                                 <Image
                                     width={"100%"}
                                     height="200px"
-                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : "./images/default.png"}
+                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : imageDefault}
                                     className="p-4 object-fit-contain"
                                     alt="" />
                                 <Form.Control type="file" accept="img/*" onChange={onImageChange}
@@ -173,6 +195,7 @@ export default function CustomerEditModal(props) {
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control type="text" placeholder="สร้างยูสเซอร์ประจำตัว"
                                             onChange={event => setUsername(event.target.value)}
+                                            defaultValue={username}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
                                         />
@@ -186,6 +209,7 @@ export default function CustomerEditModal(props) {
                                     <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose} className="mb-3">
                                         <Form.Control
                                             type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
+                                            defaultValue={password}
                                             id="password"
                                             onChange={event => setPassword(event.target.value)}
                                             isValid={checkValue === false && password !== '' ? true : false}
@@ -203,7 +227,7 @@ export default function CustomerEditModal(props) {
                                         <Form.Select
                                             isValid={checkValue === false && statusManager !== '' ? true : false}
                                             isInvalid={checkValue === false && statusManager === '' ? true : false}
-                                            value={statusManager}
+                                            defaultValue={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
                                         >
@@ -217,13 +241,14 @@ export default function CustomerEditModal(props) {
                             </Row>
                         </Col>
                     </Row>
-                    <h4>ข้อมูลส่วนตัว</h4>
+                    <h5>ข้อมูลส่วนตัว</h5>
                     <Row className="mb-3">
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุ ชื่อจริง"
                                     onChange={event => setFirstname(event.target.value)}
+                                    defaultValue={firstname}
                                     isValid={checkValue === false && firstname !== '' ? true : false}
                                     isInvalid={checkValue === false && firstname === '' ? true : false}
                                 />
@@ -234,6 +259,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>นามสกุล</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุนามสกุล"
                                     onChange={event => setLastname(event.target.value)}
+                                    defaultValue={lastname}
                                     isValid={checkValue === false && lastname !== '' ? true : false}
                                     isInvalid={checkValue === false && lastname === '' ? true : false}
                                 />
@@ -244,7 +270,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    defaultValue={positionSelect?.[0]?.team}
+                                    defaultValue={positionSelect?.team}
                                 />
                             </Form.Group>
 
@@ -257,17 +283,18 @@ export default function CustomerEditModal(props) {
                                 onChange={setPositionSelect}
                                 options={options}
                                 placeholder="Choose a state..."
-                                selected={positionSelect}
+                                defaultInputValue={props?.value?.Position?.position}
                             />
                         </Col>
                     </Row>
-                    <h4>ที่อยู่</h4>
+                    <h5>ที่อยู่</h5>
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="postalCode">
                                 <Form.Label>รหัสไปษณีย์</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setPostalCode(event.target.value)}
+                                    defaultValue={postalCode}
 
                                 />
                             </Form.Group>
@@ -277,6 +304,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>จังหวัด</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setCity(event.target.value)}
+                                    defaultValue={city}
 
                                 />
                             </Form.Group>
@@ -286,6 +314,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>อำเภอ</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setDistrict(event.target.value)}
+                                    defaultValue={district}
 
                                 />
                             </Form.Group>
@@ -295,6 +324,8 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ตำบล</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setSubDistrict(event.target.value)}
+                                    defaultValue={subDistrict}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -303,6 +334,8 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ที่อยู่</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressOne(event.target.value)}
+                                    defaultValue={addressOne}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -311,18 +344,21 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ที่อยู่ เพิ่มเติม</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressTwo(event.target.value)}
+                                    defaultValue={addressTwo}
 
                                 />
                             </Form.Group>
                         </Col>
                     </Row>
-                    <h4>โซเชียล</h4>
+                    <h5>โซเชียล</h5>
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="facebook">
                                 <Form.Label>Facebook</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setFacebook(event.target.value)}
+                                    defaultValue={facebook}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -331,6 +367,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>Line</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setLine(event.target.value)}
+                                    defaultValue={line}
 
                                 />
                             </Form.Group>
@@ -340,6 +377,8 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>Instagram</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setInstagram(event.target.value)}
+                                    defaultValue={instagram}
+
                                 />
                             </Form.Group>
                         </Col>
