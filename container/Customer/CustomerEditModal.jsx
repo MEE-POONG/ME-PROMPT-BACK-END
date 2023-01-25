@@ -13,10 +13,10 @@ export default function CustomerEditModal(props) {
 
     const [positionSelect, setPositionSelect] = useState([]);
 
-    const [img, setImg] = useState([])
-    const [image, setImage] = useState([])
-    const [imageDefault, setImageDefault] = useState("./images/default.png")
-    const [imageURL, setImageURL] = useState([])
+    const [img, setImg] = useState([]);
+    const [image, setImage] = useState([]);
+    const [imageURL, setImageURL] = useState([]);
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -43,9 +43,9 @@ export default function CustomerEditModal(props) {
 
     useEffect(() => {
         if (props) {
-            console.log(props);
+            // console.log("props : ", props);
             setPositionSelect(props?.value?.Position);
-            setImageDefault(props?.value?.img);
+            // setImageDefault(props?.value?.img);
             setImg(props?.value?.img);
             setUsername(props?.value?.username);
             setPassword(props?.value?.password);
@@ -71,8 +71,8 @@ export default function CustomerEditModal(props) {
     }, [positionSearch])
 
     const onImageChange = (e) => {
-        setImage([...e.target.files])
-    }
+        setImage([...e.target.files]);
+    };
     useEffect(() => {
         if (image?.length < 1) return
         const newImageUrl = []
@@ -86,13 +86,16 @@ export default function CustomerEditModal(props) {
         setShowPass(false);
     }
     const handleSubmit = async () => {
+        let id = '';
         setCheckValue(false);
+
         if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
-            let data = new FormData()
             if (image.length > 0) {
-                data.append('file', image[0])
-                const imageData = await uploadImage({ data: data })
-                let id = imageData.data.result.id;
+                let data = new FormData();
+                data.append("file", image[0]);
+                const imageData = await uploadImage({ data: data });
+                id = imageData.data.result.id;
+
             }
             console.log("id", `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`);
             console.log("username", username);
@@ -111,52 +114,52 @@ export default function CustomerEditModal(props) {
             console.log("facebook", facebook);
             console.log("line", line);
             console.log("instagram", instagram);
-            // executeUpdatePut({
-            //     url: '/api/position/' + props?.value?.id,
-            //     method: 'PUT',
-            //     data: {
-            //         username: username,
-            //         password: password,
-            //         img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
-            //         firstname: firstname,
-            //         lastname: lastname,
-            //         positionId: positionSelect?.id,
-            //         postalCode: postalCode,
-            //         city: city,
-            //         district: district,
-            //         subDistrict: subDistrict,
-            //         addressOne: addressOne,
-            //         addressTwo: addressTwo,
-            //         statusManager: statusManager,
-            //         facebook: facebook,
-            //         line: line,
-            //         instagram: instagram,
-            //     }
-            // }).then(() => {
-            //     Promise.all([
-            //         setUsername(''),
-            //         setPassword(''),
-            //         setImage(''),
-            //         setFirstname(''),
-            //         setLastname(''),
+            executeUpdatePut({
+                url: '/api/customer/' + props?.value?.id,
+                method: 'PUT',
+                data: {
+                    username: username,
+                    password: password,
+                    img: image.length > 0 ? `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public` : img,
+                    firstname: firstname,
+                    lastname: lastname,
+                    positionId: positionSelect?.id,
+                    postalCode: postalCode,
+                    city: city,
+                    district: district,
+                    subDistrict: subDistrict,
+                    addressOne: addressOne,
+                    addressTwo: addressTwo,
+                    statusManager: statusManager,
+                    facebook: facebook,
+                    line: line,
+                    instagram: instagram,
+                }
+            }).then(() => {
+                Promise.all([
+                    setUsername(''),
+                    setPassword(''),
+                    setImage(''),
+                    setFirstname(''),
+                    setLastname(''),
 
-            //         setPostalCode(''),
-            //         setCity(''),
-            //         setDistrict(''),
-            //         setSubDistrict(''),
-            //         setAddressOne(''),
-            //         setAddressTwo(''),
+                    setPostalCode(''),
+                    setCity(''),
+                    setDistrict(''),
+                    setSubDistrict(''),
+                    setAddressOne(''),
+                    setAddressTwo(''),
 
-            //         setStatusManager(''),
-            //         setFacebook(''),
-            //         setLine(''),
-            //         setInstagram(''),
+                    setStatusManager(''),
+                    setFacebook(''),
+                    setLine(''),
+                    setInstagram(''),
 
-            //         props.getData(),
-            //     ]).then(() => {
-            //         handleClose()
-            //     })
-            // });
+                    props.getData(),
+                ]).then(() => {
+                    handleClose()
+                })
+            });
         }
     }
 
@@ -179,9 +182,30 @@ export default function CustomerEditModal(props) {
                                 <Image
                                     width={"100%"}
                                     height="200px"
-                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : imageDefault}
+                                    src={imageURL?.length === 0 ? img : imageURL?.map((imageSrcProduct) => (imageSrcProduct))}
                                     className="p-4 object-fit-contain"
                                     alt="" />
+                                {/* {imageURL?.length === 0 && (
+                                    <Image
+                                        className="mb-2"
+                                        style={{ height: 200 }}
+                                        src={img}
+                                        alt="product_img"
+                                        fluid
+                                        rounded
+                                    />
+                                )}
+                                {imageURL?.map((imageSrcProduct, index) => (
+                                    <Image
+                                        key={index}
+                                        className="mb-2"
+                                        style={{ height: 200 }}
+                                        src={imageSrcProduct}
+                                        alt="product_img"
+                                        fluid
+                                        rounded
+                                    />
+                                ))} */}
                                 <Form.Control type="file" accept="img/*" onChange={onImageChange}
                                     isValid={checkValue === false && image.length > 1 ? true : false}
                                     isInvalid={checkValue === false && image.length === 0 ? true : false}

@@ -26,7 +26,6 @@ const handler = nc()
 
         let data = new FormData();
         data.append('file', fs.createReadStream(req.file.path), req.file.filename);
-        console.log("aaa",req.file.path);
         let config = {
             method: 'POST',
             url: 'https://api.cloudflare.com/client/v4/accounts/39aa4ea3c7a7d766adc4428933324787/images/v1',

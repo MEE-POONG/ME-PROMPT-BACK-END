@@ -15,7 +15,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     }
                 });
-                
+
                 res.status(200).json(data)
             } catch (error) {
                 res.status(400).json({ success: false })
@@ -28,19 +28,28 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        name: req.body.name,
-                        price: parseInt(req.body.price),
-                        description: req.body.description,
-                        image: req.body.image,
-                        categoryId: req.body.categoryId,
-                        amount: parseInt(req.body.amount),
-                        unitId: req.body.unitId,
+                        positionId: req.body.positionId,
+                        username: req.body.username,
+                        password: req.body.password,
+                        img: req.body.img,
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        facebook: req.body.facebook,
+                        line: req.body.line,
+                        instagram: req.body.instagram,
+                        addressOne: req.body.addressOne,
+                        addressTwo: req.body.addressTwo,
+                        subDistrict: req.body.subDistrict,
+                        district: req.body.district,
+                        city: req.body.city,
+                        postalCode: req.body.postalCode,
+                        statusManager: req.body.statusManager,
                     }
                 })
-                
+
                 res.status(201).json({ success: true })
             } catch (error) {
-                res.status(400).json({ success: false })
+                res.status(400).json({ success: falserror })
             }
             break
         case 'DELETE':
@@ -50,7 +59,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     }
                 });
-                
+
                 res.status(204).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })
