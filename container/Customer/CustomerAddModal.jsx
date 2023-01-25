@@ -75,7 +75,7 @@ export default function CustomerAddModal(props) {
                     img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                     firstname: firstname,
                     lastname: lastname,
-                    positionId: positionSelect?.[0].id,
+                    positionId: positionSelect?.[0]?.id,
                     postalCode: postalCode,
                     city: city,
                     district: district,
