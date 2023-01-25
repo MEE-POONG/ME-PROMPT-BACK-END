@@ -68,7 +68,6 @@ export default function CustomerAddModal(props) {
             data.append('file', image[0])
             const imageData = await uploadImage({ data: data })
             const id = imageData.data.result.id;
-            console.log(74, " : ", imageData);
             executeCustomer({
                 data: {
                     username: username,

@@ -64,6 +64,9 @@ export default function CustomerEditModal(props) {
 
         }
     }, [props]);
+useEffect(() => {
+    console.log(positionSelect);
+}, [positionSelect])
 
     const [options, setOptions] = useState([]);
     useEffect(() => {
@@ -97,23 +100,23 @@ export default function CustomerEditModal(props) {
                 id = imageData.data.result.id;
 
             }
-            console.log("id", `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`);
-            console.log("username", username);
-            console.log("password", password);
-            console.log("img", image.length > 0 ? `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public` : img);
-            console.log("firstname", firstname);
-            console.log("lastname", lastname);
-            console.log("positionSelect", positionSelect);
-            console.log("postalCode", postalCode);
-            console.log("city", city);
-            console.log("district", district);
-            console.log("subDistrict", subDistrict);
-            console.log("addressOne", addressOne);
-            console.log("addressTwo", addressTwo);
-            console.log("statusManager", statusManager);
-            console.log("facebook", facebook);
-            console.log("line", line);
-            console.log("instagram", instagram);
+            // console.log("id", `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`);
+            // console.log("username", username);
+            // console.log("password", password);
+            // console.log("img", image.length > 0 ? `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public` : img);
+            // console.log("firstname", firstname);
+            // console.log("lastname", lastname);
+            // console.log("positionSelect", positionSelect);
+            // console.log("postalCode", postalCode);
+            // console.log("city", city);
+            // console.log("district", district);
+            // console.log("subDistrict", subDistrict);
+            // console.log("addressOne", addressOne);
+            // console.log("addressTwo", addressTwo);
+            // console.log("statusManager", statusManager);
+            // console.log("facebook", facebook);
+            // console.log("line", line);
+            // console.log("instagram", instagram);
             executeUpdatePut({
                 url: '/api/customer/' + props?.value?.id,
                 method: 'PUT',
