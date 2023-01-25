@@ -40,21 +40,21 @@ const handler = nc()
 
         axios(config)
             .then((response) => {
-                res.status(200).send(response.data)
+                res.status(200).send(response.data);
             })
             .catch((error) => {
-                res.status(400).send(error.message)
+                console.log(error);
+                res.status(400).send(error.message);
             });
-        // fs.unlink(req.file.path, (err => {
-        //     if (err) console.log(err);
-        //     else {
-        //         console.log("\nDeleted file: example_file.txt");
-
-        //         // Get the files in current directory
-        //         // after deletion
-        //     }
-        // }));
-
+        setTimeout(() => {
+            fs.unlink(req.file.path, () => {
+                try {
+                    console.log("success");
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+        }, 5000);
     })
     .delete(async (req, res) => {
         let config = {
