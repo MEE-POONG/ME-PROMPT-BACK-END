@@ -39,9 +39,10 @@ export default function CustomerEditModal(props) {
     const [showPass, setShowPass] = useState(false);
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
-    const handleShow = () => { setShowCheck(true), setValueDefault(props.value) };
+    const handleShow = () => { setShowCheck(true), valueDefault(props.value) };
 
-    const setValueDefault = (e) => {
+    const valueDefault = (e) => {
+        console.log("45 :", e);
         if (e) {
             setPositionSelect(e?.Position === null ? positionSelect : [e?.Position]);
             // setImageDefault(e?.img);
@@ -178,7 +179,7 @@ export default function CustomerEditModal(props) {
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control type="text" placeholder="สร้างยูสเซอร์ประจำตัว"
                                             onChange={event => setUsername(event.target.value)}
-                                            defaultValue={username}
+                                            value={username}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
                                         />
@@ -192,7 +193,7 @@ export default function CustomerEditModal(props) {
                                     <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose} className="mb-3">
                                         <Form.Control
                                             type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
-                                            defaultValue={password}
+                                            value={password}
                                             id="password"
                                             onChange={event => setPassword(event.target.value)}
                                             isValid={checkValue === false && password !== '' ? true : false}
@@ -210,7 +211,7 @@ export default function CustomerEditModal(props) {
                                         <Form.Select
                                             isValid={checkValue === false && statusManager !== '' ? true : false}
                                             isInvalid={checkValue === false && statusManager === '' ? true : false}
-                                            defaultValue={statusManager}
+                                            value={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
                                         >
@@ -231,7 +232,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุ ชื่อจริง"
                                     onChange={event => setFirstname(event.target.value)}
-                                    defaultValue={firstname}
+                                    value={firstname}
                                     isValid={checkValue === false && firstname !== '' ? true : false}
                                     isInvalid={checkValue === false && firstname === '' ? true : false}
                                 />
@@ -242,7 +243,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>นามสกุล</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุนามสกุล"
                                     onChange={event => setLastname(event.target.value)}
-                                    defaultValue={lastname}
+                                    value={lastname}
                                     isValid={checkValue === false && lastname !== '' ? true : false}
                                     isInvalid={checkValue === false && lastname === '' ? true : false}
                                 />
@@ -253,7 +254,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    defaultValue={positionSelect?.[0]?.team}
+                                    value={positionSelect?.[0]?.team}
                                 />
                             </Form.Group>
 
@@ -278,7 +279,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>รหัสไปษณีย์</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setPostalCode(event.target.value)}
-                                    defaultValue={postalCode}
+                                    value={postalCode}
 
                                 />
                             </Form.Group>
@@ -288,7 +289,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>จังหวัด</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setCity(event.target.value)}
-                                    defaultValue={city}
+                                    value={city}
 
                                 />
                             </Form.Group>
@@ -298,7 +299,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>อำเภอ</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setDistrict(event.target.value)}
-                                    defaultValue={district}
+                                    value={district}
 
                                 />
                             </Form.Group>
@@ -308,7 +309,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ตำบล</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setSubDistrict(event.target.value)}
-                                    defaultValue={subDistrict}
+                                    value={subDistrict}
 
                                 />
                             </Form.Group>
@@ -318,7 +319,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ที่อยู่</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressOne(event.target.value)}
-                                    defaultValue={addressOne}
+                                    value={addressOne}
 
                                 />
                             </Form.Group>
@@ -328,7 +329,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>ที่อยู่ เพิ่มเติม</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressTwo(event.target.value)}
-                                    defaultValue={addressTwo}
+                                    value={addressTwo}
 
                                 />
                             </Form.Group>
@@ -341,7 +342,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>Facebook</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setFacebook(event.target.value)}
-                                    defaultValue={facebook}
+                                    value={facebook}
 
                                 />
                             </Form.Group>
@@ -351,7 +352,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>Line</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setLine(event.target.value)}
-                                    defaultValue={line}
+                                    value={line}
 
                                 />
                             </Form.Group>
@@ -361,7 +362,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Label>Instagram</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setInstagram(event.target.value)}
-                                    defaultValue={instagram}
+                                    value={instagram}
 
                                 />
                             </Form.Group>
@@ -372,7 +373,7 @@ export default function CustomerEditModal(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="warning" className='my-0' onClick={handleSubmit}>
+                    <Button bsPrefix="warning" className='my-0' onClick={handleShow}>
                         รีเซ็ต
                     </Button>
                     <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
