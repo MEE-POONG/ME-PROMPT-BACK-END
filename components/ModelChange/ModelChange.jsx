@@ -1,4 +1,5 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
 
 // reactstrap components
 // import { Spinner } from "reactstrap";

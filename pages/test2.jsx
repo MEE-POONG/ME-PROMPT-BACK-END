@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Button, Form, Image, InputGroup, Row, Col } from 'react-bootstrap'
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa'
-import { data_two } from './data';
+import { data_two } from '../data';
 import Header from '@/components/test/Header';
 import Main from '@/components/test/Main';
 import Basket from '@/components/test/Basket';

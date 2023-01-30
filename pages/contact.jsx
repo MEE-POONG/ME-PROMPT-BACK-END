@@ -24,28 +24,28 @@ export default function ContactPage() {
                             <h6 className="mb-4"> ข้อมูลติดต่อ </h6>
                             <form>
                                 <div className="mb-3">
-                                    <label for="Inputname" className="form-label">ชื่อของร้าน</label>
+                                    <label htmlFor="Inputname" className="form-label">ชื่อของร้าน</label>
                                     <input type="text" className="form-control" style={{ width: "500px" }} id="#" placeholder='Pig jungle' />
                                     <div className="mb-3">
-                                        <label for="Inputphone" className="form-label">เบอร์โทรศัพท์</label>
+                                        <label htmlFor="Inputphone" className="form-label">เบอร์โทรศัพท์</label>
                                         <input type="tel" className="form-control" style={{ width: "500px" }} id="# " placeholder='065-065-8538' />
                                     </div>
                                     <div className="mb-3">
-                                        <label for="Inputname" className="form-label">ลิงค์เพจเฟสบุค</label>
+                                        <label htmlFor="Inputname" className="form-label">ลิงค์เพจเฟสบุค</label>
                                         <input type="text" className="form-control" style={{ width: "500px" }} id="#" placeholder='Pig jungle' />
                                     </div>
                                     <div className="mb-3">
-                                        <label for="Inputphone" className="form-label">ลิงค์ไลน์</label>
+                                        <label htmlFor="Inputphone" className="form-label">ลิงค์ไลน์</label>
                                         <input type="text" className="form-control" style={{ width: "500px" }} id="# " placeholder='@Pig_jungle' />
                                     </div>
 
                                     <div className="mb-3">
-                                        <label for="Inputname" className="form-label">e-mail</label>
+                                        <label htmlFor="Inputname" className="form-label">e-mail</label>
                                         <input type="email" className="form-control" style={{ width: "500px" }} id="#" placeholder='Pig_jungle@egmail.com' />
                                     </div>
 
                                     <div className="mb-3">
-                                        <label for="Inputphone" className="form-label">ช่วงเวลาติดต่อ</label>
+                                        <label htmlFor="Inputphone" className="form-label">ช่วงเวลาติดต่อ</label>
                                         <input type="text" className="form-control" style={{ width: "500px" }} id="# " placeholder='11.00-00.00 ' />
                                     </div>
                                 </div>
@@ -63,14 +63,14 @@ export default function ContactPage() {
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d493527.2919921313!2d101.49336638409545!3d14.89905149029705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311c2bb5aa80c05d%3A0xf0d75169f3e8a461!2sPetrol!5e0!3m2!1sen!2sth!4v1668670673320!5m2!1sen!2sth"
                                 width="500"
                                 height="350"
-                                frameborder="0"
+                                frameBorder="0"
                                 allowfullscreen=""
                                 aria-hidden="false"
-                                tabindex="0"
+                                tabIndex="0"
                                 style={{ filter: " invert(2%) contrast(83%)", border: "1" }}></iframe>
                                <div className="mb-4"></div>
-                               <label for="Inputmap" className="form-label">ลิงค์แผนที่ตั้ง</label> <br/>
-                               <label for="url">Enter an https:// URL:</label>
+                               <label htmlFor="Inputmap" className="form-label">ลิงค์แผนที่ตั้ง</label> <br/>
+                               <label htmlFor="url">Enter an https:// URL:</label>
                                <input type="url" name="url" id="url"
                                 placeholder="https://example.com"
                                 pattern="https://.*" size="30"

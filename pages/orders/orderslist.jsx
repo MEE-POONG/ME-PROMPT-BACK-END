@@ -105,8 +105,8 @@ export default function OrdersListPage() {
                 </tr>
               </thead>
               <tbody>
-                {data.orderslists.map((o) => (
-                  <tr>
+                {data.orderslists.map((o, key) => (
+                  <tr key={key}>
                     <td><input className="form-check-input" type="checkbox" /></td>
                     <td>{o.order_number}</td>
                     <td>{o.Buyer_name}</td>

@@ -116,19 +116,19 @@ export default function TransferPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.users.map((u) => (
-                     <tr>
-                    <th>{u.id}</th>
-                    <td><img className="img-fluid rounded-circle mx-auto mb-4" src={u.image} style={{ width: "40px", height: "40px" }} /></td>
-                    <td>{u.name}</td>
-                    <td>{u.email}</td>
-                    <td>{u.tel}</td>
-                    <td>{u.date} </td>
-                    <td>
-                      <Button className="btn btn-sm btn-success me-2" onClick={editShow}><FaEdit /></Button>
-                      <Button className="btn btn-sm btn-danger me-2" onClick={deleteShow}><FaTrash /></Button>
-                    </td>
-                  </tr>
+                  {data.users.map((u, key) => (
+                    <tr key={key}>
+                      <th>{u.id}</th>
+                      <td><img className="img-fluid rounded-circle mx-auto mb-4" src={u.image} style={{ width: "40px", height: "40px" }} /></td>
+                      <td>{u.name}</td>
+                      <td>{u.email}</td>
+                      <td>{u.tel}</td>
+                      <td>{u.date} </td>
+                      <td>
+                        <Button className="btn btn-sm btn-success me-2" onClick={editShow}><FaEdit /></Button>
+                        <Button className="btn btn-sm btn-danger me-2" onClick={deleteShow}><FaTrash /></Button>
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </Table>

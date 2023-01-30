@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { PrismaClient } from '@prisma/client';
 import Pagination from 'react-bootstrap/Pagination';
 import useAxios from 'axios-hooks'
 

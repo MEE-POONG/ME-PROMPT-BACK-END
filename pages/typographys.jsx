@@ -138,7 +138,7 @@ export default function TypographyPage() {
               <ul className="list-unstyled mb-0">
                 <li>This is a list.</li>
                 <li>It appears completely unstyled.</li>
-                <li>Structurally, it's still a list.</li>
+                <li>Structurally, it&apos;s still a list.</li>
                 <li>However, this style only applies to immediate child elements.</li>
                 <li>Nested lists:
                   <ul>

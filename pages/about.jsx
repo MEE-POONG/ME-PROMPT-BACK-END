@@ -42,11 +42,11 @@ export default function AboutPage() {
                         <h6 className="mb-4"> ข้อมูลร้าน </h6>
                         <form>
                             <div className="mb-3">
-                                <label for="Inputname" className="form-label">รูปภาพของร้าน</label><br />
-                                {imageURL.map(imageSrcProduct => <Image className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
+                                <label htmlFor="Inputname" className="form-label">รูปภาพของร้าน</label><br />
+                                {imageURL.map((imageSrcProduct, key) => <Image key={key} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
                                 <input type="file" accept="image/*" onChange={onImageProductChange} className="form-control" id="#" placeholder='' />
                                 <div className="mb-3">
-                                    <label for="Inputphone" className="form-label">รายละเอียดร้าน</label>
+                                    <label htmlFor="Inputphone" className="form-label">รายละเอียดร้าน</label>
                                     <Editor/>
                                 </div>
                             </div>
@@ -59,11 +59,11 @@ export default function AboutPage() {
                         <h6 className="mb-4"> ข้อมูลเจ้าของร้าน </h6>
                         <form>
                             <div className="mb-3">
-                                <label for="Inputname" className="form-label">รูปภาพเจ้าของร้าน</label>
+                                <label htmlFor="Inputname" className="form-label">รูปภาพเจ้าของร้าน</label>
                                 <input type="file" className="form-control" id="#" placeholder='' />
                             </div>
                             <div className="mb-3">
-                                <label for="Inputphone" className="form-label">รายละเอียดเจ้าของร้าน</label>
+                                <label htmlFor="Inputphone" className="form-label">รายละเอียดเจ้าของร้าน</label>
                                 <Editor/>
                             </div>
 

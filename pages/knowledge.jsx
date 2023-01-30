@@ -42,11 +42,11 @@ export default function KnowledgePage() {
                         <h6 className="mb-4"> เกร็ดความรู้</h6>
                         <form>
                             <div className="mb-3">
-                                <label for="Inputname" className="form-label">หัวข้อ</label><br />
+                                <label htmlFor="Inputname" className="form-label">หัวข้อ</label><br />
                                
                                 <input type="text" className="form-control" style={{ width: "500px" }}  />
                                 <div className="mb-3">
-                                    <label for="Inputphone" className="form-label">เนื้อหา</label>
+                                    <label htmlFor="Inputphone" className="form-label">เนื้อหา</label>
                                     <Editor/>
                                 </div>
                             </div>
