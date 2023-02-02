@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerEditModal(props) {
+export default function CustomerViewModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
     const [{ loading: updateLoading, error: updateError }, executeUpdatePut] = useAxios({}, { manual: true })
@@ -149,11 +149,11 @@ export default function CustomerEditModal(props) {
     return (
         <>
             <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
-                <FaEdit />
+                <FaEye />
             </Button>
             <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>แก้ไขข้อมูลพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>ดูข้อมูลพนักงานองค์กร</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
@@ -166,10 +166,6 @@ export default function CustomerEditModal(props) {
                                     src={imageURL?.length === 0 ? img : imageURL?.map((imageSrcProduct) => (imageSrcProduct))}
                                     className="p-4 object-fit-contain"
                                     alt="" />
-                                <Form.Control type="file" accept="img/*" onChange={onImageChange}
-                                    isValid={checkValue === false && image.length > 1 ? true : false}
-                                    isInvalid={checkValue === false && image.length === 0 ? true : false}
-                                />
                             </Form.Group>
                         </Col>
                         <Col md='6'>

@@ -31,7 +31,7 @@ export default function CustomerDeleteModal(props) {
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
                 <FaTrash />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} centered size='lg'>
+            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>ลบข้อมูลสมาชิกบริษัท</Modal.Title>
                 </Modal.Header>

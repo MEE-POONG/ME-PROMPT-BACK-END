@@ -8,6 +8,8 @@ import PageError from '@/components/PageChange/pageError'
 import CustomerAddModal from '@/container/Customer/CustomerAddModal'
 import CustomerEditModal from '@/container/Customer/CustomerEditModal'
 import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
+import CustomerPermissionModal from '@/container/Customer/CustomerPermissionModal'
+import CustomerViewModal from '@/container/Customer/CustomerViewModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -73,6 +75,10 @@ function MyTable(props) {
                                 </h4>
                             </td>
                             <td className='min-width'>
+                                <CustomerPermissionModal value={item} getData={props?.getData} />
+                                <br />
+                                <CustomerViewModal value={item} getData={props?.getData} />
+                                <br />
                                 <CustomerEditModal value={item} getData={props?.getData} />
                                 <br />
                                 <CustomerDeleteModal value={item} getData={props?.getData} />
