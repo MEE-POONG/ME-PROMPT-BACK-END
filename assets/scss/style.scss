@@ -103,9 +103,9 @@ button.icon,
     }
     &:hover,
     &.active {
+        color: #d5ad6d;
         border-color: #d5ad6d;
         background: #123f44;
-        color: #d5ad6d;
         background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
         svg {
             background: -webkit-linear-gradient(transparent, transparent),
