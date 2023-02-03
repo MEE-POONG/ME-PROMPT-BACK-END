@@ -34,16 +34,6 @@ table {
         width: 3rem;
         text-align: end;
     }
-    // tr:nth-child(even) td:first-child {
-    //     background: #0068b3;
-    // }
-    // tr:nth-child(odd) td:first-child {
-    //     background: #aebde1;
-    // }
-    // th:last-child,
-    // td:last-child {
-    //     background: #0068b3;
-    // }
 }
 .back-to-top {
     display: flex;
@@ -89,6 +79,11 @@ button.icon,
     -moz-transition: background-color 2s ease-out;
     -o-transition: background-color 2s ease-out;
     transition: background-color 2s ease-out;
+    &.permission {
+        animation: animateBg 2s linear infinite;
+        background-image: linear-gradient(90deg, #ff4757, #ffdb9b, var(--success), #71c9ff, #8c00ff, #ff4757);
+        background-size: 600% 100%;
+    }
     &.create {
         background: #71c9ff;
     }
@@ -241,4 +236,12 @@ td {
 td.min-width {
     width: 1%;
     white-space: nowrap;
+}
+@keyframes animateBg {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
 }

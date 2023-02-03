@@ -148,7 +148,7 @@ export default function CustomerViewModal(props) {
     if (error || updateError || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
-            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+            <Button bsPrefix='view' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
                 <FaEye />
             </Button>
             <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
@@ -178,6 +178,7 @@ export default function CustomerViewModal(props) {
                                             value={username}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
+                                            disabled
                                         />
                                         <Form.Text className={checkValue === false && password.length < 8 ? "text-muted" : "d-none"}>
                                             กรอกอย่างน้อย 8-15 ตัวอักษร
@@ -194,6 +195,8 @@ export default function CustomerViewModal(props) {
                                             onChange={event => setPassword(event.target.value)}
                                             isValid={checkValue === false && password !== '' ? true : false}
                                             isInvalid={checkValue === false && password === '' ? true : false}
+                                            disabled
+
                                         />
                                         <InputGroup.Text >{showPass ? <FaEye /> : <FaEyeSlash />}</InputGroup.Text>
                                     </InputGroup>
@@ -210,6 +213,8 @@ export default function CustomerViewModal(props) {
                                             value={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
+                                            disabled
+
                                         >
                                             <option value="" disabled>-เลือกสถานะดูแลเว็บ-</option>
                                             <option value="Admin">Admin</option>
@@ -231,6 +236,8 @@ export default function CustomerViewModal(props) {
                                     value={firstname}
                                     isValid={checkValue === false && firstname !== '' ? true : false}
                                     isInvalid={checkValue === false && firstname === '' ? true : false}
+                                    disabled
+
                                 />
                             </Form.Group>
                         </Col>
@@ -242,6 +249,8 @@ export default function CustomerViewModal(props) {
                                     value={lastname}
                                     isValid={checkValue === false && lastname !== '' ? true : false}
                                     isInvalid={checkValue === false && lastname === '' ? true : false}
+                                    disabled
+
                                 />
                             </Form.Group>
                         </Col>
@@ -264,6 +273,7 @@ export default function CustomerViewModal(props) {
                                 options={options}
                                 placeholder="Choose a state..."
                                 defaultSelected={positionSelect}
+                                disabled
                             />
 
                         </Col>
@@ -276,7 +286,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setPostalCode(event.target.value)}
                                     value={postalCode}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -286,6 +296,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setCity(event.target.value)}
                                     value={city}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -296,6 +307,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setDistrict(event.target.value)}
                                     value={district}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -306,6 +318,8 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setSubDistrict(event.target.value)}
                                     value={subDistrict}
+                                    disabled
+
 
                                 />
                             </Form.Group>
@@ -316,6 +330,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressOne(event.target.value)}
                                     value={addressOne}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -326,6 +341,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressTwo(event.target.value)}
                                     value={addressTwo}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -339,7 +355,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setFacebook(event.target.value)}
                                     value={facebook}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -349,6 +365,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setLine(event.target.value)}
                                     value={line}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -359,7 +376,7 @@ export default function CustomerViewModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setInstagram(event.target.value)}
                                     value={instagram}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -367,13 +384,7 @@ export default function CustomerViewModal(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
-                        ยกเลิก
-                    </Button>
-                    <Button bsPrefix="warning" className='my-0' onClick={handleShow}>
-                        รีเซ็ต
-                    </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
-                        ยืนยันการเพิ่ม
+                        ปิด
                     </Button>
                 </Modal.Footer>
             </Modal>
