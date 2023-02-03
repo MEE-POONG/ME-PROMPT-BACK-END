@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerEditModal(props) {
+export default function CustomerViewModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
     const [{ loading: updateLoading, error: updateError }, executeUpdatePut] = useAxios({}, { manual: true })
@@ -148,12 +148,12 @@ export default function CustomerEditModal(props) {
     if (error || updateError || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
-            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
-                <FaEdit />
+            <Button bsPrefix='view' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaEye />
             </Button>
             <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>แก้ไขข้อมูลพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>ดูข้อมูลพนักงานองค์กร</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
@@ -166,10 +166,6 @@ export default function CustomerEditModal(props) {
                                     src={imageURL?.length === 0 ? img : imageURL?.map((imageSrcProduct) => (imageSrcProduct))}
                                     className="p-4 object-fit-contain"
                                     alt="" />
-                                <Form.Control type="file" accept="img/*" onChange={onImageChange}
-                                    isValid={checkValue === false && image.length > 1 ? true : false}
-                                    isInvalid={checkValue === false && image.length === 0 ? true : false}
-                                />
                             </Form.Group>
                         </Col>
                         <Col md='6'>
@@ -182,6 +178,7 @@ export default function CustomerEditModal(props) {
                                             value={username}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
+                                            disabled
                                         />
                                         <Form.Text className={checkValue === false && password.length < 8 ? "text-muted" : "d-none"}>
                                             กรอกอย่างน้อย 8-15 ตัวอักษร
@@ -198,6 +195,8 @@ export default function CustomerEditModal(props) {
                                             onChange={event => setPassword(event.target.value)}
                                             isValid={checkValue === false && password !== '' ? true : false}
                                             isInvalid={checkValue === false && password === '' ? true : false}
+                                            disabled
+
                                         />
                                         <InputGroup.Text >{showPass ? <FaEye /> : <FaEyeSlash />}</InputGroup.Text>
                                     </InputGroup>
@@ -214,6 +213,8 @@ export default function CustomerEditModal(props) {
                                             value={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
+                                            disabled
+
                                         >
                                             <option value="" disabled>-เลือกสถานะดูแลเว็บ-</option>
                                             <option value="Admin">Admin</option>
@@ -235,6 +236,8 @@ export default function CustomerEditModal(props) {
                                     value={firstname}
                                     isValid={checkValue === false && firstname !== '' ? true : false}
                                     isInvalid={checkValue === false && firstname === '' ? true : false}
+                                    disabled
+
                                 />
                             </Form.Group>
                         </Col>
@@ -246,6 +249,8 @@ export default function CustomerEditModal(props) {
                                     value={lastname}
                                     isValid={checkValue === false && lastname !== '' ? true : false}
                                     isInvalid={checkValue === false && lastname === '' ? true : false}
+                                    disabled
+
                                 />
                             </Form.Group>
                         </Col>
@@ -268,6 +273,7 @@ export default function CustomerEditModal(props) {
                                 options={options}
                                 placeholder="Choose a state..."
                                 defaultSelected={positionSelect}
+                                disabled
                             />
 
                         </Col>
@@ -280,7 +286,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setPostalCode(event.target.value)}
                                     value={postalCode}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -290,6 +296,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setCity(event.target.value)}
                                     value={city}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -300,6 +307,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setDistrict(event.target.value)}
                                     value={district}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -310,6 +318,8 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setSubDistrict(event.target.value)}
                                     value={subDistrict}
+                                    disabled
+
 
                                 />
                             </Form.Group>
@@ -320,6 +330,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressOne(event.target.value)}
                                     value={addressOne}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -330,6 +341,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressTwo(event.target.value)}
                                     value={addressTwo}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -343,7 +355,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setFacebook(event.target.value)}
                                     value={facebook}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -353,6 +365,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setLine(event.target.value)}
                                     value={line}
+                                    disabled
 
                                 />
                             </Form.Group>
@@ -363,7 +376,7 @@ export default function CustomerEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setInstagram(event.target.value)}
                                     value={instagram}
-
+                                    disabled
                                 />
                             </Form.Group>
                         </Col>
@@ -371,17 +384,10 @@ export default function CustomerEditModal(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
-                        ยกเลิก
-                    </Button>
-                    <Button bsPrefix="warning" className='my-0' onClick={handleShow}>
-                        รีเซ็ต
-                    </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
-                        ยืนยันการเพิ่ม
+                        ปิด
                     </Button>
                 </Modal.Footer>
             </Modal>
-            
         </>
     )
 }

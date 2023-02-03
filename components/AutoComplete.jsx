@@ -23,21 +23,24 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
   }
 
   function handleInputChange(event) {
-    setSelectValue(event.target.value);
+    handleShow(),
+      setSelectValue(event.target.value);
   }
   return (
     <>
-
-      <Form.Group className="mb-3 position-relative" controlId={id} onMouseOut={handleClose}>
-        <Form.Label>{label}</Form.Label>
-        <Form.Control type="text" placeholder={placeholder}
-          value={selectValue}
-          autoComplete="off"
-          onChange={handleInputChange}
-          onMouseOver={handleShow}
-          isValid={checkValue === false && selectValue !== '' ? true : false}
-          isInvalid={checkValue === false && selectValue === '' ? true : false}
-        />
+      <Form.Label>{label}</Form.Label>
+      <Dropdown >
+        <Dropdown.Toggle id="dropdown-custom-components" bsPrefix='p-0' className="w-100" >
+          <Form.Control
+            autoFocus
+            autoComplete="off"
+            placeholder={placeholder}
+            onChange={handleInputChange}
+            value={selectValue}
+            isValid={checkValue === false && selectValue !== '' ? true : false}
+            isInvalid={checkValue === false && selectValue === '' ? true : false}
+          />
+        </Dropdown.Toggle>
         <Dropdown.Menu show={showData && filteredData?.length > 0} className='w-100' onMouseOver={handleShow}>
           {filteredData?.map(item => (
             <Dropdown.Item key={item.id} onClick={() => { setShowData(false); setSelectValue(item.team) }}>
@@ -45,7 +48,7 @@ export default function AutoComplete({ id, label, placeholder, options, value, v
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
-      </Form.Group>
+      </Dropdown>
     </>
   );
 }

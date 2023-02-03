@@ -8,23 +8,23 @@ import PageError from '@/components/PageChange/pageError'
 import CustomerAddModal from '@/container/Customer/CustomerAddModal'
 import CustomerEditModal from '@/container/Customer/CustomerEditModal'
 import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
+import CustomerPermissionModal from '@/container/Customer/CustomerPermissionModal'
+import CustomerViewModal from '@/container/Customer/CustomerViewModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
-    useEffect(() => {
-        setCurrentItems(currentItems);
-        console.log(props);
-    }, [props]);
 
     return (
         <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>IMG</th>
+                    <th className='min-width'>IMG</th>
                     <th>FullName</th>
+                    <th>Permission Type</th>
                     <th>Position</th>
-                    <th>Manager</th>
+                    <th>Social</th>
+                    <th className='min-width'>Manager</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,28 +32,68 @@ function MyTable(props) {
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
-                            <td>
-                                <Image src={item.img} alt={"Profile : " + item.firstname +" "+item.lastname} width="150px" height="150px" className='object-fit-cover' />
+                            <td className='min-width'>
+                                <Image src={item.img} alt={"Profile : " + item.firstname + " " + item.lastname} width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
-                                {item.firstname}{" "}{item.lastname}
+                                <h4>
+                                    {item.firstname}{" "}{item.lastname}
+                                </h4>
                             </td>
                             <td>
-                                <Badge bg="primary">
-                                    {item.Position?.team}
-                                </Badge>
+                                <h4>
+                                    <Badge bg="primary">
+                                        {item.statusManager}
+                                    </Badge>
+                                </h4>
+                            </td>
+                            <td>
+                                <h4>
+                                    <Badge bg="primary">
+                                        {item.Position?.team}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="success">
+                                        {item.Position?.position}
+                                    </Badge>
+                                </h4>
+                            </td>
+                            <td>
+                                <h4>
+
+                                    <Badge bg="facebook">
+                                        {item.facebook}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="line">
+                                        {item.line}
+                                    </Badge>
+                                    <br />
+                                    <Badge bg="instagram">
+                                        {item.instagram}
+                                    </Badge>
+                                </h4>
+                            </td>
+                            <td className='min-width'>
+                                <CustomerPermissionModal value={item} getData={props?.getData} />
                                 <br />
-                                <Badge bg="success">
-                                    {item.Position?.position}
-                                </Badge>
-                            </td>
-                            <td>
+                                <CustomerViewModal value={item} getData={props?.getData} />
+                                <br />
                                 <CustomerEditModal value={item} getData={props?.getData} />
+                                <br />
                                 <CustomerDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
-                    : ""}
+                    :
+                    <tr>
+                        <td>0</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                        <td>undefined</td>
+                    </tr>}
             </tbody>
         </Table>
     );
@@ -96,7 +136,7 @@ export default function CustomerPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <CustomerAddModal getData={getCustomer}/>
+                    <CustomerAddModal getData={getCustomer} />
                 </div>
                 <MyTable data={customerData?.data} setNum={(customerData?.page * customerData?.pageSize) - customerData?.pageSize} getData={getCustomer} />
                 <MyPagination page={customerData.page} totalPages={customerData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />

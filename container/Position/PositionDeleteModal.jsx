@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function PositionDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
@@ -24,9 +24,8 @@ export default function PositionDeleteModal(props) {
         })
     }
 
-    if (deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+    if (deletePositionLoading) return <ModelLoading showCheck={showCheck} />
+    if (deletePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>

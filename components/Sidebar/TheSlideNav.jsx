@@ -24,7 +24,7 @@ export default function TheSlideNav() {
   useEffect(() => {
     setCheckClickPath(asPath);
   }, [asPath])
-
+  const handlePath = (valPath) => { checkClickPath === valPath ? setCheckClickPath('') : setCheckClickPath(valPath) };
   return (
     <>
       <div className="sidebar pe-4 pb-3 ">
@@ -33,7 +33,7 @@ export default function TheSlideNav() {
             <a className="navbar-brand mx-4 mb-3" >
               <h3 className="text-primary">
                 <FaUserEdit className="fa me-2" />
-                MeePrompt 
+                MeePrompt
               </h3>
             </a>
           </Link>
@@ -61,13 +61,13 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => handlePath('/customer')} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" || checkClickPath === "/customer/permission" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               Customer
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position" || checkClickPath === "/customer/permission"} >
               <Link id="buttons" href="/customer">
                 <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
@@ -80,57 +80,28 @@ export default function TheSlideNav() {
               </Link>
             </Dropdown.Menu>
 
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => handlePath('/setting')} className={checkClickPath === "/setting" || checkClickPath === "/setting/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
-              จัดการออเดอร์
+              Setting
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/setting" || checkClickPath === "/setting/information"} >
+              <Link id="buttons" href="/setting">
+                <a className={asPath === "/setting" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  ข้อมูลกิจการ
                 </a>
               </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
+              <Link id="buttons" href="/customer/position">
+                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  ยังไม่มี
                 </a>
               </Link>
             </Dropdown.Menu>
-            <Dropdown.Toggle className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              จัดการออเดอร์
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สินค้า
-                </a>
-              </Link>
-            </Dropdown.Menu>
-
 
           </div>
         </nav>
-      </div>
+      </div >
     </>
   );
 }

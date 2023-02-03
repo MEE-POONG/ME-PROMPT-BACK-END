@@ -2,45 +2,42 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
-export default function PositionDeleteModal(props) {
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
+export default function CustomerDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteCustomerLoading, error: deleteCustomerError }, executeCustomerDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executePositionDelete({
+        executeCustomerDelete({
             url: '/api/customer/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deletePositionLoading?.success) {
+                if (deleteCustomerLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+    if (deleteCustomerLoading) return <ModelLoading showCheck={showCheck} />
+    if (deleteCustomerError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
                 <FaTrash />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} centered size='lg'>
+            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ลบรายการทีมและตำแหน่ง</Modal.Title>
+                    <Modal.Title className='text-center'>ลบข้อมูลสมาชิกบริษัท</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Modal.Title>username : <span className='text-danger'> {props?.value?.username}</span></Modal.Title>
-                    <Modal.Title>password : <span className='text-danger'>{props?.value?.password}</span></Modal.Title>
-                    <Modal.Title>ชื่อ : <span className='text-danger'> {props?.value?.firstname}</span></Modal.Title>
-                    <Modal.Title>นามสกุล : <span className='text-danger'>{props?.value?.lastname}</span></Modal.Title>
+                    <Modal.Title>สมาชิก : <span className='text-danger'>{props?.value?.firstname}{' '}{props?.value?.lastname}</span></Modal.Title>
+                    <Modal.Title>ตำแหน่งงาน : <span className='text-danger'>{props?.value?.Position?.team}</span> ตำแหน่งงาน : <span className='text-danger'>{props?.value?.Position?.position}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

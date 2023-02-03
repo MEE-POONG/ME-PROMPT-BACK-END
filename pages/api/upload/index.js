@@ -37,14 +37,24 @@ const handler = nc()
             },
             data: data
         };
+
         axios(config)
             .then((response) => {
-                res.status(200).send(response.data)
+                res.status(200).send(response.data);
             })
             .catch((error) => {
                 console.log(error);
-                res.status(400).send(error.message)
+                res.status(400).send(error.message);
             });
+        setTimeout(() => {
+            fs.unlink(req.file.path, () => {
+                try {
+                    console.log("success");
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+        }, 5000);
     })
     .delete(async (req, res) => {
         let config = {

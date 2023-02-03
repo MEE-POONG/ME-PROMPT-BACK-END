@@ -4,16 +4,6 @@ const prisma = new PrismaClient()
 export default async function handler(req, res) {
     const { method } = req
     switch (method) {
-        // case 'GET':
-        //     try {
-        //         const data = await prisma.customer.findMany({
-        //             include: { Position: true }
-        //         });
-        //         res.status(200).json(data)
-        //     } catch (error) {
-        //         res.status(400).json({ success: false })
-        //     }
-        //     break
         case 'GET':
             try {
                 let page = +req.query.page || 1;
@@ -21,9 +11,9 @@ export default async function handler(req, res) {
                 const data = await prisma.$transaction([
                     prisma.customer.count(),
                     prisma.customer.findMany({
-                        include: { Position: true },
                         skip: (page - 1) * pageSize,
                         take: pageSize,
+                        include: { Position: true },
                     })
                 ])
                 const totalPage = Math.ceil(data[0] / pageSize);
@@ -39,20 +29,20 @@ export default async function handler(req, res) {
                         positionId: req.body.positionId,
                         username: req.body.username,
                         password: req.body.password,
+                        img: req.body.img,
                         firstname: req.body.firstname,
                         lastname: req.body.lastname,
-                        img: req.body.img,
                         facebook: req.body.facebook,
                         line: req.body.line,
-                        intragarm: req.body.intragarm,
+                        instagram: req.body.instagram,
                         addressOne: req.body.addressOne,
                         addressTwo: req.body.addressTwo,
-                        addressThree: req.body.addressThree,
+                        subDistrict: req.body.subDistrict,
+                        district: req.body.district,
                         city: req.body.city,
                         postalCode: req.body.postalCode,
-                        status: req.body.status,
-                        // district: req.body.district,
-                        // subDistrict: req.body.subDistrict,
+                        statusManager: req.body.statusManager,
+
                     }
                 })
                 res.status(201).json({ success: true })
@@ -65,3 +55,6 @@ export default async function handler(req, res) {
             res.status(405).end(`Method ${method} Not Allowed`)
     }
 }
+
+
+

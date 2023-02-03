@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap'
+import { Modal, Button, Form, Row, Col, Dropdown } from 'react-bootstrap'
 import { FaPlus } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
-import CardLoading from '@/components/CardChange/CardLoading'
-import CardError from '@/components/CardChange/CardError'
+import ModelLoading from '@/components/ModelChange/ModelLoading'
+import ModelError from '@/components/ModelChange/ModelError'
 export default function PositionAddModal(props) {
     const [{ data: positionTeam, loading, error }, getPositionTeam] = useAxios({ url: '/api/position/team' })
     const [{ data: positionPost, error: errorMessage, loading: positionLoading }, executePositionTeam] = useAxios({ url: '/api/position', method: 'POST' }, { manual: true });
     const [teamSelect, setTeamSelect] = useState('');
     const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
-
     const [showCheck, setShowCheck] = useState(false);
 
 
@@ -47,9 +46,8 @@ export default function PositionAddModal(props) {
         }
     }
 
-    if (loading || positionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+    if (loading || positionLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || errorMessage) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
@@ -70,6 +68,7 @@ export default function PositionAddModal(props) {
                                 value={''}
                                 valueReturn={clickTeam}
                                 checkValue={checkValue} />
+
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
