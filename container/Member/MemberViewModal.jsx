@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerViewModal(props) {
+export default function MemberViewModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
     const [{ loading: updateLoading, error: updateError }, executeUpdatePut] = useAxios({}, { manual: true })
@@ -96,7 +96,7 @@ export default function CustomerViewModal(props) {
 
             }
             executeUpdatePut({
-                url: '/api/customer/' + props?.value?.id,
+                url: '/api/member/' + props?.value?.id,
                 method: 'PUT',
                 data: {
                     username: username,
@@ -151,7 +151,7 @@ export default function CustomerViewModal(props) {
             <Button bsPrefix='view' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
                 <FaEye />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
+            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-member'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>ดูข้อมูลพนักงานองค์กร</Modal.Title>
                 </Modal.Header>

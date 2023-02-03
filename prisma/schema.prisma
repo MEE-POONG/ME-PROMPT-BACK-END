@@ -27,7 +27,7 @@ model Role {
   Position   Position[]
 }
 
-model Customer {
+model Member {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   Position      Position? @relation(fields: [positionId], references: [id])
   username      String
@@ -58,7 +58,7 @@ model Position {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   deletedAt DateTime?  @map("deleted_at")
-  customer  Customer[]
+  member  Member[]
   Role      Role?      @relation(fields: [roleId], references: [id])
   roleId    String?    @db.ObjectId
 }

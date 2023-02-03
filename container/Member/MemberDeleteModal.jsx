@@ -4,28 +4,28 @@ import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerDeleteModal(props) {
+export default function MemberDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deleteCustomerLoading, error: deleteCustomerError }, executeCustomerDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteMemberLoading, error: deleteMemberError }, executeMemberDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executeCustomerDelete({
-            url: '/api/customer/' + props?.value?.id,
+        executeMemberDelete({
+            url: '/api/member/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deleteCustomerLoading?.success) {
+                if (deleteMemberLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deleteCustomerLoading) return <ModelLoading showCheck={showCheck} />
-    if (deleteCustomerError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (deleteMemberLoading) return <ModelLoading showCheck={showCheck} />
+    if (deleteMemberError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>

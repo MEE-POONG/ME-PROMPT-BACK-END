@@ -5,11 +5,11 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import CustomerAddModal from '@/container/Customer/CustomerAddModal'
-import CustomerEditModal from '@/container/Customer/CustomerEditModal'
-import CustomerDeleteModal from '@/container/Customer/CustomerDeleteModal'
-import CustomerPermissionModal from '@/container/Customer/CustomerPermissionModal'
-import CustomerViewModal from '@/container/Customer/CustomerViewModal'
+import MemberAddModal from '@/container/Member/MemberAddModal'
+import MemberEditModal from '@/container/Member/MemberEditModal'
+import MemberDeleteModal from '@/container/Member/MemberDeleteModal'
+import MemberPermissionModal from '@/container/Member/MemberPermissionModal'
+import MemberViewModal from '@/container/Member/MemberViewModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -75,13 +75,13 @@ function MyTable(props) {
                                 </h4>
                             </td>
                             <td className='min-width'>
-                                <CustomerPermissionModal value={item} getData={props?.getData} />
+                                <MemberPermissionModal value={item} getData={props?.getData} />
                                 <br />
-                                <CustomerViewModal value={item} getData={props?.getData} />
+                                <MemberViewModal value={item} getData={props?.getData} />
                                 <br />
-                                <CustomerEditModal value={item} getData={props?.getData} />
+                                <MemberEditModal value={item} getData={props?.getData} />
                                 <br />
-                                <CustomerDeleteModal value={item} getData={props?.getData} />
+                                <MemberDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -93,34 +93,35 @@ function MyTable(props) {
                         <td>undefined</td>
                         <td>undefined</td>
                         <td>undefined</td>
+                        <td>undefined</td>
                     </tr>}
             </tbody>
         </Table>
     );
 }
 
-export default function CustomerPage() {
+export default function MemberPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: customerData, loading, error }, getCustomer] = useAxios({ url: `/api/customer?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: memberData, loading, error }, getMember] = useAxios({ url: `/api/member?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
-        if (customerData) {
+        if (memberData) {
             setParams({
                 ...params,
-                page: customerData.page,
-                pageSize: customerData.pageSize
+                page: memberData.page,
+                pageSize: memberData.pageSize
             });
         }
-    }, [customerData]);
+    }, [memberData]);
 
     const handleSelectPage = (pageValue) => {
-        getCustomer({ url: `/api/customer?page=${pageValue}&pageSize=${params.pageSize}` })
+        getMember({ url: `/api/member?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getCustomer({ url: `/api/customer?page=1&pageSize=${sizeValue}` })
+        getMember({ url: `/api/member?page=1&pageSize=${sizeValue}` })
     };
 
     if (loading) {
@@ -136,12 +137,12 @@ export default function CustomerPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <CustomerAddModal getData={getCustomer} />
+                    <MemberAddModal getData={getMember} />
                 </div>
-                <MyTable data={customerData?.data} setNum={(customerData?.page * customerData?.pageSize) - customerData?.pageSize} getData={getCustomer} />
-                <MyPagination page={customerData.page} totalPages={customerData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={memberData?.data} setNum={(memberData?.page * memberData?.pageSize) - memberData?.pageSize} getData={getMember} />
+                <MyPagination page={memberData.page} totalPages={memberData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );
 }
-CustomerPage.layout = IndexPage
+MemberPage.layout = IndexPage

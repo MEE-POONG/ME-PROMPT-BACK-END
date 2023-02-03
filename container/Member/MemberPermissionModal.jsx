@@ -6,7 +6,7 @@ import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerPermissionModal(props) {
+export default function MemberPermissionModal(props) {
     const [position, setPosition] = useState([]);
 
     const [img, setImg] = useState([]);
@@ -52,7 +52,7 @@ export default function CustomerPermissionModal(props) {
 
     //         }
     //         executeUpdatePut({
-    //             url: '/api/customer/' + props?.value?.id,
+    //             url: '/api/member/' + props?.value?.id,
     //             method: 'PUT',
     //             data: {
     //                 username: username,
@@ -107,7 +107,7 @@ export default function CustomerPermissionModal(props) {
             <Button bsPrefix='permission' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
                 <FaUserTag />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
+            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-member'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>สิทธิเข้าถึง {firstname} {lastname}</Modal.Title>
                 </Modal.Header>
@@ -158,7 +158,7 @@ export default function CustomerPermissionModal(props) {
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td className='text-center'>Customer : สมาชิก</td>
+                                <td className='text-center'>Member : สมาชิก</td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" /></td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" /></td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" /></td>
@@ -166,7 +166,7 @@ export default function CustomerPermissionModal(props) {
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td className='text-center'>Customer : ทีม</td>
+                                <td className='text-center'>Member : ทีม</td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" disabled/></td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" /></td>
                                 <td className='text-center'> <Form.Check aria-label="option 1" disabled/></td>

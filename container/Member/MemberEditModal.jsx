@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form, Row, Col, Image, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
-import { FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
+import { FaEdit, FaEye, FaEyeSlash, FaPlus, FaUserCircle } from 'react-icons/fa'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import useAxios from 'axios-hooks'
 // import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function CustomerAddModal(props) {
+export default function MemberEditModal(props) {
     const [{ data: positionSearch, loading, error }, getpositionSearch] = useAxios({ url: '/api/position/position' })
-    const [{ data: customerPost, error: errorMessage, loading: customerLoading }, executeCustomer] = useAxios({ url: '/api/customer', method: 'POST' }, { manual: true });
     const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios({ url: '/api/upload', method: 'POST' }, { manual: true });
+    const [{ loading: updateLoading, error: updateError }, executeUpdatePut] = useAxios({}, { manual: true })
 
-    const [positionSelect, setPositionSelect] = useState([]);
+    const [positionSelect, setPositionSelect] = useState([{ id: "", position: "", team: "" }]);
 
-    const [image, setImage] = useState([])
-    const [imageURL, setImageURL] = useState([])
+    const [img, setImg] = useState([]);
+    const [image, setImage] = useState([]);
+    const [imageURL, setImageURL] = useState([]);
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -24,7 +26,7 @@ export default function CustomerAddModal(props) {
     const [addressTwo, setAddressTwo] = useState('');
     const [subDistrict, setSubDistrict] = useState('');
     const [district, setDistrict] = useState('');
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState(''); <s></s>
     const [postalCode, setPostalCode] = useState('');
     const [statusManager, setStatusManager] = useState("");
 
@@ -37,24 +39,44 @@ export default function CustomerAddModal(props) {
     const [showPass, setShowPass] = useState(false);
 
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
-    const handleShow = () => setShowCheck(true);
+    const handleShow = () => { setShowCheck(true), valueDefault(props.value) };
 
-
-
+    const valueDefault = (e) => {
+        console.log("45 :", e);
+        if (e) {
+            setPositionSelect(e?.Position === null ? positionSelect : [e?.Position]);
+            // setImageDefault(e?.img);
+            setImg(e?.img);
+            setUsername(e?.username);
+            setPassword(e?.password);
+            setFirstname(e?.firstname);
+            setLastname(e?.lastname);
+            setAddressOne(e?.addressOne);
+            setAddressTwo(e?.addressTwo);
+            setSubDistrict(e?.subDistrict);
+            setDistrict(e?.district);
+            setCity(e?.city);
+            setPostalCode(e?.postalCode);
+            setStatusManager(e?.statusManager);
+            setFacebook(e?.facebook);
+            setLine(e?.line);
+            setInstagram(e?.instagram);
+        }
+    };
     const [options, setOptions] = useState([]);
     useEffect(() => {
         if (positionSearch) setOptions(positionSearch);
     }, [positionSearch])
+
     const onImageChange = (e) => {
-        setImage([...e.target.files])
-    }
+        setImage([...e.target.files]);
+    };
     useEffect(() => {
         if (image?.length < 1) return
         const newImageUrl = []
         image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         setImageURL(newImageUrl)
     }, [image])
-
     const clickHandler = () => {
         setShowPass(!showPass);
     }
@@ -62,17 +84,24 @@ export default function CustomerAddModal(props) {
         setShowPass(false);
     }
     const handleSubmit = async () => {
+        let id = '';
         setCheckValue(false);
-        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.[0]?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
-            let data = new FormData()
-            data.append('file', image[0])
-            const imageData = await uploadImage({ data: data })
-            const id = imageData.data.result.id;
-            executeCustomer({
+
+        if (username !== '' && password !== '' && image !== '' && firstname !== '' && lastname !== '' && positionSelect?.id !== '' && facebook !== '' && line !== '' && instagram !== '') {
+            if (image.length > 0) {
+                let data = new FormData();
+                data.append("file", image[0]);
+                const imageData = await uploadImage({ data: data });
+                id = imageData.data.result.id;
+
+            }
+            executeUpdatePut({
+                url: '/api/member/' + props?.value?.id,
+                method: 'PUT',
                 data: {
                     username: username,
                     password: password,
-                    img: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+                    img: image.length > 0 ? `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public` : img,
                     firstname: firstname,
                     lastname: lastname,
                     positionId: positionSelect?.[0]?.id,
@@ -112,21 +141,19 @@ export default function CustomerAddModal(props) {
                     handleClose()
                 })
             });
-        } 
-        )
-        
+        }
     }
 
-    if (loading || customerLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
-    if (error || errorMessage || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (loading || updateLoading || imgLoading) return <ModelLoading showCheck={showCheck} />
+    if (error || updateError || imgError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสมาชิก
+            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
+                <FaEdit />
             </Button>
-            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-customer'>
+            <Modal show={showCheck} onHide={handleClose} fullscreen={'lg-down'} centered size='lg' className='form-member'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>แก้ไขข้อมูลพนักงานองค์กร</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
@@ -136,7 +163,7 @@ export default function CustomerAddModal(props) {
                                 <Image
                                     width={"100%"}
                                     height="200px"
-                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : "./images/default.png"}
+                                    src={imageURL?.length === 0 ? img : imageURL?.map((imageSrcProduct) => (imageSrcProduct))}
                                     className="p-4 object-fit-contain"
                                     alt="" />
                                 <Form.Control type="file" accept="img/*" onChange={onImageChange}
@@ -152,6 +179,7 @@ export default function CustomerAddModal(props) {
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control type="text" placeholder="สร้างยูสเซอร์ประจำตัว"
                                             onChange={event => setUsername(event.target.value)}
+                                            value={username}
                                             isValid={checkValue === false && username !== '' ? true : false}
                                             isInvalid={checkValue === false && username === '' ? true : false}
                                         />
@@ -165,6 +193,7 @@ export default function CustomerAddModal(props) {
                                     <InputGroup onClick={clickHandler} onMouseOut={clickHandlerClose} className="mb-3">
                                         <Form.Control
                                             type={showPass ? "type" : "password"} placeholder="ระบุรหัสผ่าน"
+                                            value={password}
                                             id="password"
                                             onChange={event => setPassword(event.target.value)}
                                             isValid={checkValue === false && password !== '' ? true : false}
@@ -182,7 +211,7 @@ export default function CustomerAddModal(props) {
                                         <Form.Select
                                             isValid={checkValue === false && statusManager !== '' ? true : false}
                                             isInvalid={checkValue === false && statusManager === '' ? true : false}
-                                            defaultValue={statusManager}
+                                            value={statusManager}
                                             onChange={(event) => setStatusManager(event.target.value)}
                                             aria-label="Select an option"
                                         >
@@ -196,13 +225,14 @@ export default function CustomerAddModal(props) {
                             </Row>
                         </Col>
                     </Row>
-                    <h4>ข้อมูลส่วนตัว</h4>
+                    <h5>ข้อมูลส่วนตัว</h5>
                     <Row className="mb-3">
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="firstname">
                                 <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุ ชื่อจริง"
                                     onChange={event => setFirstname(event.target.value)}
+                                    value={firstname}
                                     isValid={checkValue === false && firstname !== '' ? true : false}
                                     isInvalid={checkValue === false && firstname === '' ? true : false}
                                 />
@@ -213,6 +243,7 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>นามสกุล</Form.Label>
                                 <Form.Control type="text" placeholder="ระบุนามสกุล"
                                     onChange={event => setLastname(event.target.value)}
+                                    value={lastname}
                                     isValid={checkValue === false && lastname !== '' ? true : false}
                                     isInvalid={checkValue === false && lastname === '' ? true : false}
                                 />
@@ -223,7 +254,7 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ทีม / แผนกงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     disabled
-                                    defaultValue={positionSelect?.[0]?.team}
+                                    value={positionSelect?.[0]?.team}
                                 />
                             </Form.Group>
 
@@ -236,18 +267,19 @@ export default function CustomerAddModal(props) {
                                 onChange={setPositionSelect}
                                 options={options}
                                 placeholder="Choose a state..."
-                                selected={positionSelect}
+                                defaultSelected={positionSelect}
                             />
-                            
+
                         </Col>
                     </Row>
-                    <h4>ที่อยู่</h4>
+                    <h5>ที่อยู่</h5>
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="postalCode">
                                 <Form.Label>รหัสไปษณีย์</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setPostalCode(event.target.value)}
+                                    value={postalCode}
 
                                 />
                             </Form.Group>
@@ -257,6 +289,7 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>จังหวัด</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setCity(event.target.value)}
+                                    value={city}
 
                                 />
                             </Form.Group>
@@ -266,6 +299,7 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>อำเภอ</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setDistrict(event.target.value)}
+                                    value={district}
 
                                 />
                             </Form.Group>
@@ -275,6 +309,8 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ตำบล</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setSubDistrict(event.target.value)}
+                                    value={subDistrict}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -283,6 +319,8 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ที่อยู่</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressOne(event.target.value)}
+                                    value={addressOne}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -291,18 +329,21 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>ที่อยู่ เพิ่มเติม</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setAddressTwo(event.target.value)}
+                                    value={addressTwo}
 
                                 />
                             </Form.Group>
                         </Col>
                     </Row>
-                    <h4>โซเชียล</h4>
+                    <h5>โซเชียล</h5>
                     <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="facebook">
                                 <Form.Label>Facebook</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setFacebook(event.target.value)}
+                                    value={facebook}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -311,6 +352,7 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>Line</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setLine(event.target.value)}
+                                    value={line}
 
                                 />
                             </Form.Group>
@@ -320,6 +362,8 @@ export default function CustomerAddModal(props) {
                                 <Form.Label>Instagram</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={event => setInstagram(event.target.value)}
+                                    value={instagram}
+
                                 />
                             </Form.Group>
                         </Col>
@@ -329,11 +373,15 @@ export default function CustomerAddModal(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
+                    <Button bsPrefix="warning" className='my-0' onClick={handleShow}>
+                        รีเซ็ต
+                    </Button>
                     <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
             </Modal>
+            
         </>
     )
 }

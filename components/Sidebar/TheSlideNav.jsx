@@ -61,20 +61,20 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => handlePath('/customer')} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" || checkClickPath === "/customer/permission" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => handlePath('/member')} className={checkClickPath === "/member" || checkClickPath === "/member/position" || checkClickPath === "/member/permission" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
-              Customer
+              Member
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position" || checkClickPath === "/customer/permission"} >
-              <Link id="buttons" href="/customer">
-                <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/member" || checkClickPath === "/member/position" || checkClickPath === "/member/permission"} >
+              <Link id="buttons" href="/member">
+                <a className={asPath === "/member" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
                 </a>
               </Link>
-              <Link id="buttons" href="/customer/position">
-                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              <Link id="buttons" href="/member/position">
+                <a className={asPath === "/member/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   ทีม
                 </a>
               </Link>
@@ -92,8 +92,8 @@ export default function TheSlideNav() {
                   ข้อมูลกิจการ
                 </a>
               </Link>
-              <Link id="buttons" href="/customer/position">
-                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              <Link id="buttons" href="/member/position">
+                <a className={asPath === "/member/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   ยังไม่มี
                 </a>
               </Link>

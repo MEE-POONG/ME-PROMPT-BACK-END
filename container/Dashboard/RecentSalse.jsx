@@ -17,7 +17,7 @@ export default function RecentSalse() {
                                     <th scope="col"><input className="form-check-input" type="checkbox" /></th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Invoice</th>
-                                    <th scope="col">Customer</th>
+                                    <th scope="col">Member</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>

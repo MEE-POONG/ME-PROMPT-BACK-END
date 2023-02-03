@@ -196,7 +196,7 @@ button {
     object-fit: contain;
 }
 @media (min-width: 576px) {
-    .form-customer {
+    .form-member {
         .modal-dialog {
             height: calc(100% - var(--bs-modal-margin) * 2);
             .modal-content {
