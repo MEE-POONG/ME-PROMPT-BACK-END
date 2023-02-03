@@ -7,6 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Permission {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
+  Role      Role?     @relation(fields: [roleId], references: [id])
+  roleId    String?   @db.ObjectId
+}
+
+model Role {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  deletedAt  DateTime?    @map("deleted_at")
+  Permission Permission[]
+  Position   Position[]
+}
+
 model Customer {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   Position     Position? @relation(fields: [positionId], references: [id])
@@ -38,4 +58,6 @@ model Position {
   updatedAt DateTime   @updatedAt
   deletedAt DateTime?  @map("deleted_at")
   customer  Customer[]
+  Role      Role?      @relation(fields: [roleId], references: [id])
+  roleId    String?    @db.ObjectId
 }
