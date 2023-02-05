@@ -7,6 +7,122 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model WorkWith {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  typeWork  String
+  email     String
+  tel       String
+  detail    String
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedBy String
+  updatedAt DateTime  @updatedAt
+  deletedBy String
+  deletedAt DateTime? @map("deleted_at")
+  Skill     Skill[]
+}
+
+model Skill {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  createdBy  String
+  createdAt  DateTime  @default(now())
+  updatedBy  String
+  updatedAt  DateTime  @updatedAt
+  deletedBy  String
+  deletedAt  DateTime? @map("deleted_at")
+  WorkWith   WorkWith? @relation(fields: [workWithId], references: [id])
+  workWithId String?   @db.ObjectId
+  Member     Role?     @relation(fields: [memberId], references: [id])
+  memberId   String?   @db.ObjectId
+}
+
+model Contact {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  tel       String
+  detail    String
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedBy String
+  updatedAt DateTime  @updatedAt
+  deletedBy String
+  deletedAt DateTime? @map("deleted_at")
+}
+
+model Blog {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subTitle    String
+  subDetail   String
+  detailOne   String
+  detailTwo   String
+  detailThree String
+  listOne     String
+  listTwo     String
+  listThree   String
+  start       DateTime
+  end         DateTime
+  createdBy   String
+  createdAt   DateTime  @default(now())
+  updatedBy   String
+  updatedAt   DateTime  @updatedAt
+  deletedBy   String
+  deletedAt   DateTime? @map("deleted_at")
+}
+
+model OurWork {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subTitle    String
+  subDetail   String
+  detailOne   String
+  detailTwo   String
+  detailThree String
+  listOne     String
+  listTwo     String
+  listThree   String
+  start       DateTime
+  end         DateTime
+  createdBy   String
+  createdAt   DateTime  @default(now())
+  updatedBy   String
+  updatedAt   DateTime  @updatedAt
+  deletedBy   String
+  deletedAt   DateTime? @map("deleted_at")
+}
+
+model News {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subTitle    String
+  subDetail   String
+  detailOne   String
+  detailTwo   String
+  detailThree String
+  listOne     String
+  listTwo     String
+  listThree   String
+  start       DateTime
+  end         DateTime
+  createdBy   String
+  createdAt   DateTime  @default(now())
+  updatedBy   String
+  updatedAt   DateTime  @updatedAt
+  deletedBy   String
+  deletedAt   DateTime? @map("deleted_at")
+}
+
+model WebVisitor {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  volume    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
+}
+
 model Permission {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   name      String
@@ -25,6 +141,7 @@ model Role {
   deletedAt  DateTime?    @map("deleted_at")
   Permission Permission[]
   Position   Position[]
+  Skill      Skill[]
 }
 
 model Member {
@@ -52,13 +169,82 @@ model Member {
 }
 
 model Position {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   team      String
   position  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  deletedAt DateTime?  @map("deleted_at")
-  member  Member[]
-  Role      Role?      @relation(fields: [roleId], references: [id])
-  roleId    String?    @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
+  member    Member[]
+  Role      Role?     @relation(fields: [roleId], references: [id])
+  roleId    String?   @db.ObjectId
+}
+
+
+model PackagePrice {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  price      String
+  typeService      String
+  detailTextEditer       String
+  detailTextEditerListOne      String
+  detailTextEditerListTwo String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime? @map("deleted_at")
+}
+model Service {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  price      String
+  detail     String
+  detailList String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime? @map("deleted_at")
+}
+
+model Setting {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  businessName      String
+  facebook          String
+  intragarm         String
+  line              String
+  tel               String
+  addressOne        String
+  addressTwo        String
+  sunDistrict       String
+  district          String
+  city              String
+  postalCode        String
+  location          String
+  aboutTitile       String
+  aboutSubTitle     String
+  aboutDetailOne    String
+  aboutSubDetailOne String
+  aboutDetailTwo    String
+  aboutSubDetailTwo String
+  createdBy         String
+  createdAt         DateTime  @default(now())
+  updatedBy         String
+  updatedAt         DateTime  @updatedAt
+  deletedBy         String
+  deletedAt         DateTime? @map("deleted_at")
+}
+
+model Gallery {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  alt       String
+  how       String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
+}
+model AuditLog {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  table       String
+  do       String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
 }
