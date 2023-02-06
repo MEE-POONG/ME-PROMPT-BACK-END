@@ -6,12 +6,12 @@ import AutoComplete from '@/components/AutoComplete'
 import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function RoleEditModal(props) {
-    const [{ data: role, loading, error }, getRole] = useAxios({ url: '/api/role/team' })
-    const [{ loading: updateRoleLoading, error: updateRoleError }, executeRolePut] = useAxios({}, { manual: true })
+export default function PositionEditModal(props) {
+    const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
+    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
 
     const [teamSelect, setTeamSelect] = useState('');
-    const [roleSelect, setRoleSelect] = useState('');
+    const [positionSelect, setPositionSelect] = useState('');
     const [checkValue, setCheckValue] = useState(true);
 
     const [showCheck, setShowCheck] = useState(false);
@@ -20,11 +20,11 @@ export default function RoleEditModal(props) {
     useEffect(() => {
         if (props) {
             setTeamSelect(props?.value?.team);
-            setRoleSelect(props?.value?.role);
+            setPositionSelect(props?.value?.position);
         }
     }, [props]);
 
-    const teams = role?.reduce((acc, item) => {
+    const teams = position?.reduce((acc, item) => {
         if (!acc.some(i => i.team === item.team)) {
             acc.push(item);
         }
@@ -36,21 +36,21 @@ export default function RoleEditModal(props) {
     };
     const handlePutData = () => {
         setCheckValue(false);
-        if (teamSelect !== '' && roleSelect !== '') {
-            executeRolePut({
-                url: '/api/role/' + props?.value?.id,
+        if (teamSelect !== '' && positionSelect !== '') {
+            executePositionPut({
+                url: '/api/position/' + props?.value?.id,
                 method: 'PUT',
                 data: {
                     team: teamSelect,
-                    role: roleSelect,
+                    position: positionSelect,
                 }
             }).then(() => {
                 Promise.all([
                     setTeamSelect(''),
-                    setRoleSelect(''),
+                    setPositionSelect(''),
                     props.getData(),
                 ]).then(() => {
-                    if (updateRoleLoading?.success) {
+                    if (updatePositionLoading?.success) {
                         handleClose()
                     }
                 })
@@ -58,8 +58,8 @@ export default function RoleEditModal(props) {
         }
     }
 
-    if (loading || updateRoleLoading) return <ModelLoading showCheck={showCheck}/>
-    if (error || updateRoleError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
+    if (error || updatePositionError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
@@ -75,7 +75,7 @@ export default function RoleEditModal(props) {
                     <Row className="mb-3">
                         <Col md='6'>
                             <AutoComplete 
-                            id="role-team" 
+                            id="position-team" 
                             label="เลือกทีม" 
                             placeholder="ระบุทีม / แผนกงาน" 
                             value={teamSelect}
@@ -87,10 +87,10 @@ export default function RoleEditModal(props) {
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                    onChange={(e) => { setRoleSelect(e.target.value) }}
-                                    value={roleSelect} autoComplete="off"
-                                    isValid={checkValue === false && roleSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && roleSelect === '' ? true : false}
+                                    onChange={(e) => { setPositionSelect(e.target.value) }}
+                                    value={positionSelect} autoComplete="off"
+                                    isValid={checkValue === false && positionSelect !== '' ? true : false}
+                                    isInvalid={checkValue === false && positionSelect === '' ? true : false}
                                 />
                             </Form.Group>
                         </Col>

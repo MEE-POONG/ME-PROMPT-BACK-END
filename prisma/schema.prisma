@@ -24,41 +24,41 @@ model Role {
   updatedAt  DateTime     @updatedAt
   deletedAt  DateTime?    @map("deleted_at")
   Permission Permission[]
-  Position   Position[]
+  Member     Member[]
 }
 
 model Member {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  Position      Position? @relation(fields: [positionId], references: [id])
-  username      String
-  password      String
-  img           String
-  firstname     String
-  lastname      String
-  facebook      String
-  line          String
-  instagram     String
-  addressOne    String
-  addressTwo    String
-  subDistrict   String
-  district      String
-  city          String
-  postalCode    String
-  statusManager String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  deletedAt     DateTime? @map("deleted_at")
-  positionId    String?   @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  username    String
+  password    String
+  img         String
+  firstname   String
+  lastname    String
+  facebook    String
+  line        String
+  instagram   String
+  addressOne  String
+  addressTwo  String
+  subDistrict String
+  district    String
+  city        String
+  postalCode  String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime? @map("deleted_at")
+  Position    Position? @relation(fields: [positionId], references: [id])
+  positionId  String?   @db.ObjectId
+  Role        Role?     @relation(fields: [roleId], references: [id])
+  roleId      String?   @db.ObjectId
 }
 
 model Position {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   team      String
   position  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  deletedAt DateTime?  @map("deleted_at")
-  member  Member[]
-  Role      Role?      @relation(fields: [roleId], references: [id])
-  roleId    String?    @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? @map("deleted_at")
+  member    Member[]
 }

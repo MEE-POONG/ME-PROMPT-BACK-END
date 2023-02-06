@@ -35,7 +35,11 @@ export const positionData = [
   { id: '3', team: 'b', position: 'cc' },
   { id: '4', team: 'b', position: 'dd' },
 ];
-
+export const roleData = [
+  { id: '1', name: 'admin', Permission: [{id: '0.1', page: 'seting',manager:'view'},{id: '0.1', page: 'seting',manager:'edit'},] },
+  { id: '1', name: 'dev', position: 'aa' },
+  { id: '1', name: 'grab', position: 'aa' },
+];
 export default [
   {
     population: 4780127,
