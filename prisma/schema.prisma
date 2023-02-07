@@ -71,6 +71,7 @@ model Blog {
   updatedAt   DateTime  @updatedAt
   deletedBy   String
   deletedAt   DateTime? @map("deleted_at")
+  Gallery     Gallery[]
 }
 
 model OurWork {
@@ -92,6 +93,7 @@ model OurWork {
   updatedAt   DateTime  @updatedAt
   deletedBy   String
   deletedAt   DateTime? @map("deleted_at")
+  Gallery     Gallery[]
 }
 
 model News {
@@ -113,6 +115,7 @@ model News {
   updatedAt   DateTime  @updatedAt
   deletedBy   String
   deletedAt   DateTime? @map("deleted_at")
+  Gallery     Gallery[]
 }
 
 model WebVisitor {
@@ -141,7 +144,6 @@ model Role {
   deletedAt  DateTime?    @map("deleted_at")
   Permission Permission[]
   Member     Member[]
-  Position   Position[]
 }
 
 model Member {
@@ -169,18 +171,17 @@ model Member {
   Role        Role?     @relation(fields: [roleId], references: [id])
   roleId      String?   @db.ObjectId
   Skill       Skill[]
+  Gallery     Gallery[]
 }
 
 model Position {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  team      String
-  position  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime? @map("deleted_at")
-  member    Member[]
-  Role      Role?     @relation(fields: [roleId], references: [id])
-  roleId    String?   @db.ObjectId
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  team       String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  deletedAt  DateTime?    @map("deleted_at")
+  member     Member[]
+  Department Department[]
 }
 
 model PackagePrice {
@@ -205,6 +206,7 @@ model Service {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime? @map("deleted_at")
+  Gallery    Gallery[]
 }
 
 model Setting {
@@ -233,15 +235,30 @@ model Setting {
   updatedAt         DateTime  @updatedAt
   deletedBy         String
   deletedAt         DateTime? @map("deleted_at")
+  Gallery           Gallery[]
 }
 
 model Gallery {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  alt       String
-  how       String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime? @map("deleted_at")
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  alt          String
+  how          String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  deletedAt    DateTime?   @map("deleted_at")
+  Blog         Blog?       @relation(fields: [blogId], references: [id])
+  blogId       String?     @db.ObjectId
+  Member       Member?     @relation(fields: [memberId], references: [id])
+  memberId     String?     @db.ObjectId
+  Department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId String?     @db.ObjectId
+  OurWork      OurWork?    @relation(fields: [ourWorkId], references: [id])
+  ourWorkId    String?     @db.ObjectId
+  Setting      Setting?    @relation(fields: [settingId], references: [id])
+  settingId    String?     @db.ObjectId
+  News         News?       @relation(fields: [newsId], references: [id])
+  newsId       String?     @db.ObjectId
+  Service      Service?    @relation(fields: [serviceId], references: [id])
+  serviceId    String?     @db.ObjectId
 }
 
 model AuditLog {
@@ -251,4 +268,16 @@ model AuditLog {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime? @map("deleted_at")
+}
+
+model Department {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  detail     String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime? @map("deleted_at")
+  Gallery    Gallery[]
+  Position   Position? @relation(fields: [positionId], references: [id])
+  positionId String?   @db.ObjectId
 }
