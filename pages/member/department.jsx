@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import PositionAddModal from '@/container/Position/PositionAddModal'
-import PositionEditModal from '@/container/Position/PositionEditModal'
-import PositionDeleteModal from '@/container/Position/PositionDeleteModal'
+import DepartmentAddModal from '@/container/Department/DepartmentAddModal'
+import DepartmentEditModal from '@/container/Department/DepartmentEditModal'
+import DepartmentDeleteModal from '@/container/Department/DepartmentDeleteModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -21,7 +21,7 @@ function MyTable(props) {
                 <tr>
                     <th>No.</th>
                     <th>Team</th>
-                    <th>Position</th>
+                    <th>Department</th>
                     <th>Manager</th>
                 </tr>
             </thead>
@@ -31,42 +31,48 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>{item.team}</td>
-                            <td>{item.position}</td>
+                            <td>{item.department}</td>
                             <td>
-                                <PositionEditModal value={item} getData={props?.getData} />
-                                <PositionDeleteModal value={item} getData={props?.getData} />
+                                <DepartmentEditModal value={item} getData={props?.getData} />
+                                <DepartmentDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
-                    : ""}
+                    : <tr>
+                        <td>0</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                        <td>Null</td>
+                    </tr>
+                }
             </tbody>
         </Table>
     );
 }
 
-export default function PositionPage() {
+export default function DepartmentPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: positionData, loading, error }, getPosition] = useAxios({ url: `/api/position?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: departmentData, loading, error }, getDepartment] = useAxios({ url: `/api/department?page=1&pageSize=10`, method: 'GET' });
 
     useEffect(() => {
-        if (positionData) {
+        if (departmentData) {
             setParams({
                 ...params,
-                page: positionData.page,
-                pageSize: positionData.pageSize
+                page: departmentData.page,
+                pageSize: departmentData.pageSize
             });
         }
-    }, [positionData]);
+    }, [departmentData]);
 
     const handleSelectPage = (pageValue) => {
-        getPosition({ url: `/api/position?page=${pageValue}&pageSize=${params.pageSize}` })
+        getDepartment({ url: `/api/department?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getPosition({ url: `/api/position?page=1&pageSize=${sizeValue}` })
+        getDepartment({ url: `/api/department?page=1&pageSize=${sizeValue}` })
     };
 
     if (loading) {
@@ -80,14 +86,14 @@ export default function PositionPage() {
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                        แผนกงาน
                     </Card.Title>
-                    <PositionAddModal getData={getPosition}/>
+                    <DepartmentAddModal/>
                 </div>
-                <MyTable data={positionData?.data} setNum={(positionData?.page * positionData?.pageSize) - positionData?.pageSize} getData={getPosition} />
-                <MyPagination page={positionData.page} totalPages={positionData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={departmentData?.data} setNum={(departmentData?.page * departmentData?.pageSize) - departmentData?.pageSize} getData={getDepartment} />
+                <MyPagination page={departmentData.page} totalPages={departmentData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );
 }
-PositionPage.layout = IndexPage
+DepartmentPage.layout = IndexPage

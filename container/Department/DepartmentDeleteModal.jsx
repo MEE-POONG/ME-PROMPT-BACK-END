@@ -4,28 +4,28 @@ import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function PositionDeleteModal(props) {
+export default function DepartmentDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteDepartmentLoading, error: deleteDepartmentError }, executeDepartmentDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executePositionDelete({
-            url: '/api/position/' + props?.value?.id,
+        executeDepartmentDelete({
+            url: '/api/department/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deletePositionLoading?.success) {
+                if (deleteDepartmentLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deletePositionLoading) return <ModelLoading showCheck={showCheck} />
-    if (deletePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
+    if (deleteDepartmentLoading) return <ModelLoading showCheck={showCheck} />
+    if (deleteDepartmentError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg' />
     return (
         <>
             <Button bsPrefix='delete' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
@@ -37,7 +37,7 @@ export default function PositionDeleteModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Modal.Title>ทีม : <span className='text-danger'> {props?.value?.team}</span></Modal.Title>
-                    <Modal.Title>ตำแหน่งงาน : <span className='text-danger'>{props?.value?.position}</span></Modal.Title>
+                    <Modal.Title>ตำแหน่งงาน : <span className='text-danger'>{props?.value?.department}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

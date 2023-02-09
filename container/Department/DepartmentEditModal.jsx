@@ -6,7 +6,7 @@ import AutoComplete from '@/components/AutoComplete'
 import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function RoleEditModal(props) {
+export default function DepartmentEditModal(props) {
     const [{ data: role, loading, error }, getRole] = useAxios({ url: '/api/role/team' })
     const [{ loading: updateRoleLoading, error: updateRoleError }, executeRolePut] = useAxios({}, { manual: true })
 
@@ -74,14 +74,7 @@ export default function RoleEditModal(props) {
                 <Modal.Body>
                     <Row className="mb-3">
                         <Col md='6'>
-                            <AutoComplete 
-                            id="role-team" 
-                            label="เลือกทีม" 
-                            placeholder="ระบุทีม / แผนกงาน" 
-                            value={teamSelect}
-                            valueReturn={clickTeam}
-                            checkValue={checkValue} 
-                            options={teams} />
+                           
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail">
@@ -89,8 +82,6 @@ export default function RoleEditModal(props) {
                                 <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
                                     onChange={(e) => { setRoleSelect(e.target.value) }}
                                     value={roleSelect} autoComplete="off"
-                                    isValid={checkValue === false && roleSelect !== '' ? true : false}
-                                    isInvalid={checkValue === false && roleSelect === '' ? true : false}
                                 />
                             </Form.Group>
                         </Col>

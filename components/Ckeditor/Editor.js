@@ -6,7 +6,7 @@ function Editor() {
         <>
             <CKEditor
                 config={{
-                    uiColor: "#349520",
+                    uiColor: "#b7fff0",
                     language: 'th',
                     // extraPlugins: "uploadimage",
                     // filebrowserUploadMethod: "form",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { NavDropdown, Image, Navbar, Button } from 'react-bootstrap';
 import { FaBars, FaBell, FaRegEnvelope, FaUserEdit } from "react-icons/fa";
 import { ButtonSlideNav } from "../Sidebar/TheSlideNav";
-
+const { IMG_URL } = process.env
 
 export default function IndexNavbar() {
 
@@ -29,7 +29,7 @@ export default function IndexNavbar() {
           >
             <NavDropdown.Item href="#action/3.4">
               <div className="d-flex align-items-center">
-                <Image className="rounded-circle" src={'./images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
+                <Image className="rounded-circle" src={IMG_URL + '/images/user.jpg'} alt="" style={{ width: "40px", height: "40px" }} />
                 <div className="ms-2">
                   <h6 className="fw-normal mb-0">Jhon send you a message</h6>
                   <small>15 minutes ago</small>

@@ -61,21 +61,21 @@ export default function TheSlideNav() {
                 Home
               </a>
             </Link>
-            <Dropdown.Toggle onClick={() => handlePath('/member')} className={checkClickPath === "/member" || checkClickPath === "/member/position" || checkClickPath === "/member/permission" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <Dropdown.Toggle onClick={() => handlePath('/member')} className={checkClickPath === "/member" || checkClickPath === "/member/department" || checkClickPath === "/member/permission" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
               <i className="me-2">
                 <BsFillBagFill />
               </i>
               Member
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/member" || checkClickPath === "/member/position" || checkClickPath === "/member/permission"} >
+            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/member" || checkClickPath === "/member/department" || checkClickPath === "/member/permission"} >
               <Link id="buttons" href="/member">
                 <a className={asPath === "/member" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
                   สมาชิก
                 </a>
               </Link>
-              <Link id="buttons" href="/member/position">
-                <a className={asPath === "/member/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  ทีม
+              <Link id="buttons" href="/member/department">
+                <a className={asPath === "/member/department" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+                  แผนกงาน
                 </a>
               </Link>
             </Dropdown.Menu>
