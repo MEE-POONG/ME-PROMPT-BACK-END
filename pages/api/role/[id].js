@@ -1,4 +1,4 @@
-const prisma = require('./prisma');
+const prisma = require('../prisma');
 
 export default async function handler(req, res) {
     const { method } = req
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
                     }
                 });
                 
-                res.status(204).json({ success: true })
+                res.status(204).end()
             } catch (error) {
                 res.status(400).json({ success: false })
             }

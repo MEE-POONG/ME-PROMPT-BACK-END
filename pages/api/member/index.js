@@ -1,4 +1,4 @@
-const prisma = require('./prisma');
+const prisma = require('../prisma');
 
 export default async function handler(req, res) {
     const { method } = req
