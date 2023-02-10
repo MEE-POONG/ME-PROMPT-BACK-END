@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.role.findFirst({
+                const data = await prisma.department.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -18,13 +18,13 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.role.update({
+                await prisma.department.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
                         team: req.body.team,
-                        role: req.body.role,
+                        department: req.body.department,
                     }
                 })
                 
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.role.delete({
+                await prisma.department.delete({
                     where: {
                         id: req.query.id
                     }

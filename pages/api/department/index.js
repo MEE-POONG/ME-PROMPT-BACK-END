@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+const prisma = require('./prisma');
 
 export default async function handler(req, res) {
     const { method } = req
@@ -23,18 +22,25 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.department.create({
-                    data: {
-                        team: req.body.team,
-                        department: req.body.department,
-                        unitId: req.body.unitId,
-                    }
-                })
-                res.status(201).json({ success: true })
+                const nameCheck = await prisma.department.findMany({
+                    where: { name: req.body.name, }
+                });
+                if (nameCheck.length === 0) {
+                    await prisma.department.create({
+                        data: {
+                            name: req.body.name,
+                            detail: req.body.detail,
+                        }
+                    });
+                    res.status(201).json({ success: true });
+                } else {
+                    res.status(400).json({ success: false, message: "มีแผนก" + req.body.name + "แล้ว" });
+                }
             } catch (error) {
-                res.status(400).json({ success: false })
+                res.status(400).json({ success: false });
             }
-            break
+            break;
+
         default:
             res.setHeader('Allow', ['GET', 'POST'])
             res.status(405).end(`Method ${method} Not Allowed`)
