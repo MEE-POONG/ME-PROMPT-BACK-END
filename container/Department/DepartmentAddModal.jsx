@@ -6,6 +6,7 @@ import AutoComplete from '@/components/AutoComplete'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 import Editor from '@/components/Ckeditor/Editor'
+import FileInput, { GalleryInput } from '@/components/ImgInput'
 export default function DepartmentAddModal(props) {
     // const [{ data: departmentTeam, loading, error }, getDepartmentTeam] = useAxios({ url: '/api/department/team' })
     // const [{ data: departmentPost, error: errorMessage, loading: departmentLoading }, executeDepartmentTeam] = useAxios({ url: '/api/department', method: 'POST' }, { manual: true });
@@ -66,6 +67,7 @@ export default function DepartmentAddModal(props) {
                                 <Form.Control type="text" placeholder="ระบุแผนกงาน"
                                 />
                             </Form.Group>
+                            <GalleryInput />
                         </Col>
                         <Col md='6'>
                             <Form.Group controlId="formBasicEmail" className="mb-3">
@@ -76,8 +78,7 @@ export default function DepartmentAddModal(props) {
                                     src={"../images/default.png"}
                                     className="p-4 object-fit-contain"
                                     alt="" />
-                                <Form.Control type="file" accept="img/*"
-                                />
+                                <FileInput />
                             </Form.Group>
                         </Col>
                         <Col md='12'>
