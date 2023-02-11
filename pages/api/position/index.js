@@ -23,14 +23,20 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.position.create({
-                    data: {
-                        team: req.body.team,
-                        position: req.body.position,
-                        unitId: req.body.unitId,
-                    }
-                })
-                res.status(201).json({ success: true })
+                const nameCheck = await prisma.position.findMany({
+                    where: { name: req.body.name, departmentId: req.body.departmentId }
+                });
+                if (nameCheck.length === 0) {
+                    await prisma.position.create({
+                        data: {
+                            name: req.body.name,
+                            departmentId: req.body.departmentId,
+                        }
+                    });
+                    res.status(201).json({ success: true });
+                } else {
+                    res.status(400).json({ success: false, message: 'มีตำแหน่ง ' + req.body.name + ' ในแผนกแล้ว' });
+                }
             } catch (error) {
                 res.status(400).json({ success: false })
             }

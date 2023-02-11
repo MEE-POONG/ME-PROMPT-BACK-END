@@ -174,16 +174,6 @@ model Member {
   Gallery     Gallery[]
 }
 
-model Position {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  team       String
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  deletedAt  DateTime?    @map("deleted_at")
-  member     Member[]
-  Department Department[]
-}
-
 model PackagePrice {
   id                      String    @id @default(auto()) @map("_id") @db.ObjectId
   title                   String
@@ -271,13 +261,22 @@ model AuditLog {
 }
 
 model Department {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  detail     String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime? @map("deleted_at")
-  Gallery    Gallery[]
-  Position   Position? @relation(fields: [positionId], references: [id])
-  positionId String?   @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  detail    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?  @map("deleted_at")
+  Gallery   Gallery[]
+  Position  Position[]
+}
+model Position {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  deletedAt    DateTime?   @map("deleted_at")
+  Department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId String?     @db.ObjectId
+  member       Member[]
 }

@@ -24,8 +24,6 @@ export default async function handler(req, res) {
                     },
                     data: {
                         name: req.body.team,
-                        detail: req.body.team,
-                        position: req.body.position,
                     }
                 })
                 
