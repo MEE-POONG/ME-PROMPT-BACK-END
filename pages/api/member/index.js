@@ -25,10 +25,8 @@ export default async function handler(req, res) {
             try {
                 await prisma.member.create({
                     data: {
-                        positionId: req.body.positionId,
                         username: req.body.username,
                         password: req.body.password,
-                        img: req.body.img,
                         firstname: req.body.firstname,
                         lastname: req.body.lastname,
                         facebook: req.body.facebook,
@@ -40,7 +38,8 @@ export default async function handler(req, res) {
                         district: req.body.district,
                         city: req.body.city,
                         postalCode: req.body.postalCode,
-                        statusManager: req.body.statusManager,
+                        positionId: req.body.positionId,
+
 
                     }
                 })
