@@ -16,9 +16,9 @@ model WorkWith {
   detail    String
   createdBy String
   createdAt DateTime  @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime  @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
   Skill     Skill[]
@@ -29,9 +29,9 @@ model Skill {
   name       String
   createdBy  String
   createdAt  DateTime  @default(now())
-  updatedBy  String
+  updatedBy  String?
   updatedAt  DateTime  @updatedAt
-  deletedBy  String
+  deletedBy  String?
   deletedAt  DateTime? @map("deleted_at")
   deleted    Boolean   @default(false)
   WorkWith   WorkWith? @relation(fields: [workWithId], references: [id])
@@ -48,9 +48,9 @@ model Contact {
   detail    String
   createdBy String
   createdAt DateTime  @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime  @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
 }
@@ -70,9 +70,9 @@ model Blog {
   end         DateTime
   createdBy   String
   createdAt   DateTime  @default(now())
-  updatedBy   String
+  updatedBy   String?
   updatedAt   DateTime  @updatedAt
-  deletedBy   String
+  deletedBy   String?
   deletedAt   DateTime? @map("deleted_at")
   deleted     Boolean   @default(false)
   Gallery     Gallery[]
@@ -93,9 +93,9 @@ model OurWork {
   end         DateTime
   createdBy   String
   createdAt   DateTime  @default(now())
-  updatedBy   String
+  updatedBy   String?
   updatedAt   DateTime  @updatedAt
-  deletedBy   String
+  deletedBy   String?
   deletedAt   DateTime? @map("deleted_at")
   deleted     Boolean   @default(false)
   Gallery     Gallery[]
@@ -118,7 +118,7 @@ model News {
   createdAt   DateTime  @default(now())
   updatedBy   String
   updatedAt   DateTime  @updatedAt
-  deletedBy   String
+  deletedBy   String?
   deletedAt   DateTime? @map("deleted_at")
   deleted     Boolean   @default(false)
   Gallery     Gallery[]
@@ -129,9 +129,9 @@ model WebVisitor {
   volume    String
   createdBy String
   createdAt DateTime  @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime  @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
 }
@@ -141,9 +141,9 @@ model Permission {
   name      String
   createdBy String
   createdAt DateTime  @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime  @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
   Role      Role?     @relation(fields: [roleId], references: [id])
@@ -155,9 +155,9 @@ model Role {
   name       String
   createdBy  String
   createdAt  DateTime     @default(now())
-  updatedBy  String
+  updatedBy  String?
   updatedAt  DateTime     @updatedAt
-  deletedBy  String
+  deletedBy  String?
   deletedAt  DateTime?    @map("deleted_at")
   deleted    Boolean      @default(false)
   Permission Permission[]
@@ -181,9 +181,9 @@ model Member {
   postalCode  String
   createdBy   String
   createdAt   DateTime  @default(now())
-  updatedBy   String
+  updatedBy   String?
   updatedAt   DateTime  @updatedAt
-  deletedBy   String
+  deletedBy   String?
   deletedAt   DateTime? @map("deleted_at")
   deleted     Boolean   @default(false)
   Position    Position? @relation(fields: [positionId], references: [id])
@@ -202,8 +202,11 @@ model PackagePrice {
   detailTextEditer        String
   detailTextEditerListOne String
   detailTextEditerListTwo String
+  createdBy               String
   createdAt               DateTime  @default(now())
+  updatedBy               String?
   updatedAt               DateTime  @updatedAt
+  deletedBy               String?
   deletedAt               DateTime? @map("deleted_at")
 }
 
@@ -215,9 +218,9 @@ model Service {
   detailList String
   createdBy  String
   createdAt  DateTime  @default(now())
-  updatedBy  String
+  updatedBy  String?
   updatedAt  DateTime  @updatedAt
-  deletedBy  String
+  deletedBy  String?
   deletedAt  DateTime? @map("deleted_at")
   deleted    Boolean   @default(false)
   Gallery    Gallery[]
@@ -245,9 +248,9 @@ model Setting {
   aboutSubDetailTwo String
   createdBy         String
   createdAt         DateTime  @default(now())
-  updatedBy         String
+  updatedBy         String?
   updatedAt         DateTime  @updatedAt
-  deletedBy         String
+  deletedBy         String?
   deletedAt         DateTime? @map("deleted_at")
   deleted           Boolean   @default(false)
   Gallery           Gallery[]
@@ -259,9 +262,9 @@ model Gallery {
   how          String
   createdBy    String
   createdAt    DateTime    @default(now())
-  updatedBy    String
+  updatedBy    String?
   updatedAt    DateTime    @updatedAt
-  deletedBy    String
+  deletedBy    String?
   deletedAt    DateTime?   @map("deleted_at")
   deleted      Boolean     @default(false)
   Blog         Blog?       @relation(fields: [blogId], references: [id])
@@ -287,9 +290,9 @@ model AuditLog {
   dataNew   String
   createdBy String
   createdAt DateTime  @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime  @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
 }
@@ -300,9 +303,9 @@ model Department {
   detail    String
   createdBy String
   createdAt DateTime   @default(now())
-  updatedBy String
+  updatedBy String?
   updatedAt DateTime   @updatedAt
-  deletedBy String
+  deletedBy String?
   deletedAt DateTime?  @map("deleted_at")
   deleted   Boolean    @default(false)
   Gallery   Gallery[]
@@ -314,9 +317,9 @@ model Position {
   name         String
   createdBy    String
   createdAt    DateTime    @default(now())
-  updatedBy    String
+  updatedBy    String?
   updatedAt    DateTime    @updatedAt
-  deletedBy    String
+  deletedBy    String?
   deletedAt    DateTime?   @map("deleted_at")
   deleted      Boolean     @default(false)
   Department   Department? @relation(fields: [departmentId], references: [id])

@@ -30,6 +30,7 @@ export default async function handler(req, res) {
                         data: {
                             name: req.body.name,
                             detail: req.body.detail,
+                            createdBy: req.body.createdBy,
                         }
                     });
                     res.status(201).json({ success: true });
@@ -37,6 +38,7 @@ export default async function handler(req, res) {
                     res.status(400).json({ success: false, message: "มีแผนก" + req.body.name + "แล้ว" });
                 }
             } catch (error) {
+                console.log(error);
                 res.status(400).json({ success: false });
             }
             break;

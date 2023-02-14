@@ -24,13 +24,13 @@ export default async function handler(req, res) {
         case 'POST':
             try {
                 const nameCheck = await prisma.position.findMany({
-                    where: { name: req.body.name, departmentId: req.body.departmentId }
+                    where: { name: req.body.name }
                 });
                 if (nameCheck.length === 0) {
                     await prisma.position.create({
                         data: {
                             name: req.body.name,
-                            departmentId: req.body.departmentId,
+                            createdBy: req.body.createdBy,
                         }
                     });
                     res.status(201).json({ success: true });
@@ -38,6 +38,7 @@ export default async function handler(req, res) {
                     res.status(400).json({ success: false, message: 'มีตำแหน่ง ' + req.body.name + ' ในแผนกแล้ว' });
                 }
             } catch (error) {
+                console.log(error);
                 res.status(400).json({ success: false })
             }
             break

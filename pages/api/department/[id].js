@@ -25,6 +25,7 @@ export default async function handler(req, res) {
                     data: {
                         name: req.body.name,
                         detail: req.body.detail,
+                        updatedBy: req.body.updatedBy,
                     }
                 })
 
