@@ -8,8 +8,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.role.count(),
-                    prisma.role.findMany({
+                    prisma.imgList.count(),
+                    prisma.imgList.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -22,14 +22,20 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.role.create({
-                    data: {
-                        team: req.body.team,
-                        role: req.body.role,
-                        unitId: req.body.unitId,
-                    }
-                })
-                res.status(201).json({ success: true })
+                const nameCheck = await prisma.imgList.findMany({
+                    where: { name: req.body.name }
+                });
+                if (nameCheck.length === 0) {
+                    await prisma.imgList.create({
+                        data: {
+                            name: req.body.name,
+                            createdBy: req.body.createdBy,
+                        }
+                    });
+                    res.status(201).json({ success: true });
+                } else {
+                    res.status(400).json({ success: false, message: 'มีตำแหน่ง ' + req.body.name + ' ในแผนกแล้ว' });
+                }
             } catch (error) {
                 res.status(400).json({ success: false })
             }

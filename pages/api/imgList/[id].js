@@ -5,11 +5,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.product.findFirst({
-                    include: {
-                        category: true,
-                        unit: true
-                    },
+                const data = await prisma.imglist.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -22,18 +18,13 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.product.update({
+                await prisma.imglist.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        name: req.body.name,
-                        price: parseInt(req.body.price),
-                        description: req.body.description,
-                        image: req.body.image,
-                        categoryId: req.body.categoryId,
-                        amount: parseInt(req.body.amount),
-                        unitId: req.body.unitId,
+                        name: req.body.team,
+                        updatedBy: req.body.updatedBy,
                     }
                 })
                 
@@ -44,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.product.delete({
+                await prisma.imglist.delete({
                     where: {
                         id: req.query.id
                     }

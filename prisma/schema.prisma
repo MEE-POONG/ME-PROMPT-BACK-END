@@ -256,33 +256,6 @@ model Setting {
   Gallery           Gallery[]
 }
 
-model Gallery {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  alt          String
-  how          String
-  createdBy    String
-  createdAt    DateTime    @default(now())
-  updatedBy    String?
-  updatedAt    DateTime    @updatedAt
-  deletedBy    String?
-  deletedAt    DateTime?   @map("deleted_at")
-  deleted      Boolean     @default(false)
-  Blog         Blog?       @relation(fields: [blogId], references: [id])
-  blogId       String?     @db.ObjectId
-  Member       Member?     @relation(fields: [memberId], references: [id])
-  memberId     String?     @db.ObjectId
-  Department   Department? @relation(fields: [departmentId], references: [id])
-  departmentId String?     @db.ObjectId
-  OurWork      OurWork?    @relation(fields: [ourWorkId], references: [id])
-  ourWorkId    String?     @db.ObjectId
-  Setting      Setting?    @relation(fields: [settingId], references: [id])
-  settingId    String?     @db.ObjectId
-  News         News?       @relation(fields: [newsId], references: [id])
-  newsId       String?     @db.ObjectId
-  Service      Service?    @relation(fields: [serviceId], references: [id])
-  serviceId    String?     @db.ObjectId
-}
-
 model AuditLog {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   code      String
@@ -325,4 +298,46 @@ model Position {
   Department   Department? @relation(fields: [departmentId], references: [id])
   departmentId String?     @db.ObjectId
   member       Member[]
+}
+
+model Gallery {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  alt          String
+  how          String
+  createdBy    String
+  createdAt    DateTime    @default(now())
+  updatedBy    String?
+  updatedAt    DateTime    @updatedAt
+  deletedBy    String?
+  deletedAt    DateTime?   @map("deleted_at")
+  deleted      Boolean     @default(false)
+  Blog         Blog?       @relation(fields: [blogId], references: [id])
+  blogId       String?     @db.ObjectId
+  Member       Member?     @relation(fields: [memberId], references: [id])
+  memberId     String?     @db.ObjectId
+  Department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId String?     @db.ObjectId
+  OurWork      OurWork?    @relation(fields: [ourWorkId], references: [id])
+  ourWorkId    String?     @db.ObjectId
+  Setting      Setting?    @relation(fields: [settingId], references: [id])
+  settingId    String?     @db.ObjectId
+  News         News?       @relation(fields: [newsId], references: [id])
+  newsId       String?     @db.ObjectId
+  Service      Service?    @relation(fields: [serviceId], references: [id])
+  serviceId    String?     @db.ObjectId
+  ImgList      ImgList?    @relation(fields: [ImgListId], references: [id])
+  ImgListId    String?     @db.ObjectId
+}
+
+model ImgList {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedBy String?
+  updatedAt DateTime  @updatedAt
+  deletedBy String?
+  deletedAt DateTime? @map("deleted_at")
+  deleted   Boolean   @default(false)
+  Gallery   Gallery[]
 }
