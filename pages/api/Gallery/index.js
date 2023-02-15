@@ -23,13 +23,13 @@ export default async function handler(req, res) {
         case 'POST':
             try {
                 const nameCheck = await prisma.gallery.findMany({
-                    where: { name: req.body.name, }
+                    where: { ImgListId: req.body.ImgListId, }
                 });
                 if (nameCheck.length === 0) {
                     await prisma.gallery.create({
                         data: {
-                            alt: req.body.name,
-                            how: req.body.detail,
+                            alt: req.body.alt,
+                            how: req.body.how,
                             createdBy: req.body.createdBy,
                             blogId: req.body.blogId,
                             memberId: req.body.memberId,

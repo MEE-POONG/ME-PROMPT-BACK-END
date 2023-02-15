@@ -23,8 +23,8 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        alt: req.body.name,
-                        how: req.body.detail,
+                        alt: req.body.alt,
+                        how: req.body.how,
                         updatedBy: req.body.updatedBy,
                         blogId: req.body.blogId,
                         memberId: req.body.memberId,
