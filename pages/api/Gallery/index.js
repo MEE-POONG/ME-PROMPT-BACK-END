@@ -28,9 +28,18 @@ export default async function handler(req, res) {
                 if (nameCheck.length === 0) {
                     await prisma.gallery.create({
                         data: {
-                            name: req.body.name,
-                            detail: req.body.detail,
+                            alt: req.body.name,
+                            how: req.body.detail,
                             createdBy: req.body.createdBy,
+                            blogId: req.body.blogId,
+                            memberId: req.body.memberId,
+                            departmentId: req.body.departmentId,
+                            ourWorkId: req.body.ourWorkId,
+                            settingId: req.body.settingId,
+                            newsId: req.body.newsId,
+                            serviceId: req.body.serviceId,
+                            ImgListId: req.body.ImgListId,
+
                         }
                     });
                     res.status(201).json({ success: true });
