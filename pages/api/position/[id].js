@@ -23,7 +23,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        name: req.body.team,
+                        name: req.body.name,
                         updatedBy: req.body.updatedBy,
                     }
                 })

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.imglist.findFirst({
+                const data = await prisma.imgList.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -18,12 +18,12 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.imglist.update({
+                await prisma.imgList.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        name: req.body.team,
+                        name: req.body.name,
                         updatedBy: req.body.updatedBy,
                     }
                 })
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.imglist.delete({
+                await prisma.imgList.delete({
                     where: {
                         id: req.query.id
                     }

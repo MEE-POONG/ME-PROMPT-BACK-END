@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                     });
                     res.status(201).json({ success: true });
                 } else {
-                    res.status(400).json({ success: false, message: 'มีตำแหน่ง ' + req.body.name + ' ในแผนกแล้ว' });
+                    res.status(400).json({ success: false, message: 'มีไฟล์ชื่อ ' + req.body.name + ' แล้ว' });
                 }
             } catch (error) {
                 res.status(400).json({ success: false })
