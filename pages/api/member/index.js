@@ -51,7 +51,7 @@ export default async function handler(req, res) {
                     res.status(400).json({ success: false, message: 'มีสกิล ' + req.body.firstname + ' ' + req.body.lastname + ' แล้ว' });
                 }
             } catch (error) {
-                console.log(error);
+                
                 res.status(400).json({ success: false })
             }
             break

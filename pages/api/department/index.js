@@ -38,7 +38,7 @@ export default async function handler(req, res) {
                     res.status(400).json({ success: false, message: "มีแผนก" + req.body.name + "แล้ว" });
                 }
             } catch (error) {
-                console.log(error);
+                
                 res.status(400).json({ success: false });
             }
             break;

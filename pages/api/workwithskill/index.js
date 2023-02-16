@@ -8,50 +8,44 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.gallery.count(),
-                    prisma.gallery.findMany({
+                    prisma.workWithSkill.count(),
+                    prisma.workWithSkill.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
                 ])
                 const totalPage = Math.ceil(data[0] / pageSize);
                 res.status(200).json({ data: data[1], page, pageSize, totalPage })
+
             } catch (error) {
+                console.log(error);
+
                 res.status(400).json({ success: false })
             }
             break
         case 'POST':
             try {
-                const nameCheck = await prisma.gallery.findMany({
-                    where: { ImgListId: req.body.ImgListId, }
+                const nameCheck = await prisma.workWithSkill.findMany({
+                    where: { workWithId: req.body.workWithId, skillId: req.body.skillId }
                 });
                 if (nameCheck.length === 0) {
-                    await prisma.gallery.create({
+                    await prisma.workWithSkill.create({
                         data: {
-                            alt: req.body.alt,
-                            how: req.body.how,
+                            workWithId: req.body.workWithId,
+                            skillId: req.body.skillId,
                             createdBy: req.body.createdBy,
-                            blogId: req.body.blogId,
-                            memberId: req.body.memberId,
-                            departmentId: req.body.departmentId,
-                            ourWorkId: req.body.ourWorkId,
-                            settingId: req.body.settingId,
-                            newsId: req.body.newsId,
-                            serviceId: req.body.serviceId,
-                            ImgListId: req.body.ImgListId,
-
                         }
                     });
                     res.status(201).json({ success: true });
                 } else {
-                    res.status(400).json({ success: false, message: "มีแผนก" + req.body.name + "แล้ว" });
+                    console.log(error);
+                    res.status(400).json({ success: false, message: 'มีสกิล ' + req.body.name + ' แล้ว' });
                 }
             } catch (error) {
-                
-                res.status(400).json({ success: false });
+                console.log(error);
+                res.status(400).json({ success: false })
             }
-            break;
-
+            break
         default:
             res.setHeader('Allow', ['GET', 'POST'])
             res.status(405).end(`Method ${method} Not Allowed`)

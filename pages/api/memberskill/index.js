@@ -17,18 +17,20 @@ export default async function handler(req, res) {
                 const totalPage = Math.ceil(data[0] / pageSize);
                 res.status(200).json({ data: data[1], page, pageSize, totalPage })
             } catch (error) {
+
                 res.status(400).json({ success: false })
             }
             break
         case 'POST':
             try {
                 const nameCheck = await prisma.memberSkill.findMany({
-                    where: { name: req.body.name }
+                    where: { memberId: req.body.memberId, skillId: req.body.skillId }
                 });
                 if (nameCheck.length === 0) {
                     await prisma.memberSkill.create({
                         data: {
-                            name: req.body.name,
+                            memberId: req.body.memberId,
+                            skillId: req.body.skillId,
                             createdBy: req.body.createdBy,
                         }
                     });
