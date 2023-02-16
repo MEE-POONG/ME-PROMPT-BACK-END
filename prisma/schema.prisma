@@ -21,23 +21,53 @@ model WorkWith {
   deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
-  Skill     Skill[]
+  Skill     Skill?    @relation(fields: [skillId], references: [id])
+  skillId   String?   @db.ObjectId
 }
 
 model Skill {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  createdBy  String
-  createdAt  DateTime  @default(now())
-  updatedBy  String?
-  updatedAt  DateTime  @updatedAt
-  deletedBy  String?
-  deletedAt  DateTime? @map("deleted_at")
-  deleted    Boolean   @default(false)
-  WorkWith   WorkWith? @relation(fields: [workWithId], references: [id])
-  workWithId String?   @db.ObjectId
-  Member     Member?   @relation(fields: [memberId], references: [id])
-  memberId   String?   @db.ObjectId
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  createdBy     String
+  createdAt     DateTime        @default(now())
+  updatedBy     String?
+  updatedAt     DateTime        @updatedAt
+  deletedBy     String?
+  deletedAt     DateTime?       @map("deleted_at")
+  deleted       Boolean         @default(false)
+  WorkWithSkill WorkWithSkill[]
+  MemberSkill   MemberSkill[]
+  WorkWith      WorkWith[]
+}
+
+model MemberSkill {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedBy String?
+  updatedAt DateTime  @updatedAt
+  deletedBy String?
+  deletedAt DateTime? @map("deleted_at")
+  deleted   Boolean   @default(false)
+  Member    Member?   @relation(fields: [memberId], references: [id])
+  memberId  String?   @db.ObjectId
+  Skill     Skill?    @relation(fields: [skillId], references: [id])
+  skillId   String?   @db.ObjectId
+}
+
+model WorkWithSkill {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedBy String?
+  updatedAt DateTime  @updatedAt
+  deletedBy String?
+  deletedAt DateTime? @map("deleted_at")
+  deleted   Boolean   @default(false)
+  Member    Member?   @relation(fields: [memberId], references: [id])
+  memberId  String?   @db.ObjectId
+  Skill     Skill?    @relation(fields: [skillId], references: [id])
+  skillId   String?   @db.ObjectId
 }
 
 model Contact {
@@ -165,33 +195,34 @@ model Role {
 }
 
 model Member {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  username    String
-  password    String
-  firstname   String
-  lastname    String
-  facebook    String
-  line        String
-  instagram   String
-  addressOne  String
-  addressTwo  String
-  subDistrict String
-  district    String
-  city        String
-  postalCode  String
-  createdBy   String
-  createdAt   DateTime  @default(now())
-  updatedBy   String?
-  updatedAt   DateTime  @updatedAt
-  deletedBy   String?
-  deletedAt   DateTime? @map("deleted_at")
-  deleted     Boolean   @default(false)
-  Position    Position? @relation(fields: [positionId], references: [id])
-  positionId  String?   @db.ObjectId
-  Role        Role?     @relation(fields: [roleId], references: [id])
-  roleId      String?   @db.ObjectId
-  Skill       Skill[]
-  Gallery     Gallery[]
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  username      String
+  password      String
+  firstname     String
+  lastname      String
+  facebook      String
+  line          String
+  instagram     String
+  addressOne    String
+  addressTwo    String
+  subDistrict   String
+  district      String
+  city          String
+  postalCode    String
+  createdBy     String
+  createdAt     DateTime        @default(now())
+  updatedBy     String?
+  updatedAt     DateTime        @updatedAt
+  deletedBy     String?
+  deletedAt     DateTime?       @map("deleted_at")
+  deleted       Boolean         @default(false)
+  Position      Position?       @relation(fields: [positionId], references: [id])
+  positionId    String?         @db.ObjectId
+  Role          Role?           @relation(fields: [roleId], references: [id])
+  roleId        String?         @db.ObjectId
+  Gallery       Gallery[]
+  MemberSkill   MemberSkill[]
+  WorkWithSkill WorkWithSkill[]
 }
 
 model PackagePrice {

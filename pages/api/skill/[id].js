@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.member.findFirst({
+                const data = await prisma.skill.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -18,25 +18,12 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.member.update({
+                await prisma.skill.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        username: req.body.username,
-                        password: req.body.password,
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        facebook: req.body.facebook,
-                        line: req.body.line,
-                        instagram: req.body.instagram,
-                        addressOne: req.body.addressOne,
-                        addressTwo: req.body.addressTwo,
-                        subDistrict: req.body.subDistrict,
-                        district: req.body.district,
-                        city: req.body.city,
-                        postalCode: req.body.postalCode,
-                        positionId: req.body.positionId,
+                        name: req.body.name,
                         updatedBy: req.body.updatedBy,
                     }
                 })
@@ -48,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.member.delete({
+                await prisma.skill.delete({
                     where: {
                         id: req.query.id
                     }
