@@ -28,8 +28,8 @@ export default async function handler(req, res) {
                 if (nameCheck.length === 0) {
                     await prisma.role.create({
                         data: {
-                            page: req.body.page,
-                            manager: req.body.manager,
+                            name: req.body.name,
+                            permissionId: req.body.permissionId,
                             createdBy: req.body.createdBy,
                         }
                     });

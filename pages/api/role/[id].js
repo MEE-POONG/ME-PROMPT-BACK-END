@@ -23,8 +23,8 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        page: req.body.page,
-                        manager: req.body.manager,
+                        name: req.body.name,
+                        permissionId: req.body.permissionId,
                         updatedBy: req.body.updatedBy,
                     }
                 })
