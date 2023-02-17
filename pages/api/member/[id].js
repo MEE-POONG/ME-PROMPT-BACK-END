@@ -37,6 +37,7 @@ export default async function handler(req, res) {
                         city: req.body.city,
                         postalCode: req.body.postalCode,
                         positionId: req.body.positionId,
+                        roleId: req.body.positionId,
                         updatedBy: req.body.updatedBy,
                     }
                 })
