@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         case 'POST':
             try {
                 const nameCheck = await prisma.permission.findMany({
-                    where: { name: req.body.name }
+                    where: { page: req.body.page, manager: req.body.manager }
                 });
                 if (nameCheck.length === 0) {
                     await prisma.permission.create({
@@ -35,11 +35,9 @@ export default async function handler(req, res) {
                     });
                     res.status(201).json({ success: true });
                 } else {
-                    console.log(error);
-                    res.status(400).json({ success: false, message: 'มีตำแหน่ง ' + req.body.name + ' ในแผนกแล้ว' });
+                    res.status(400).json({ success: false, message: 'มีรายการสิทธิ : ' + req.body.manager + ' หน้า : ' + req.body.page + 'แล้ว' });
                 }
             } catch (error) {
-                console.log(error);
                 res.status(400).json({ success: false })
             }
             break
