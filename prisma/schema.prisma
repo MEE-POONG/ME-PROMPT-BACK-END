@@ -166,7 +166,8 @@ model WebVisitor {
 
 model Permission {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  page      String
+  manager   String
   createdBy String
   createdAt DateTime  @default(now())
   updatedBy String?
@@ -174,22 +175,22 @@ model Permission {
   deletedBy String?
   deletedAt DateTime? @map("deleted_at")
   deleted   Boolean   @default(false)
-  Role      Role?     @relation(fields: [roleId], references: [id])
-  roleId    String?   @db.ObjectId
+  Role Role[]
 }
 
 model Role {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  createdBy  String
-  createdAt  DateTime     @default(now())
-  updatedBy  String?
-  updatedAt  DateTime     @updatedAt
-  deletedBy  String?
-  deletedAt  DateTime?    @map("deleted_at")
-  deleted    Boolean      @default(false)
-  Permission Permission[]
-  Member     Member[]
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  createdBy    String
+  createdAt    DateTime    @default(now())
+  updatedBy    String?
+  updatedAt    DateTime    @updatedAt
+  deletedBy    String?
+  deletedAt    DateTime?   @map("deleted_at")
+  deleted      Boolean     @default(false)
+  Permission   Permission? @relation(fields: [permissionId], references: [id])
+  permissionId String?     @db.ObjectId
+  Member       Member[]
 }
 
 model Member {

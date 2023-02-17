@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.permission.findFirst({
+                const data = await prisma.role.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.permission.update({
+                await prisma.role.update({
                     where: {
                         id: req.query.id
                     },
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.permission.delete({
+                await prisma.role.delete({
                     where: {
                         id: req.query.id
                     }

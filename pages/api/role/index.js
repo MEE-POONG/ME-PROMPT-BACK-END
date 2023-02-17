@@ -8,8 +8,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.permission.count(),
-                    prisma.permission.findMany({
+                    prisma.role.count(),
+                    prisma.role.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -22,11 +22,11 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                const nameCheck = await prisma.permission.findMany({
+                const nameCheck = await prisma.role.findMany({
                     where: { name: req.body.name }
                 });
                 if (nameCheck.length === 0) {
-                    await prisma.permission.create({
+                    await prisma.role.create({
                         data: {
                             page: req.body.page,
                             manager: req.body.manager,
