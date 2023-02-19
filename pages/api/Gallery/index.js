@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         case 'POST':
             try {
                 const nameCheck = await prisma.gallery.findMany({
-                    where: { ImgListId: req.body.ImgListId, }
+                    where: { ImgListId: req.body.ImgListId, alt: req.body.alt, how: req.body.how, }
                 });
                 if (nameCheck.length === 0) {
                     await prisma.gallery.create({
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
                     res.status(400).json({ success: false, message: "มีแผนก" + req.body.name + "แล้ว" });
                 }
             } catch (error) {
-                
+
                 res.status(400).json({ success: false });
             }
             break;
