@@ -235,20 +235,20 @@ model Member {
 }
 
 model PackagePrice {
-  id                      String     @id @default(auto()) @map("_id") @db.ObjectId
-  title                   String
-  price                   String
-  typeService             String
-  detailTextEditer        String
-  detailTextEditerListOne String
-  detailTextEditerListTwo String
-  createdBy               String
-  createdAt               DateTime   @default(now())
-  updatedBy               String?
-  updatedAt               DateTime   @updatedAt
-  deletedBy               String?
-  deletedAt               DateTime?  @map("deleted_at")
-  AuditLog                AuditLog[]
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  price           String
+  typeService     String
+  detailListOne   String
+  detailListTwo   String
+  detailListThree String
+  createdBy       String
+  createdAt       DateTime   @default(now())
+  updatedBy       String?
+  updatedAt       DateTime   @updatedAt
+  deletedBy       String?
+  deletedAt       DateTime?  @map("deleted_at")
+  AuditLog        AuditLog[]
 }
 
 model Service {
@@ -276,7 +276,7 @@ model Setting {
   tel               String
   addressOne        String
   addressTwo        String
-  sunDistrict       String
+  subDistrict       String
   district          String
   city              String
   postalCode        String
