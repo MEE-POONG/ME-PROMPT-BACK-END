@@ -22,6 +22,7 @@ model WorkWith {
   deletedAt     DateTime?       @map("deleted_at")
   deleted       Boolean         @default(false)
   WorkWithSkill WorkWithSkill[]
+  AuditLog      AuditLog[]
 }
 
 model Skill {
@@ -36,55 +37,59 @@ model Skill {
   deleted       Boolean         @default(false)
   WorkWithSkill WorkWithSkill[]
   MemberSkill   MemberSkill[]
+  AuditLog      AuditLog[]
 }
 
 model MemberSkill {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   createdBy String
-  createdAt DateTime  @default(now())
+  createdAt DateTime   @default(now())
   updatedBy String?
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime   @updatedAt
   deletedBy String?
-  deletedAt DateTime? @map("deleted_at")
-  deleted   Boolean   @default(false)
-  Member    Member?   @relation(fields: [memberId], references: [id])
-  memberId  String?   @db.ObjectId
-  Skill     Skill?    @relation(fields: [skillId], references: [id])
-  skillId   String?   @db.ObjectId
+  deletedAt DateTime?  @map("deleted_at")
+  deleted   Boolean    @default(false)
+  Member    Member?    @relation(fields: [memberId], references: [id])
+  memberId  String?    @db.ObjectId
+  Skill     Skill?     @relation(fields: [skillId], references: [id])
+  skillId   String?    @db.ObjectId
+  AuditLog  AuditLog[]
 }
 
 model WorkWithSkill {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
   createdBy  String
-  createdAt  DateTime  @default(now())
+  createdAt  DateTime   @default(now())
   updatedBy  String?
-  updatedAt  DateTime  @updatedAt
+  updatedAt  DateTime   @updatedAt
   deletedBy  String?
-  deletedAt  DateTime? @map("deleted_at")
-  deleted    Boolean   @default(false)
-  WorkWith   WorkWith? @relation(fields: [workWithId], references: [id])
-  workWithId String?   @db.ObjectId
-  Skill      Skill?    @relation(fields: [skillId], references: [id])
-  skillId    String?   @db.ObjectId
+  deletedAt  DateTime?  @map("deleted_at")
+  deleted    Boolean    @default(false)
+  WorkWith   WorkWith?  @relation(fields: [workWithId], references: [id])
+  workWithId String?    @db.ObjectId
+  Skill      Skill?     @relation(fields: [skillId], references: [id])
+  skillId    String?    @db.ObjectId
+  AuditLog   AuditLog[]
 }
 
 model Contact {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String
   tel       String
   detail    String
   createdBy String
-  createdAt DateTime  @default(now())
+  createdAt DateTime   @default(now())
   updatedBy String?
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime   @updatedAt
   deletedBy String?
-  deletedAt DateTime? @map("deleted_at")
-  deleted   Boolean   @default(false)
+  deletedAt DateTime?  @map("deleted_at")
+  deleted   Boolean    @default(false)
+  AuditLog  AuditLog[]
 }
 
 model Blog {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   subTitle    String
   subDetail   String
@@ -97,17 +102,18 @@ model Blog {
   start       DateTime
   end         DateTime
   createdBy   String
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime   @default(now())
   updatedBy   String?
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime   @updatedAt
   deletedBy   String?
-  deletedAt   DateTime? @map("deleted_at")
-  deleted     Boolean   @default(false)
+  deletedAt   DateTime?  @map("deleted_at")
+  deleted     Boolean    @default(false)
   Gallery     Gallery[]
+  AuditLog    AuditLog[]
 }
 
 model OurWork {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   subTitle    String
   subDetail   String
@@ -120,17 +126,18 @@ model OurWork {
   start       DateTime
   end         DateTime
   createdBy   String
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime   @default(now())
   updatedBy   String?
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime   @updatedAt
   deletedBy   String?
-  deletedAt   DateTime? @map("deleted_at")
-  deleted     Boolean   @default(false)
+  deletedAt   DateTime?  @map("deleted_at")
+  deleted     Boolean    @default(false)
   Gallery     Gallery[]
+  AuditLog    AuditLog[]
 }
 
 model News {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   subTitle    String
   subDetail   String
@@ -143,13 +150,14 @@ model News {
   start       DateTime
   end         DateTime
   createdBy   String
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime   @default(now())
   updatedBy   String
-  updatedAt   DateTime  @updatedAt
+  updatedAt   DateTime   @updatedAt
   deletedBy   String?
-  deletedAt   DateTime? @map("deleted_at")
-  deleted     Boolean   @default(false)
+  deletedAt   DateTime?  @map("deleted_at")
+  deleted     Boolean    @default(false)
   Gallery     Gallery[]
+  AuditLog    AuditLog[]
 }
 
 model WebVisitor {
@@ -165,17 +173,18 @@ model WebVisitor {
 }
 
 model Permission {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   page      String
   manager   String
   createdBy String
-  createdAt DateTime  @default(now())
+  createdAt DateTime   @default(now())
   updatedBy String?
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime   @updatedAt
   deletedBy String?
-  deletedAt DateTime? @map("deleted_at")
-  deleted   Boolean   @default(false)
-  Role Role[]
+  deletedAt DateTime?  @map("deleted_at")
+  deleted   Boolean    @default(false)
+  Role      Role[]
+  AuditLog  AuditLog[]
 }
 
 model Role {
@@ -191,6 +200,7 @@ model Role {
   Permission   Permission? @relation(fields: [permissionId], references: [id])
   permissionId String?     @db.ObjectId
   Member       Member[]
+  AuditLog     AuditLog[]
 }
 
 model Member {
@@ -221,10 +231,11 @@ model Member {
   roleId      String?       @db.ObjectId
   Gallery     Gallery[]
   MemberSkill MemberSkill[]
+  AuditLog    AuditLog[]
 }
 
 model PackagePrice {
-  id                      String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                      String     @id @default(auto()) @map("_id") @db.ObjectId
   title                   String
   price                   String
   typeService             String
@@ -232,11 +243,12 @@ model PackagePrice {
   detailTextEditerListOne String
   detailTextEditerListTwo String
   createdBy               String
-  createdAt               DateTime  @default(now())
+  createdAt               DateTime   @default(now())
   updatedBy               String?
-  updatedAt               DateTime  @updatedAt
+  updatedAt               DateTime   @updatedAt
   deletedBy               String?
-  deletedAt               DateTime? @map("deleted_at")
+  deletedAt               DateTime?  @map("deleted_at")
+  AuditLog                AuditLog[]
 }
 
 model Service {
@@ -256,7 +268,7 @@ model Service {
 }
 
 model Setting {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                String     @id @default(auto()) @map("_id") @db.ObjectId
   businessName      String
   facebook          String
   intragarm         String
@@ -276,27 +288,60 @@ model Setting {
   aboutDetailTwo    String
   aboutSubDetailTwo String
   createdBy         String
-  createdAt         DateTime  @default(now())
+  createdAt         DateTime   @default(now())
   updatedBy         String?
-  updatedAt         DateTime  @updatedAt
+  updatedAt         DateTime   @updatedAt
   deletedBy         String?
-  deletedAt         DateTime? @map("deleted_at")
-  deleted           Boolean   @default(false)
+  deletedAt         DateTime?  @map("deleted_at")
+  deleted           Boolean    @default(false)
   Gallery           Gallery[]
+  AuditLog          AuditLog[]
 }
 
 model AuditLog {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  code      String
-  dataOld   String
-  dataNew   String
-  createdBy String
-  createdAt DateTime  @default(now())
-  updatedBy String?
-  updatedAt DateTime  @updatedAt
-  deletedBy String?
-  deletedAt DateTime? @map("deleted_at")
-  deleted   Boolean   @default(false)
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  code            String
+  dataOld         String
+  dataNew         String
+  createdBy       String
+  createdAt       DateTime       @default(now())
+  updatedBy       String?
+  updatedAt       DateTime       @updatedAt
+  deletedBy       String?
+  deletedAt       DateTime?      @map("deleted_at")
+  deleted         Boolean        @default(false)
+  Contact         Contact?       @relation(fields: [contactId], references: [id])
+  contactId       String?        @db.ObjectId
+  Skill           Skill?         @relation(fields: [skillId], references: [id])
+  skillId         String?        @db.ObjectId
+  MemberSkill     MemberSkill?   @relation(fields: [memberSkillId], references: [id])
+  memberSkillId   String?        @db.ObjectId
+  WorkWithSkill   WorkWithSkill? @relation(fields: [workWithSkillId], references: [id])
+  workWithSkillId String?        @db.ObjectId
+  WorkWith        WorkWith?      @relation(fields: [workWithId], references: [id])
+  workWithId      String?        @db.ObjectId
+  Position        Position?      @relation(fields: [positionId], references: [id])
+  positionId      String?        @db.ObjectId
+  Department      Department?    @relation(fields: [departmentId], references: [id])
+  departmentId    String?        @db.ObjectId
+  Role            Role?          @relation(fields: [roleId], references: [id])
+  roleId          String?        @db.ObjectId
+  Permission      Permission?    @relation(fields: [permissionId], references: [id])
+  permissionId    String?        @db.ObjectId
+  Member          Member?        @relation(fields: [memberId], references: [id])
+  memberId        String?        @db.ObjectId
+  Gallery         Gallery?       @relation(fields: [galleryId], references: [id])
+  galleryId       String?        @db.ObjectId
+  Setting         Setting?       @relation(fields: [settingId], references: [id])
+  settingId       String?        @db.ObjectId
+  OurWork         OurWork?       @relation(fields: [ourworkId], references: [id])
+  ourworkId       String?        @db.ObjectId
+  News            News?          @relation(fields: [newsId], references: [id])
+  newsId          String?        @db.ObjectId
+  Blog            Blog?          @relation(fields: [blogId], references: [id])
+  blogId          String?        @db.ObjectId
+  PackagePrice    PackagePrice?  @relation(fields: [packagePriceId], references: [id])
+  packagePriceId  String?        @db.ObjectId
 }
 
 model Department {
@@ -312,6 +357,7 @@ model Department {
   deleted   Boolean    @default(false)
   Gallery   Gallery[]
   Position  Position[]
+  AuditLog  AuditLog[]
 }
 
 model Position {
@@ -327,6 +373,7 @@ model Position {
   Department   Department? @relation(fields: [departmentId], references: [id])
   departmentId String?     @db.ObjectId
   member       Member[]
+  AuditLog     AuditLog[]
 }
 
 model Gallery {
@@ -356,6 +403,7 @@ model Gallery {
   serviceId    String?     @db.ObjectId
   ImgList      ImgList?    @relation(fields: [ImgListId], references: [id])
   ImgListId    String?     @db.ObjectId
+  AuditLog     AuditLog[]
 }
 
 model ImgList {
