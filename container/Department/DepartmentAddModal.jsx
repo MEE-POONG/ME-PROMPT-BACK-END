@@ -57,7 +57,7 @@ export default function DepartmentAddModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มแผนกงาน</Modal.Title>
+                    <Modal.Title def className='text-center'>เพิ่มแผนกงาน</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">

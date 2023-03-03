@@ -135,7 +135,7 @@ export default function MemberAddModal(props) {
                                 <Image
                                     width={"100%"}
                                     height="200px"
-                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : "./images/default.png"}
+                                    src={imageURL?.length !== 0 ? imageURL?.map((imageSrcAbout) => imageSrcAbout) : "./images/default-profile.png"}
                                     className="p-4 object-fit-contain"
                                     alt="" />
                                 <Form.Control type="file" accept="img/*" onChange={onImageChange}
