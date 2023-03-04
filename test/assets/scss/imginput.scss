@@ -1,0 +1,49 @@
+.inputfile {
+	input {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+		border-radius: 5px;
+	}
+	label {
+		display: inline-block;
+		border: 3px solid;
+		border-radius: 5px;
+		cursor: pointer;
+		padding: 3px 6px;
+	}
+	.show-img{
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		width: 100%;
+		overflow-x: scroll;
+	}
+	.custom-file-gallery {
+		font-size: 4rem;
+	    display: inline-flex;
+	}
+	.custom-file-profile {
+		background: #71c9ff;
+		align-items: center;
+		color: #000000;
+		font-size: 1rem;
+		font-weight: bold;
+		margin: 0.25rem;
+		padding: 0.25rem;
+		transition: background-color 2s ease-out;
+	}
+	.custom-file-gallery,
+	.custom-file-profile {
+		&:hover {
+			color: #d5ad6d;
+			border-color: #d5ad6d;
+			background: #123f44;
+			background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+		}
+	}
+}

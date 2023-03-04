@@ -6,21 +6,6 @@ import PageChange from "../components/PageChange/PageChange";
 import App from "next/app";
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import 'assets/scss/index.scss';
-// Router.events.on("routeChangeStart", (url) => {
-//   const root = ReactDOMClient.createRoot(document.getElementById("page-transition"));
-//   document.body.classList.add("body-page-transition");
-//   root.render(<PageChange path={url} />);
-// });
-// Router.events.on("routeChangeComplete", () => {
-//   const root = ReactDOMClient.createRoot(document.getElementById("page-transition"));
-//   root.unmount();
-//   document.body.classList.remove("body-page-transition");
-// });
-// Router.events.on("routeChangeError", () => {
-//   const root = ReactDOMClient.createRoot(document.getElementById("page-transition"));
-//   root.unmount();
-//   document.body.classList.remove("body-page-transition");
-// });
 export default class MyApp extends App {
   componentDidMount() {
     let comment = document.createComment(`
